@@ -627,3 +627,34 @@ N,4-Dimethylbuphedrone|C12H17NO|Cathinone||||synthetic
 N-Propyl-norbuphedrone|C13H19NO|Cathinone||||synthetic
 N-Cyclohexyl Methylone|C16H21NO3|Cathinone||||synthetic
 MDPiHP|C17H23NO3|Pyrovalerone||||synthetic
+
+# ---- Positional isomers and additional tryptamines
+# Para-fluoro-4-methylaminorex: https://pubmed.ncbi.nlm.nih.gov/31165778/
+4F-MAR|C10H11FN2O|Aminorex||||synthetic
+# 4-FEA: https://www.cfsre.org/images/monographs/4-Fluoroethamphetamine_010319_NMSLabs_Report.pdf
+4-FEA|C11H16FN|Amphetamine||||synthetic
+# Cathinones: UNODC, EUDA, analytical reference data, and crystal structure
+# https://www.unodc.org/LSS/Substance/Details/2f40f087-c2e8-4341-af3d-37287b125412
+# https://pubmed.ncbi.nlm.nih.gov/28127410/
+# https://cdn.caymanchem.com/cdn/msds/11221m.pdf
+# https://www.euda.europa.eu/topics/pods/synthetic-cathinones-injection_en
+# https://pubchem.ncbi.nlm.nih.gov/compound/112693018
+# https://www.euda.europa.eu/system/files/documents/2025-07/initial-report-4-bmc.pdf
+2-CEC|C11H14ClNO|Cathinone||||synthetic
+4-CEC|C11H14ClNO|Cathinone||||synthetic
+2-MEC|C12H17NO|Cathinone||||synthetic
+2-FMC|C10H12FNO|Cathinone||||synthetic
+2-CMC|C10H12ClNO|Cathinone||||synthetic
+2-BMC|C10H12BrNO|Cathinone||||synthetic
+3-BMC|C10H12BrNO|Cathinone||||synthetic
+# Tryptamine identity and structure references
+# https://pmc.ncbi.nlm.nih.gov/articles/PMC10111620/
+# https://pubchem.ncbi.nlm.nih.gov/compound/74405226
+# https://pubchem.ncbi.nlm.nih.gov/compound/129846174
+# https://www.drogues-info-service.fr/content/view/pdf/139228
+4-AcO-MPT|C16H22N2O2|Tryptamine||||synthetic
+4-PrO-DMT|C15H20N2O2|Tryptamine||||synthetic
+4-HO-DALT|C16H20N2O|Tryptamine||||synthetic
+4-HO-DBT|C18H28N2O|Tryptamine||||synthetic
+5-MeO-EPT|C16H24N2O|Tryptamine||||synthetic
+5-MeO-MALT|C15H20N2O|Tryptamine||||synthetic
