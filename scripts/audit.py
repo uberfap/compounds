@@ -29,7 +29,7 @@ for line in open(REVIEW / "known_masses.csv", encoding="utf-8"):
     line = line.strip()
     if line and not line.startswith("#"):
         n, m = line.split("|")
-        known[n] = float(m)
+        known[normalize_alpha(n)] = float(m)
 
 bad = 0
 for n, m in known.items():
@@ -61,7 +61,7 @@ try:
             if line and not line.startswith("#"):
                 parts = line.split("|", 2)
                 if len(parts) >= 2:
-                    hand[parts[0]] = parts[1]
+                    hand[normalize_alpha(parts[0])] = parts[1]
 except FileNotFoundError:
     pass
 hand_ok = {n for n, fm in hand.items() if n in comps and comps[n]["formula"] == fm}
