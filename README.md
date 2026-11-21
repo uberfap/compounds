@@ -120,6 +120,11 @@ unset on public deployments. Public routes reject future puzzles by UTC date.
 
 ## Generate and publish puzzles
 
+The generator skips placeholder catalogue tags such as `unknown` and
+`unclassified` when building groups. With RDKit installed, it also matches
+functional groups and ring motifs in the cached molecular structures. Without
+RDKit, generation still uses names, formulas, and catalogue tags.
+
 Puzzle batches contain answers and structure SVGs. Generate them in a private checkout and keep them off public remotes.
 
 ```sh

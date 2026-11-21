@@ -86,7 +86,7 @@ TARGET_LABEL = {
 }
 
 # Families treated as cross-cutting "properties" rather than taxonomic classes/targets.
-PROPERTY_FAMILIES = {"origin", "formula", "name:trivial", "name:specific"}
+PROPERTY_FAMILIES = {"origin", "formula", "structure", "name:trivial", "name:specific"}
 
 # Absolute 0-100 priors for the kind of knowledge a clue requires.
 # These are NOT the final scores or the final colours: the board score below
@@ -99,6 +99,7 @@ FAMILY_DIFFICULTY_BASE = {
     "origin": 48,
     "target": 72,
     "formula": 92,
+    "structure": 80,
 }
 
 # Manual playtest corrections, in points on the 0-100 scale.
@@ -145,6 +146,7 @@ FAMILY_PRIORITY = {
     "name:specific": 3,
     "target": 4,
     "formula": 5,
+    "structure": 5,
 }
 
 PHARMACOLOGICAL_LABEL = {
@@ -157,10 +159,20 @@ PHARMACOLOGICAL_LABEL = {
     "dissociative": "Dissociatives",
     "deliriant": "Deliriants",
     "therapeutic": "Therapeutics",
-    "none": "No pharmacological class",
-    "mixed": "Mixed pharmacological class",
-    "unknown": "Unknown pharmacological class",
 }
+
+MISSING_TAGS = {"", "none", "unknown", "unclassified", "unspecified", "n/a", "na", "other", "mixed", "-"}
+
+STRUCTURE_PATTERNS = (
+    ("nitrile", "Contain a nitrile group", "[#6]#[#7]"),
+    ("ester", "Contain an ester group", "[CX3](=[OX1])[OX2][#6]"),
+    ("amide", "Contain an amide group", "[CX3](=[OX1])[NX3]"),
+    ("phenol", "Contain a phenolic hydroxyl group", "[c][OX2H]"),
+    ("methoxy", "Contain an aromatic methoxy group", "[c][OX2][CH3]"),
+    ("lactam", "Contain a cyclic amide", "[C;r](=[OX1])@[N;r]"),
+    ("thiophene", "Contain a thiophene ring", "s1cccc1"),
+    ("cyclopropane", "Contain a cyclopropane ring", "[C;r3]1[C;r3][C;r3]1"),
+)
 
 TRIVIAL_NAME_PIDS = {"name:2c", "name:digit", "name:three", "name:meth",
                      "name:di", "name:one", "name:ine", "name:phen"}
@@ -675,19 +687,18 @@ def build(comps, cap):
     def add(pid, fam, label, fn):
         preds.append(Pred(pid, fam, label, fn))
 
-    for o in sorted({c["origin"] for c in comps if c["origin"]}):
+    for o in sorted({c["origin"] for c in comps} - MISSING_TAGS):
         add(f"origin:{o}", "origin", ORIGIN_LABEL.get(o, o.title()),
             lambda c, o=o: c["origin"] == o)
-    for category in sorted({c["pharmacological_class"] for c in comps
-                             if c["pharmacological_class"]}):
+    for category in sorted({c["pharmacological_class"] for c in comps} - MISSING_TAGS):
         label = PHARMACOLOGICAL_LABEL.get(category, plural(category.title()))
         add(f"pharmacological_class:{category}", "pharmacological_class", label,
             lambda c, category=category: c["pharmacological_class"] == category)
-    for scaffold in sorted({c["scaffold_class"] for c in comps if c["scaffold_class"]}):
+    for scaffold in sorted({c["scaffold_class"] for c in comps} - MISSING_TAGS):
         label = plural(scaffold.title())
         add(f"scaffold_class:{scaffold}", "scaffold_class", label,
             lambda c, scaffold=scaffold: c["scaffold_class"] == scaffold)
-    for t in sorted({t for c in comps for t in c["targets"]}):
+    for t in sorted({t for c in comps for t in c["targets"]} - MISSING_TAGS):
         add(f"target:{t}", "target", format_target_label(t),
             lambda c, t=t: t in c["targets"])
 
@@ -709,8 +720,22 @@ def build(comps, cap):
         lambda c: c["mass"] is not None and c["mass"] < 200)
     add("mass:200_250", "formula", "Molar mass 200–250 g/mol",
         lambda c: c["mass"] is not None and 200 <= c["mass"] <= 250)
+    add("mass:250_300", "formula", "Molar mass over 250 and up to 300 g/mol",
+        lambda c: c["mass"] is not None and 250 < c["mass"] <= 300)
     add("mass:gt350", "formula", "Molar mass over 350 g/mol",
         lambda c: c["mass"] is not None and c["mass"] > 350)
+
+    if HAS_RDKIT:
+        molecules = {
+            smiles: Chem.MolFromSmiles(smiles)
+            for smiles in {c["smiles"] for c in comps if c["smiles"]}
+        }
+        for key, label, smarts in STRUCTURE_PATTERNS:
+            pattern = Chem.MolFromSmarts(smarts)
+            matches = {smiles for smiles, mol in molecules.items()
+                       if mol is not None and mol.HasSubstructMatch(pattern)}
+            add(f"structure:{key}", "structure", label,
+                lambda c, matches=matches: c["smiles"] in matches)
 
     for pid, label, fn in NAME_PREDS:
         fam = "name:trivial" if pid in TRIVIAL_NAME_PIDS else "name:specific"
