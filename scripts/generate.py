@@ -252,7 +252,7 @@ def render_skeletal_svg(smiles, width=240, height=160):
     svg = re.sub(r"\s{2,}", " ", svg).strip()
     svg = svg.replace(
         ">",
-        "><style>path{fill:none;stroke:currentColor;stroke-width:1.9px;"
+        "><style>path:not([fill]){fill:none;stroke:currentColor;stroke-width:1.9px;"
         "stroke-linecap:butt;stroke-linejoin:miter}</style>",
         1,
     )

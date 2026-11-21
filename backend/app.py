@@ -376,6 +376,9 @@ def inspect_structure(attempt_id: UUID, tile: int, request: Request):
         if tile not in attempt.inspected and len(attempt.inspected) >= MAX_INSPECTIONS:
             raise HTTPException(409, "No structure checks left")
         attempt.inspected.add(tile)
+        # Older batches applied the bond rule to filled atom glyphs as well.
+        svg = svg.replace("<style>path{fill:none;stroke:currentColor;",
+                          "<style>path:not([fill]){fill:none;stroke:currentColor;", 1)
         return {"tile": tile, "svg": svg, "state": attempt.public_state()}
 
 

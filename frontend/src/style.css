@@ -262,7 +262,8 @@ h1 {
 }
 #toast.on { opacity: 1; transform: translate(-50%, 0); }
 .svg-modal {
-  width: min(360px, calc(100% - 32px));
+  width: min(640px, calc(100% - 24px));
+  max-height: calc(100% - 24px);
   padding: 16px;
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -322,8 +323,21 @@ h1 {
 .recent-results a.missed { background: light-dark(#f3e2df, #3a2828); }
 .svg-modal-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; font-weight: 700; }
 .svg-modal-close { width: 44px; height: 44px; border: 0; border-radius: 9px; background: var(--tile); color: var(--fg); font-size: 1.125rem; cursor: pointer; }
-.svg-canvas { display: grid; place-items: center; min-height: 170px; padding: 12px; border-radius: 10px; background: #fff; }
-.svg-canvas img { width: 100%; max-width: 240px; height: auto; }
+.svg-canvas {
+  display: grid;
+  place-items: center;
+  padding: clamp(6px, 2vw, 16px);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.svg-canvas img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 65dvh;
+  object-fit: contain;
+}
 .site-footer {
   margin-top: 32px;
   padding-top: 20px;
