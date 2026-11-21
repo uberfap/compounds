@@ -236,7 +236,11 @@ def parent_formula(f):
 def parse_targets(raw):
     if not raw:
         return []
-    return [t.strip() for t in raw.split(";") if t.strip()]
+    return [
+        tag for item in raw.split(";")
+        if (tag := item.strip()).casefold() not in MISSING_TAGS
+        and not tag.casefold().startswith("inferred:")
+    ]
 
 
 # ----------------------------------------------------------- structure SVG
@@ -628,6 +632,9 @@ def load(path):
                 warnings.append(f"{name}: cannot parse formula {formula!r} ({exc})")
                 el = mass = None
         targets = parse_targets(r.get("target") or "")
+        effect = (r.get("effect") or "").strip().casefold()
+        if effect.startswith("inferred:"):
+            effect = ""
         comps.append({
             "name": name,
             "formula": formula,
@@ -637,9 +644,9 @@ def load(path):
             # New schema first; legacy columns remain supported for older CSVs.
             "scaffold_class": (r.get("scaffold_class") or r.get("class") or "").strip().casefold(),
             "pharmacological_class": (
-                r.get("pharmacological_class") or r.get("effect") or ""
+                r.get("pharmacological_class") or effect
             ).strip().casefold(),
-            "effect": (r.get("effect") or "").strip().casefold(),
+            "effect": effect,
             "target": ";".join(targets),
             "targets": targets,
             "origin": (r.get("origin") or "").strip().lower(),
