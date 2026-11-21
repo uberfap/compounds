@@ -835,8 +835,9 @@ def _dedupe(preds, threshold=0.9):
 
 def _compact_name(value):
     """Normalize names for simple, human-visible substring comparisons."""
-    value = normalize_alpha(str(value)).casefold()
-    return re.sub(r"[^a-z0-9]+", "", value)
+    # name_key spells Greek letters out first ("β-OH-2C-B" -> "betaoh2cb"); the old
+    # normalize_alpha + [^a-z0-9] strip silently dropped α and β from the comparison.
+    return re.sub(r"[^a-z0-9]+", "", name_key(value))
 
 
 def _shared_name_signal(member_names, distractor_names):
