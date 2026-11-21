@@ -165,6 +165,8 @@ PHARMACOLOGICAL_LABEL = {
 }
 
 MISSING_TAGS = {"", "none", "unknown", "unclassified", "unspecified", "n/a", "na", "other", "others", "mixed", "-"}
+# Fields a "# Inferred fields|<name>|<f1>,<f2>" comment line may mark as inferred (kept out of puzzle rules).
+INFERRABLE_FIELDS = {"target", "effect", "pharmacological_class"}
 MAX_EXACT_FOUR_DECOYS = 2
 
 STRUCTURE_PATTERNS = (
@@ -612,16 +614,28 @@ def resolve_smiles_map(comps, cache_path, fetch_missing=False, *, timeout=15,
 # --------------------------------------------------------------------- data
 def load(path):
     with open(path, encoding="utf-8", newline="") as f:
-        lines, inferred = [], {}
-        for line in f:
+        lines, inferred, warnings = [], {}, []
+        for lineno, line in enumerate(f, 1):
             if line.startswith("# Inferred fields|"):
-                _, compound, fields = line.strip().split("|", 2)
-                inferred[compound] = set(fields.split(","))
+                parts = line.strip().split("|", 2)
+                if len(parts) < 3 or not parts[1].strip():
+                    warnings.append(f"line {lineno}: malformed inferred-fields annotation {line.strip()!r}")
+                    continue
+                compound = parts[1].strip()
+                fields = {x.strip() for x in parts[2].split(",") if x.strip()}
+                unknown = fields - INFERRABLE_FIELDS
+                if unknown:
+                    warnings.append(
+                        f"line {lineno}: {compound}: unknown inferred field(s) {sorted(unknown)} "
+                        f"(expected {sorted(INFERRABLE_FIELDS)}); they will not be applied"
+                    )
+                inferred.setdefault(compound, set()).update(fields & INFERRABLE_FIELDS)
             elif line.strip() and not line.lstrip().startswith("#"):
                 lines.append(line)
-    comps, seen, warnings = [], set(), []
+    comps, seen, row_names = [], set(), set()
     for r in csv.DictReader(lines, delimiter="|"):
         raw_name = (r.get("name") or "").strip()
+        row_names.add(raw_name)
         name = normalize_alpha(raw_name)
         if not name or name.lower() in seen:
             continue
@@ -659,6 +673,11 @@ def load(path):
             "targets": targets,
             "origin": (r.get("origin") or "").strip().lower(),
         })
+    for compound in sorted(set(inferred) - row_names):
+        warnings.append(
+            f"inferred-fields annotation names {compound!r}, which is not a compound in the file; "
+            "its inferred fields are NOT being hidden from anything"
+        )
     return comps, warnings
 
 

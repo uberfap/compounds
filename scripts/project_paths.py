@@ -3,6 +3,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOGUE = ROOT / "data" / "catalogue" / "compounds.csv"
+IDENTITIES = CATALOGUE.with_name("identities.csv")
 SMILES = CATALOGUE.with_name("smiles_cache.json")
 PUZZLES = ROOT / "data" / "puzzles" / "puzzles.json"
 REVIEW = ROOT / "data" / "review"

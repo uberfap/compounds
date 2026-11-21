@@ -4,7 +4,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$rows = @(Import-Csv -LiteralPath $Catalogue -Delimiter '|')
+$rows = @(Import-Csv -LiteralPath $Catalogue -Delimiter '|' -Encoding UTF8)
 if (!$rows.Count -or !($rows[0].PSObject.Properties.Name -contains 'pubchem_cid')) {
     throw 'Expected the pipe-delimited identities catalogue.'
 }

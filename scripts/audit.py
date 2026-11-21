@@ -11,16 +11,19 @@ Also lists duplicate formulas under different names (usually fine: isomers) and
 compounds with no reference mass yet, so you know what is still unchecked.
 """
 import csv
+import re
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 
-from generate import load
-from project_paths import CATALOGUE, REVIEW
+from generate import load, normalize_alpha
+from project_paths import CATALOGUE, IDENTITIES, REVIEW
 
 TOL = 0.15
 
-loaded, _ = load(CATALOGUE)
+loaded, load_warnings = load(CATALOGUE)
 comps = {c["name"]: c for c in loaded}
+for w in load_warnings:
+    print(f"load warning: {w}")
 known = {}
 for line in open(REVIEW / "known_masses.csv", encoding="utf-8"):
     line = line.strip()
@@ -65,6 +68,77 @@ hand_ok = {n for n, fm in hand.items() if n in comps and comps[n]["formula"] == 
 for n in hand:
     if n in comps and n not in hand_ok:
         print(f"formula changed since it was hand-checked: {n} ({hand[n]} -> {comps[n]['formula']})")
+
+def read_pipe_csv(path):
+    with open(path, encoding="utf-8", newline="") as f:
+        lines = [l for l in f if l.strip() and not l.lstrip().startswith("#")]
+    return list(csv.DictReader(lines, delimiter="|"))
+
+
+def split_aliases(raw):
+    return [a.strip() for a in (raw or "").split(";") if a.strip()]
+
+
+def audit_identities():
+    """identities.csv must line up with compounds.csv; returns the number of problems found."""
+    problems = []
+    try:
+        rows = read_pipe_csv(IDENTITIES)
+    except FileNotFoundError:
+        print(f"(no {IDENTITIES.name}: skipping identity checks)")
+        return 0
+    expected = ["name", "inchi_key", "pubchem_cid", "aliases", "alias_source"]
+    if rows and list(rows[0].keys()) != expected:
+        problems.append(f"identities columns are {list(rows[0].keys())}, expected {expected}")
+
+    names = [normalize_alpha((r["name"] or "").strip()) for r in rows]
+    for n, count in Counter(n.casefold() for n in names).items():
+        if count > 1:
+            problems.append(f"duplicate identity row for {n!r}")
+    missing = sorted(set(comps) - set(names))
+    extra = sorted(set(names) - set(comps))
+    if missing:
+        problems.append(f"in compounds.csv but not identities.csv: {', '.join(missing)}")
+    if extra:
+        problems.append(f"in identities.csv but not compounds.csv: {', '.join(extra)}")
+
+    keys, cids, alias_owner = Counter(), Counter(), defaultdict(set)
+    name_lookup = {n.casefold(): n for n in comps}
+    for name, r in zip(names, rows):
+        key, cid = (r["inchi_key"] or "").strip(), (r["pubchem_cid"] or "").strip()
+        if not re.fullmatch(r"[A-Z]{14}-[A-Z]{10}-[A-Z]", key):
+            problems.append(f"{name}: malformed InChIKey {key!r}")
+        keys[key] += 1
+        if cid:
+            if not re.fullmatch(r"[1-9][0-9]*", cid):
+                problems.append(f"{name}: PubChem CID {cid!r} is not a positive integer")
+            cids[cid] += 1
+        aliases = split_aliases(r["aliases"])
+        if aliases and not (r["alias_source"] or "").strip():
+            problems.append(f"{name}: aliases have no alias_source")
+        for a in aliases:
+            alias_owner[a.casefold()].add(name)
+            other = name_lookup.get(a.casefold())
+            if other and other != name:
+                problems.append(f"{name}: alias {a!r} is also the compound name {other!r}")
+    problems += [f"InChIKey shared by several rows: {k}" for k, c in keys.items() if c > 1]
+    problems += [f"PubChem CID shared by several rows: {k}" for k, c in cids.items() if c > 1]
+    problems += [f"alias {a!r} used by {sorted(o)}" for a, o in alias_owner.items() if len(o) > 1]
+
+    # compounds.csv also carries an aliases column; the two files must agree until one is dropped.
+    ident_aliases = {n: {a.casefold() for a in split_aliases(r["aliases"])} for n, r in zip(names, rows)}
+    for r in read_pipe_csv(CATALOGUE):
+        name = normalize_alpha((r.get("name") or "").strip())
+        theirs = {a.casefold() for a in split_aliases(r.get("aliases"))}
+        if name in ident_aliases and theirs != ident_aliases[name]:
+            problems.append(f"{name}: aliases differ between compounds.csv and identities.csv")
+
+    for p in problems:
+        print(f"IDENTITY PROBLEM: {p}")
+    return len(problems)
+
+
+bad += audit_identities()
 
 unchecked = [n for n, c in comps.items()
              if n not in known and n not in pubchem_ok and n not in hand_ok and c["mass"] is not None]
