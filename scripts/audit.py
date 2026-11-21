@@ -15,40 +15,43 @@ import re
 import sys
 from collections import Counter, defaultdict
 
-from generate import load, normalize_alpha
+from generate import load, name_key
 from project_paths import CATALOGUE, IDENTITIES, REVIEW
 
 TOL = 0.15
 
+# Every collection below is keyed by name_key(), so "alpha-PVP", "α-PVP" and "Alpha-PVP" are one compound.
+# Names printed to the reader always come from compounds.csv (c["name"]) or the file that mentioned them.
 loaded, load_warnings = load(CATALOGUE)
-comps = {c["name"]: c for c in loaded}
+comps = {name_key(c["name"]): c for c in loaded}
 for w in load_warnings:
     print(f"load warning: {w}")
-known = {}
+known, known_label = {}, {}
 for line in open(REVIEW / "known_masses.csv", encoding="utf-8"):
     line = line.strip()
     if line and not line.startswith("#"):
         n, m = line.split("|")
-        known[normalize_alpha(n)] = float(m)
+        known[name_key(n)] = float(m)
+        known_label[name_key(n)] = n
 
 bad = 0
-for n, m in known.items():
-    c = comps.get(n)
+for k, m in known.items():
+    c = comps.get(k)
     if c is None:
-        print(f"reference for a name not in the dataset: {n}")
+        print(f"reference for a name not in the dataset: {known_label[k]}")
         continue
     if c["mass"] is None:
-        print(f"no usable formula: {n} ({c['formula']!r})")
+        print(f"no usable formula: {c['name']} ({c['formula']!r})")
         bad += 1
     elif abs(c["mass"] - m) > TOL:
-        print(f"MISMATCH {n}: {c['formula']} -> {c['mass']:.1f}, reference {m}")
+        print(f"MISMATCH {c['name']}: {c['formula']} -> {c['mass']:.1f}, reference {m}")
         bad += 1
 
 # Names whose formula PubChem confirmed (run verify.py first; optional)
 pubchem_ok = set()
 try:
     with open(REVIEW / "verify_report.csv", encoding="utf-8", newline="") as f:
-        pubchem_ok = {r["name"] for r in csv.DictReader(f, delimiter="|") if r["status"] == "match"}
+        pubchem_ok = {name_key(r["name"]) for r in csv.DictReader(f, delimiter="|") if r["status"] == "match"}
 except FileNotFoundError:
     print("(no verify_report.csv: run verify.py so PubChem-confirmed rows count as checked)")
 
@@ -61,13 +64,13 @@ try:
             if line and not line.startswith("#"):
                 parts = line.split("|", 2)
                 if len(parts) >= 2:
-                    hand[normalize_alpha(parts[0])] = parts[1]
+                    hand[name_key(parts[0])] = parts[1]
 except FileNotFoundError:
     pass
-hand_ok = {n for n, fm in hand.items() if n in comps and comps[n]["formula"] == fm}
-for n in hand:
-    if n in comps and n not in hand_ok:
-        print(f"formula changed since it was hand-checked: {n} ({hand[n]} -> {comps[n]['formula']})")
+hand_ok = {k for k, fm in hand.items() if k in comps and comps[k]["formula"] == fm}
+for k in hand:
+    if k in comps and k not in hand_ok:
+        print(f"formula changed since it was hand-checked: {comps[k]['name']} ({hand[k]} -> {comps[k]['formula']})")
 
 def read_pipe_csv(path):
     with open(path, encoding="utf-8", newline="") as f:
@@ -91,20 +94,21 @@ def audit_identities():
     if rows and list(rows[0].keys()) != expected:
         problems.append(f"identities columns are {list(rows[0].keys())}, expected {expected}")
 
-    names = [normalize_alpha((r["name"] or "").strip()) for r in rows]
-    for n, count in Counter(n.casefold() for n in names).items():
+    raw_names = [(r["name"] or "").strip() for r in rows]
+    nkeys = [name_key(n) for n in raw_names]
+    for k, count in Counter(nkeys).items():
         if count > 1:
-            problems.append(f"duplicate identity row for {n!r}")
-    missing = sorted(set(comps) - set(names))
-    extra = sorted(set(names) - set(comps))
+            problems.append(f"duplicate identity row for {k!r}")
+    missing = sorted(comps[k]["name"] for k in set(comps) - set(nkeys))
+    extra = sorted(raw for raw, k in zip(raw_names, nkeys) if k not in comps)
     if missing:
         problems.append(f"in compounds.csv but not identities.csv: {', '.join(missing)}")
     if extra:
         problems.append(f"in identities.csv but not compounds.csv: {', '.join(extra)}")
 
     keys, cids, alias_owner = Counter(), Counter(), defaultdict(set)
-    name_lookup = {n.casefold(): n for n in comps}
-    for name, r in zip(names, rows):
+    names = [comps[k]["name"] if k in comps else raw for raw, k in zip(raw_names, nkeys)]  # display names
+    for name, nk, r in zip(names, nkeys, rows):
         key, cid = (r["inchi_key"] or "").strip(), (r["pubchem_cid"] or "").strip()
         if not re.fullmatch(r"[A-Z]{14}-[A-Z]{10}-[A-Z]", key):
             problems.append(f"{name}: malformed InChIKey {key!r}")
@@ -117,36 +121,36 @@ def audit_identities():
         if aliases and not (r["alias_source"] or "").strip():
             problems.append(f"{name}: aliases have no alias_source")
         for a in aliases:
-            alias_owner[a.casefold()].add(name)
-            other = name_lookup.get(a.casefold())
-            if other and other != name:
-                problems.append(f"{name}: alias {a!r} is also the compound name {other!r}")
+            alias_owner[name_key(a)].add(name)
+            other = comps.get(name_key(a))
+            if other and name_key(other["name"]) != nk:
+                problems.append(f"{name}: alias {a!r} is also the compound name {other['name']!r}")
     problems += [f"InChIKey shared by several rows: {k}" for k, c in keys.items() if c > 1]
     problems += [f"PubChem CID shared by several rows: {k}" for k, c in cids.items() if c > 1]
     problems += [f"alias {a!r} used by {sorted(o)}" for a, o in alias_owner.items() if len(o) > 1]
 
     # compounds.csv also carries an aliases column; the two files must agree until one is dropped.
-    ident_aliases = {n: {a.casefold() for a in split_aliases(r["aliases"])} for n, r in zip(names, rows)}
+    ident_aliases = {k: {name_key(a) for a in split_aliases(r["aliases"])} for k, r in zip(nkeys, rows)}
     for r in read_pipe_csv(CATALOGUE):
-        name = normalize_alpha((r.get("name") or "").strip())
-        theirs = {a.casefold() for a in split_aliases(r.get("aliases"))}
-        if name in ident_aliases and theirs != ident_aliases[name]:
-            problems.append(f"{name}: aliases differ between compounds.csv and identities.csv")
+        raw = (r.get("name") or "").strip()
+        theirs = {name_key(a) for a in split_aliases(r.get("aliases"))}
+        if name_key(raw) in ident_aliases and theirs != ident_aliases[name_key(raw)]:
+            problems.append(f"{raw}: aliases differ between compounds.csv and identities.csv")
 
     for p in problems:
         print(f"IDENTITY PROBLEM: {p}")
     return len(problems)
 
 
-bad += audit_identities()
+identity_problems = audit_identities()
 
-unchecked = [n for n, c in comps.items()
-             if n not in known and n not in pubchem_ok and n not in hand_ok and c["mass"] is not None]
-no_formula = [n for n, c in comps.items() if c["mass"] is None]
-only_pc = len([n for n in pubchem_ok if n in comps and n not in known])
+unchecked = [c["name"] for k, c in comps.items()
+             if k not in known and k not in pubchem_ok and k not in hand_ok and c["mass"] is not None]
+no_formula = [c["name"] for c in comps.values() if c["mass"] is None]
+only_pc = len([k for k in pubchem_ok if k in comps and k not in known])
 print(f"\n{len(comps)} compounds | {len(known) - bad} by reference mass | {only_pc} more confirmed by PubChem | "
       f"{len(hand_ok - pubchem_ok - set(known))} hand-checked only | "
       f"{len(unchecked)} unchecked | {len(no_formula)} without a formula")
 if unchecked:
     print("not confirmed by any source (check these):", ", ".join(unchecked))
-sys.exit(1 if bad else 0)
+sys.exit(1 if bad or identity_problems else 0)

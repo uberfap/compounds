@@ -25,6 +25,8 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+
+from generate import name_key
 from project_paths import CACHE, CATALOGUE, PUBCHEM_CACHE, REVIEW
 
 PW_API = "https://api.psychonautwiki.org"
@@ -101,7 +103,7 @@ def main():
         with CATALOGUE.open(encoding="utf-8") as f:
             for line in f:
                 if line.strip() and not line.startswith("#"):
-                    have.add(line.split("|")[0].strip().lower())
+                    have.add(name_key(line.split("|")[0]))
 
     subs = fetch_substances()
     pc_file = PUBCHEM_CACHE
@@ -110,7 +112,7 @@ def main():
     rows = []
     for i, s in enumerate(subs, 1):
         name = (s.get("name") or "").strip()
-        if not name or name.lower() in have:
+        if not name or name_key(name) in have:
             continue
         cls = s.get("class") or {}
         chem = (cls.get("chemical") or [""])[0] if cls.get("chemical") else ""

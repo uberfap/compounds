@@ -204,6 +204,26 @@ def normalize_alpha(text):
     return re.sub(r"alpha", "α", text, flags=re.IGNORECASE)
 
 
+# Greek letters that appear in compound names, with the ASCII spelling the review files / PubChem use.
+GREEK_ASCII = {"α": "alpha", "β": "beta", "γ": "gamma", "δ": "delta", "Δ": "delta", "ε": "epsilon",
+               "κ": "kappa", "λ": "lambda", "μ": "mu", "σ": "sigma", "ω": "omega"}
+
+
+def ascii_name(text):
+    """Spell Greek letters out ("α-PVP" -> "alpha-PVP"), e.g. for PubChem queries. Keeps case."""
+    text = unicodedata.normalize("NFKC", str(text))
+    return "".join(GREEK_ASCII.get(ch, ch) for ch in text).strip()
+
+
+def name_key(text):
+    """Spelling-independent key for comparing compound names across files.
+
+    "α-PVP", "alpha-PVP" and "Alpha-PVP" all give "alpha-pvp"; likewise β/beta and Δ/delta. Use this
+    for lookups and joins only. The stored and displayed form stays Unicode (see normalize_alpha).
+    """
+    return ascii_name(text).casefold()
+
+
 def format_target_label(t):
     if t in TARGET_LABEL:
         return TARGET_LABEL[t]
@@ -394,10 +414,7 @@ def fetch_smiles_online(name, timeout=15, retries=2, logger=None,
                         expected_elements=None):
     """Look up a name in PubChem, then CACTUS, validating formula at each source."""
     logger = logger or logging.getLogger(__name__)
-    query_name = (name.replace("α", "alpha")
-                      .replace("β", "beta")
-                      .replace("Δ", "delta")
-                      .strip())
+    query_name = ascii_name(name)
     encoded = urllib.parse.quote(query_name, safe="")
     errors = []
 

@@ -27,11 +27,12 @@ import sys
 import time
 from collections import Counter
 
-from generate import load, parent_formula, parse_formula
+from generate import load, name_key, parent_formula, parse_formula
 from project_paths import CATALOGUE, PUBCHEM_CACHE, REVIEW
 from scrape import pubchem
 
-norm = lambda s: re.sub(r"[^a-z0-9]", "", s.lower())
+# "α-PVP" and PubChem's "alpha-PVP" must compare equal, so spell Greek letters out before stripping.
+norm = lambda s: re.sub(r"[^a-z0-9]", "", name_key(s))
 ADDUCTS = [Counter({"H": 1, "Cl": 1}), Counter({"H": 1, "Br": 1}), Counter({"H": 2, "O": 1}),
            Counter({"H": 2, "Cl": 2}), Counter({"H": 3, "Cl": 3})]
 
