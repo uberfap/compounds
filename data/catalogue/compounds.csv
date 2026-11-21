@@ -132,7 +132,7 @@ TMA-6|C12H19NO3|Amphetamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonis
 3-FMA|C10H14FN|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
 3-MMA|C11H17N|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
 4-FA|C9H12FN|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
-4-FEA|C11H16FN|Amphetamine|Stimulant|stimulant|monoamine transporter modulator|synthetic
+4-FEA|C11H16FN|Amphetamine|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
 4-FMA|C10H14FN|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
 4-MA|C10H15N|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
 Amphetamine|C9H13N|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
@@ -148,17 +148,17 @@ PMA|C10H15NO|Amphetamine|Stimulant|stimulant|Serotonin releaser;Norepinephrine r
 PMMA|C11H17NO|Amphetamine|Stimulant|stimulant|Serotonin releaser;Norepinephrine releaser|synthetic
 
 # ---- Cathinones
-2-BMC|C10H12BrNO|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
-2-CEC|C11H14ClNO|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
-2-CMC|C10H12ClNO|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
-2-EEC|C13H19NO|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
-2-FMC|C10H12FNO|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
-2-MEC|C12H17NO|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
+2-BMC|C10H12BrNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
+2-CEC|C11H14ClNO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor|synthetic
+2-CMC|C10H12ClNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
+2-EEC|C13H19NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+2-FMC|C10H12FNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+2-MEC|C12H17NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
 2-MMC|C11H15NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
-3-BMC|C10H12BrNO|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
+3-BMC|C10H12BrNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
 3-CEC|C11H14ClNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
 3-CMC|C10H12ClNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
-3-EEC|C13H19NO|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
+3-EEC|C13H19NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
 3-FMC|C10H12FNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
 3-MEC|C12H17NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
 3-MMC|C11H15NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
@@ -167,8 +167,8 @@ PMMA|C11H17NO|Amphetamine|Stimulant|stimulant|Serotonin releaser;Norepinephrine 
 4-CMC|C10H12ClNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
 4-FMC|C10H12FNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
 4-MEC|C12H17NO|Cathinone|Stimulant|stimulant|Serotonin reuptake inhibitor;Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor;Serotonin releaser|synthetic
-4-Methyl-N-ethyl-N-methylcathinone|C13H19NO|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
-4-Methyl-N-propylcathinone|C13H19NO|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
+4-Methyl-N-ethyl-N-methylcathinone|C13H19NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+4-Methyl-N-propylcathinone|C13H19NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
 Buphedrone|C11H15NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
 Bupropion|C13H18ClNO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor;nACh antagonist|synthetic
 Butylone|C12H15NO3|Cathinone|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
@@ -184,16 +184,16 @@ Methcathinone|C10H13NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinep
 Methedrone|C11H15NO2|Cathinone|Stimulant|stimulant|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
 Methylone|C11H13NO3|Cathinone|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
 Mexedrone|C12H17NO2|Cathinone|Stimulant|stimulant|Serotonin reuptake inhibitor;Dopamine reuptake inhibitor|synthetic
-N,4-Dimethylbuphedrone|C12H17NO|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
-N,N-Dimethylpentedrone|C13H19NO|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
-N-Cyclohexyl Butylone|C17H23NO3|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
-N-Cyclohexyl Methylone|C16H21NO3|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
+N,4-Dimethylbuphedrone|C12H17NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+N,N-Dimethylpentedrone|C13H19NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+N-Cyclohexyl Butylone|C17H23NO3|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor|synthetic
+N-Cyclohexyl Methylone|C16H21NO3|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor|synthetic
 N-Ethylhexedrone|C14H21NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
 N-Ethylpentylone|C14H19NO3|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor;Serotonin reuptake inhibitor|synthetic
-N-Isopropyl Butylone|C14H19NO3|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
-N-Propyl Butylone|C14H19NO3|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
-N-Propyl-norbuphedrone|C13H19NO|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
-N-sec-Butyl Butylone|C15H21NO3|Cathinone|Stimulant|stimulant|monoamine transporter modulator|synthetic
+N-Isopropyl Butylone|C14H19NO3|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor|synthetic
+N-Propyl Butylone|C14H19NO3|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor|synthetic
+N-Propyl-norbuphedrone|C13H19NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+N-sec-Butyl Butylone|C15H21NO3|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor|synthetic
 NEP|C13H19NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
 Pentedrone|C12H17NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
 Pentylone|C13H17NO3|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor;Serotonin reuptake inhibitor|synthetic
@@ -240,9 +240,9 @@ Methylphenidate|C14H19NO2|Phenidate|Stimulant|stimulant|Dopamine reuptake inhibi
 3-FPM|C11H14FNO|Phenylmorpholine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
 4,4'-DMAR|C11H14N2O|Aminorex|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
 4-MAR|C10H12N2O|Aminorex|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
-4Br-MAR|C10H11BrN2O|Aminorex|Stimulant|stimulant|monoamine transporter modulator|synthetic
-4Cl-MAR|C10H11ClN2O|Aminorex|Stimulant|stimulant|monoamine transporter modulator|synthetic
-4F-MAR|C10H11FN2O|Aminorex|Stimulant|stimulant|monoamine transporter modulator|synthetic
+4Br-MAR|C10H11BrN2O|Aminorex|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+4Cl-MAR|C10H11ClN2O|Aminorex|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+4F-MAR|C10H11FN2O|Aminorex|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
 5-APB|C11H13NO|Benzofuran|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
 5-EAPB|C13H17NO|Benzofuran|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
 5-IAI|C9H10IN|Aminoindane|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
@@ -715,13 +715,13 @@ Salvinorin B methoxymethyl ether|C23H30O8|Salvinorin|Psychedelic|psychedelic|κ-
 # Inferred fields|N-Methyltryptamine|target
 # Inferred fields|Norbaeocystin|effect
 # Inferred fields|4-FEA|target
-# Inferred fields|2-BMC|pharmacological_class,effect,target
+# Inferred fields|2-BMC|pharmacological_class,effect
 # Inferred fields|2-CEC|pharmacological_class,effect,target
-# Inferred fields|2-CMC|effect,target
+# Inferred fields|2-CMC|effect
 # Inferred fields|2-EEC|pharmacological_class,effect,target
 # Inferred fields|2-FMC|target
 # Inferred fields|2-MEC|pharmacological_class,effect,target
-# Inferred fields|3-BMC|pharmacological_class,effect,target
+# Inferred fields|3-BMC|pharmacological_class,effect
 # Inferred fields|3-EEC|pharmacological_class,effect,target
 # Inferred fields|4-Methyl-N-ethyl-N-methylcathinone|pharmacological_class,effect,target
 # Inferred fields|4-Methyl-N-propylcathinone|pharmacological_class,effect,target
@@ -764,3 +764,31 @@ Salvinorin B methoxymethyl ether|C23H30O8|Salvinorin|Psychedelic|psychedelic|κ-
 # Inferred fields|2-Fluorodiphenidine|pharmacological_class,effect,target
 # Inferred fields|3-Methoxphenidine|pharmacological_class,effect,target
 # Inferred fields|4-Methoxphenidine|pharmacological_class,effect,target
+
+# Transporter review
+# Measured release in rat synaptosomes for 2-BMC, 2-CMC and 3-BMC: https://doi.org/10.1021/acschemneuro.8b00524
+# 4-FA and 4-FMC transporter assays: https://pubmed.ncbi.nlm.nih.gov/31068823/
+# 4-CEC: https://pmc.ncbi.nlm.nih.gov/articles/PMC10201577/
+# N-alkyl cathinones and pentedrone analogues: https://pmc.ncbi.nlm.nih.gov/articles/PMC6500773/
+# Butylone and dibutylone: https://pmc.ncbi.nlm.nih.gov/articles/PMC6534427/
+# Aminorex comparators: https://pubmed.ncbi.nlm.nih.gov/24841869/
+# Cathinone structure–activity context: https://www.gov.uk/government/publications/synthetic-cathinones-an-updated-harms-assessment/synthetic-cathinones-an-updated-harms-assessment-accessible
+# Predicted target basis for 2-FMC: Walther aryl methcathinones and 4-FMC functional assays.
+# Predicted target basis for 4-FEA: 4-fluoroamphetamine uptake assays; N-ethyl substitution makes release uncertain.
+# Predicted target basis for 2-CEC: 4-CEC; ortho substitution makes the SERT result difficult to transfer.
+# Predicted target basis for 2-EEC: 2-MMC, 3-MMC and N-ethyl cathinone comparators; release uncertain.
+# Predicted target basis for 3-EEC: 2-MMC, 3-MMC and N-ethyl cathinone comparators; release uncertain.
+# Predicted target basis for 2-MEC: 2-MMC, 3-MMC and N-ethyl cathinone comparators; release uncertain.
+# Predicted target basis for 4-Methyl-N-propylcathinone: N-propylpentedrone uptake assays.
+# Predicted target basis for N-Propyl-norbuphedrone: N-propylpentedrone uptake assays.
+# Predicted target basis for 4-Methyl-N-ethyl-N-methylcathinone: tertiary cathinone dibutylone and pentedrone uptake assays.
+# Predicted target basis for N,N-Dimethylpentedrone: tertiary cathinone dibutylone and pentedrone uptake assays.
+# Predicted target basis for N,4-Dimethylbuphedrone: pentedrone and 4-methylpentedrone uptake assays.
+# Predicted target basis for N-Cyclohexyl Butylone: butylone, dibutylone and N-alkyl cathinones; bulky N-substitution makes efflux uncertain.
+# Predicted target basis for N-Cyclohexyl Methylone: butylone, dibutylone and N-alkyl cathinones; bulky N-substitution makes efflux uncertain.
+# Predicted target basis for N-Isopropyl Butylone: butylone, dibutylone and N-alkyl cathinones; bulky N-substitution makes efflux uncertain.
+# Predicted target basis for N-Propyl Butylone: butylone, dibutylone and N-alkyl cathinones; bulky N-substitution makes efflux uncertain.
+# Predicted target basis for N-sec-Butyl Butylone: butylone, dibutylone and N-alkyl cathinones; bulky N-substitution makes efflux uncertain.
+# Predicted target basis for 4Br-MAR: cis-4-MAR and cis-4,4'-DMAR; SERT activity and stereochemistry uncertain.
+# Predicted target basis for 4Cl-MAR: cis-4-MAR and cis-4,4'-DMAR; SERT activity and stereochemistry uncertain.
+# Predicted target basis for 4F-MAR: cis-4-MAR and cis-4,4'-DMAR; SERT activity and stereochemistry uncertain.
