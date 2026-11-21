@@ -264,6 +264,39 @@ h1 {
 .help-dialog ul { padding-left: 1.25em; }
 .help-dialog li + li { margin-top: 8px; }
 .help-example h3 { margin: 18px 0 8px; font-size: .9375rem; }
+.player-stats { width: min(580px, calc(100% - 32px)); }
+.player-stats h3 { margin: 20px 0 8px; font-size: .9375rem; }
+.stats-note { color: var(--muted); font-size: .8125rem; }
+.mistake-chart, .recent-results { margin: 0; padding: 0; list-style: none; }
+.mistake-chart li {
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr) 2rem;
+  align-items: center;
+  gap: 8px;
+  font-size: .875rem;
+  font-variant-numeric: tabular-nums;
+}
+.mistake-chart meter { width: 100%; }
+.mistake-chart strong { text-align: right; }
+.recent-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 6px; }
+.recent-results a {
+  display: grid;
+  gap: 2px;
+  min-height: 50px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--fg);
+  font-size: .75rem;
+  text-align: center;
+  text-decoration: none;
+}
+.recent-results a:hover { text-decoration: underline; }
+.recent-results time { font-weight: 650; }
+.recent-results a.unplayed { color: var(--muted); }
+.recent-results a.in_progress { background: var(--tile); }
+.recent-results a.solved { background: light-dark(#e2ecd9, #263621); }
+.recent-results a.missed { background: light-dark(#f3e2df, #3a2828); }
 .svg-modal-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; font-weight: 700; }
 .svg-modal-close { width: 44px; height: 44px; border: 0; border-radius: 9px; background: var(--tile); color: var(--fg); font-size: 1.125rem; cursor: pointer; }
 .svg-canvas { display: grid; place-items: center; min-height: 170px; padding: 12px; border-radius: 10px; background: #fff; }

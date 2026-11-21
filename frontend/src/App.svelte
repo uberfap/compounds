@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte'
   import { flip } from 'svelte/animate'
-  import { api, ApiError, type ArchiveEntry, type Attempt, type Board, type PuzzleStats, type PuzzleStatus, type Session, type Tile } from './api'
+  import { api, ApiError, type ArchiveEntry, type Attempt, type Board, type PlayerStats, type PuzzleStats, type PuzzleStatus, type Session, type Tile } from './api'
 
   const params = new URLSearchParams(location.search)
   const debugRequested = params.get('debug') === '1'
@@ -16,6 +16,11 @@
   const nextTheme: Record<Theme, Theme> = { system: 'light', light: 'dark', dark: 'system' }
   const themeLabel = $derived(`Theme: ${theme}. Switch to ${nextTheme[theme]}.`)
   let help = $state<HTMLDialogElement>()
+  let statsDialog = $state<HTMLDialogElement>()
+  let personal = $state<PlayerStats>()
+  let personalError = $state('')
+  let personalLoading = $state(false)
+  const resultDay = new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric', timeZone: 'UTC' })
   let session = $state<Session>()
   let authBusy = $state(false)
   let authMessage = $state('')
@@ -141,6 +146,16 @@
       archive = entries
     } catch { archiveError = true }
     finally { archiveLoading = false }
+  }
+
+  async function loadPersonalStats() {
+    if (personalLoading) return
+    personalLoading = true
+    personalError = ''
+    try {
+      personal = await api<PlayerStats>('/player/stats', 'POST', { player_id: playerId() })
+    } catch (error) { personalError = errorText(error) }
+    finally { personalLoading = false }
   }
 
   function archiveStatus(entry: ArchiveEntry): PuzzleStatus {
@@ -306,6 +321,10 @@
   <header class="site-header">
     <div><h1>Compounds</h1>{#if board}<span id="num">#{board.number} · {board.date}</span>{/if}</div>
     <div class="utilities">
+      <button class="btn icon-btn" disabled={!session} aria-label="My stats" title="My stats"
+        onclick={() => { statsDialog?.showModal(); void loadPersonalStats() }}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19v-5m7 5V5m7 14V9"/></svg>
+      </button>
       <button class="btn icon-btn" aria-label="How to play" title="How to play" onclick={() => help?.showModal()}>
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 0 1 6 0c0 2-3 2.5-3 4m0 3h.01"/></svg>
       </button>
@@ -486,6 +505,52 @@
       <div>Helium, Neon, Argon, Krypton</div>
     </div>
   </div>
+</dialog>
+
+<dialog class="help-dialog player-stats" bind:this={statsDialog} aria-labelledby="player-stats-title">
+  <div class="dialog-heading">
+    <h2 id="player-stats-title">My stats</h2>
+    <form method="dialog"><button class="btn">Close</button></form>
+  </div>
+  {#if personalError}
+    <p role="alert">{personalError}</p>
+    <button class="btn" onclick={loadPersonalStats}>Retry</button>
+  {:else if personalLoading}
+    <p role="status">Loading stats.</p>
+  {:else if personal}
+    <dl class="metrics">
+      <div><dt>Played</dt><dd>{personal.played}</dd></div>
+      <div><dt>Solved</dt><dd>{personal.solved}</dd></div>
+      <div><dt>Win rate</dt><dd>{personal.finished ? Math.round(100 * personal.solved / personal.finished) + '%' : '—'}</dd></div>
+      <div><dt>In progress</dt><dd>{personal.in_progress}</dd></div>
+      <div><dt>Current streak</dt><dd>{personal.current_streak}</dd></div>
+      <div><dt>Best streak</dt><dd>{personal.best_streak}</dd></div>
+    </dl>
+    <p class="stats-note">Win rate uses finished puzzles. Daily streaks count solves on the release date in UTC.</p>
+    <h3>Mistakes on solved puzzles</h3>
+    <ul class="mistake-chart">
+      {#each personal.mistake_distribution as count, mistakes}
+        <li><span>{mistakes}</span><meter min={0} max={Math.max(1, ...personal.mistake_distribution)} value={count} aria-label={`${mistakes} mistakes`}></meter><strong>{count}</strong></li>
+      {/each}
+    </ul>
+    <h3>Recent results</h3>
+    {#if personal.recent.length}
+      <ul class="recent-results">
+        {#each personal.recent as entry (entry.number)}
+          {@const label = statusLabels[entry.status]}
+          <li>
+            <a href={'?p=' + entry.number} class={entry.status}
+              title={`#${entry.number} · ${label}`}
+              aria-label={`Puzzle ${entry.number}, ${archiveDate.format(new Date(entry.date))}, ${label}`}>
+              <time datetime={entry.date}>{resultDay.format(new Date(entry.date))}</time><span>{label}</span>
+            </a>
+          </li>
+        {/each}
+      </ul>
+    {:else}
+      <p>No puzzles published yet.</p>
+    {/if}
+  {/if}
 </dialog>
 
 {#if structure}

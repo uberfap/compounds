@@ -5,11 +5,11 @@ import json
 import os
 from contextlib import asynccontextmanager, contextmanager
 from dataclasses import dataclass, field
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from uuid import UUID, uuid4
 
-from fastapi import Body, FastAPI, HTTPException, Request
+from fastapi import Body, FastAPI, HTTPException, Request, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -226,11 +226,57 @@ def puzzle_range(request: Request):
 def archive(request: Request, player_id: UUID | None = Body(default=None, embed=True)):
     with database.connect() as connection:
         player = auth.effective_player(connection, request, player_id)
-        rows = database.puzzle_archive(connection, release_day(), player, MAX_MISTAKES)
+        rows = database.player_puzzles(connection, release_day(), player, MAX_MISTAKES)
     return [
         {"number": number, "date": day, "version": version, "status": status}
-        for number, day, version, status in rows
+        for number, day, version, status, _, _ in rows
     ]
+
+
+def summarize_player(rows, today):
+    counts = dict.fromkeys(("solved", "missed", "in_progress", "unplayed"), 0)
+    distribution = [0] * MAX_MISTAKES
+    best_streak = streak = 0
+    previous_solve = None
+    one_day = timedelta(days=1)
+    for _, day, _, status, mistakes, finished_day in reversed(rows):
+        counts[status] += 1
+        if status != "solved":
+            continue
+        distribution[mistakes] += 1
+        if finished_day != day:
+            continue
+        streak = streak + 1 if previous_solve == day - one_day else 1
+        best_streak = max(best_streak, streak)
+        previous_solve = day
+
+    finished = counts["solved"] + counts["missed"]
+    today_missed = bool(rows and rows[0][1] == today and rows[0][3] == "missed")
+    current_streak = streak if not today_missed and previous_solve in {today, today - one_day} else 0
+    return {
+        "played": finished + counts["in_progress"],
+        "finished": finished,
+        "solved": counts["solved"],
+        "missed": counts["missed"],
+        "in_progress": counts["in_progress"],
+        "current_streak": current_streak,
+        "best_streak": best_streak,
+        "mistake_distribution": distribution,
+        "recent": [
+            {"number": number, "date": day, "status": status}
+            for number, day, _, status, _, _ in rows[:30]
+        ],
+    }
+
+
+@app.post("/api/player/stats")
+def player_stats(request: Request, response: Response, player_id: UUID | None = Body(default=None, embed=True)):
+    today = release_day()
+    with database.connect() as connection:
+        player = auth.effective_player(connection, request, player_id)
+        rows = database.player_puzzles(connection, today + timedelta(days=1), player, MAX_MISTAKES)
+    response.headers["Cache-Control"] = "no-store"
+    return summarize_player(rows, today)
 
 
 @app.get("/api/puzzles/{number}")

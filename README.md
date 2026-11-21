@@ -84,6 +84,17 @@ that puzzle version, it keeps its existing attempt. Leaderboard names stay anony
 
 ## Puzzle stats and leaderboard
 
+Open **My stats** in the header to see your totals, mistake distribution,
+daily streaks, and 30 recent published puzzles. Stats use the currently
+published version of each puzzle. Signed-in players see the same submitted
+progress across devices. Guest stats follow the browser identity.
+
+A puzzle counts as played after your first guess or structure inspection.
+Win rate uses finished puzzles. Archive solves count toward the overall
+totals, while streaks require consecutive release days solved on the same
+UTC date. A streak through yesterday stays current until you lose today's
+puzzle or today's UTC day ends.
+
 Open **Puzzle statistics and leaderboard** below the board while playing or after
 finishing. It shows how many attempts started, finished, and solved the puzzle.
 Statistics refresh after each submitted guess. Your ranked entry is marked “you.”

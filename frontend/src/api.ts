@@ -8,6 +8,17 @@ export interface ArchiveEntry {
   version: string
   status: PuzzleStatus
 }
+export interface PlayerStats {
+  played: number
+  finished: number
+  solved: number
+  missed: number
+  in_progress: number
+  current_streak: number
+  best_streak: number
+  mistake_distribution: number[]
+  recent: Omit<ArchiveEntry, 'version'>[]
+}
 export interface Group { tier: number; label: string; tiles: number[] }
 export interface Attempt {
   id: string
