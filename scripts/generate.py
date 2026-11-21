@@ -162,7 +162,8 @@ PHARMACOLOGICAL_LABEL = {
     "therapeutic": "Therapeutics",
 }
 
-MISSING_TAGS = {"", "none", "unknown", "unclassified", "unspecified", "n/a", "na", "other", "mixed", "-"}
+MISSING_TAGS = {"", "none", "unknown", "unclassified", "unspecified", "n/a", "na", "other", "others", "mixed", "-"}
+MAX_EXACT_FOUR_DECOYS = 2
 
 STRUCTURE_PATTERNS = (
     ("nitrile", "Contain a nitrile group", "[#6]#[#7]"),
@@ -1020,10 +1021,11 @@ def count_partitions(ids, lib, limit=2):
     return solve(full_mask)
 
 
-def count_near_misses(used, chosen, lib, min_size=3, max_size=6):
+def count_near_misses(used, chosen, lib, min_size=3, max_size=6, *, group_mass=False):
     chosen_pids = {p.pid for p in chosen}
     chosen_sets = [p.matches & used for p in chosen]
     n = 0
+    saw_mass = False
     for p in lib:
         if p.pid in chosen_pids:
             continue
@@ -1032,16 +1034,24 @@ def count_near_misses(used, chosen, lib, min_size=3, max_size=6):
             continue
         if any(inter <= cs for cs in chosen_sets):
             continue
+        if group_mass and p.pid.startswith("mass:"):
+            if saw_mass:
+                continue
+            saw_mass = True
         n += 1
     return n
 
 
-def board_diagnostics(used, chosen, picks, lib, near_max_size):
+def count_exact_four_decoys(used, picks, lib):
     intended = {frozenset(members) for members in picks.values()}
-    exact_four = {p.matches & used for p in lib if len(p.matches & used) == 4}
+    return len({match for p in lib if len(match := p.matches & used) == 4} - intended)
+
+
+def board_diagnostics(used, chosen, picks, lib, near_max_size):
     return {
         "near_miss_rules": count_near_misses(used, chosen, lib, 3, near_max_size),
-        "exact_four_decoys": len(exact_four - intended),
+        "near_miss_cap_count": count_near_misses(used, chosen, lib, 3, near_max_size, group_mass=True),
+        "exact_four_decoys": count_exact_four_decoys(used, picks, lib),
         "selected_rule_overlap": [
             {"rules": [left.pid, right.pid], "shared": len(left.matches & right.matches),
              "support": [len(left.matches), len(right.matches)]}
@@ -1162,9 +1172,11 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
 
             # Run gameplay-integrity checks only after a board has passed
             # the difficulty-balance test.
-            if count_near_misses(used, chosen, lib, 3, near_max_size) > max_near_misses:
+            if count_near_misses(used, chosen, lib, 3, near_max_size, group_mass=True) > max_near_misses:
                 continue
             if count_partitions(used, lib) != 1:
+                continue
+            if count_exact_four_decoys(used, picks, lib) > MAX_EXACT_FOUR_DECOYS:
                 continue
 
             best_cost = cost

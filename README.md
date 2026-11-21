@@ -132,6 +132,10 @@ that hit exactly four tiles on that board. Selected rule pairs include their
 catalogue support sizes and intersection size, which give directional
 containment and Jaccard overlap.
 
+The near-miss cap counts qualifying unchosen mass bands together. The solution
+check still considers each band independently. New boards allow at most two
+distinct unintended quartets matched by rules that hit exactly four tiles.
+
 Puzzle batches contain answers and structure SVGs. Generate them in a private checkout and keep them off public remotes.
 
 ```sh
