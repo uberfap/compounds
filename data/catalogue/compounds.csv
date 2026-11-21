@@ -27,7 +27,7 @@ PARGY-LAD|C22H25N3O|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C ag
 PRO-LAD|C22H29N3O|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|semisynthetic
 
 # ---- Tryptamines
-4-AcO-DALT|C18H22N2O2|Tryptamine||||synthetic
+4-AcO-DALT|C18H22N2O2|Tryptamine|Psychedelic|psychedelic||synthetic
 4-AcO-DET|C16H22N2O2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 4-AcO-DiPT|C18H26N2O2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 4-AcO-DMT|C14H18N2O2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
@@ -35,8 +35,8 @@ PRO-LAD|C22H29N3O|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agon
 4-AcO-EPT|C17H24N2O2|Tryptamine||||synthetic
 4-AcO-MET|C15H20N2O2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 4-AcO-MiPT|C16H22N2O2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
-4-AcO-MPT|C16H22N2O2|Tryptamine|Psychedelic|||synthetic
-4-HO-DALT|C16H20N2O|Tryptamine||||synthetic
+4-AcO-MPT|C16H22N2O2|Tryptamine|Psychedelic|psychedelic||synthetic
+4-HO-DALT|C16H20N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2B agonist;5-HT2C agonist|synthetic
 4-HO-DBT|C18H28N2O|Tryptamine||||synthetic
 4-HO-DET|C14H20N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 4-HO-DiPT|C16H24N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
@@ -45,7 +45,7 @@ PRO-LAD|C22H29N3O|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agon
 4-HO-MET|C13H18N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 4-HO-MiPT|C14H20N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 4-HO-MPT|C14H20N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
-4-PrO-DMT|C15H20N2O2|Tryptamine|Psychedelic|psychedelic||synthetic
+4-PrO-DMT|C15H20N2O2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2B agonist;5-HT2C agonist|synthetic
 5-Hydroxytryptophan|C11H12N2O3|Tryptamine|Unknown||Serotonin releaser|natural
 5-MeO-AMT|C12H16N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
 5-MeO-DALT|C17H22N2O|Tryptamine|Psychedelic|psychedelic|5-HT1A agonist;5-HT2A agonist;5-HT2C agonist|synthetic
@@ -55,7 +55,7 @@ PRO-LAD|C22H29N3O|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agon
 5-MeO-DMT|C13H18N2O|Tryptamine|Psychedelic|psychedelic|5-HT1A agonist;5-HT2A agonist;5-HT2C agonist|natural
 5-MeO-DPT|C17H26N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 5-MeO-EPT|C16H24N2O|Tryptamine||||synthetic
-5-MeO-MALT|C15H20N2O|Tryptamine||||synthetic
+5-MeO-MALT|C15H20N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist|synthetic
 5-MeO-MET|C14H20N2O|Tryptamine|Psychedelic|psychedelic|5-HT1A agonist;5-HT2A agonist;5-HT2C agonist|synthetic
 5-MeO-MiPT|C15H22N2O|Tryptamine|Psychedelic|psychedelic|5-HT1A agonist;5-HT2A agonist;5-HT2C agonist|synthetic
 AMT|C11H14N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
@@ -67,7 +67,7 @@ DiPT|C16H24N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5
 DMT|C12H16N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;Sigma-1 agonist|natural
 DPT|C16H24N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 EPT|C15H22N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
-Melatonin|C13H16N2O2|Tryptamine|Depressant|depressant||natural
+Melatonin|C13H16N2O2|Tryptamine|Depressant|depressant|MT1 agonist;MT2 agonist|natural
 MET|C13H18N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 MiPT|C14H20N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 MPT|C14H20N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
@@ -301,7 +301,7 @@ ADB-PINACA|C19H28N4O2|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;C
 AKB48|C23H31N3O|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
 AM-2201|C24H22FNO|Naphthoylindole|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
 AM-694|C20H19FINO|Benzoylindole|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
-AMB-4en-PINACA|C18H24N4O2|Indazole Carboxamide|Cannabinoid|||synthetic
+AMB-4en-PINACA|C18H24N4O2|Indazole Carboxamide|Cannabinoid|cannabinoid||synthetic
 AMB-FUBINACA|C21H22FN3O3|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
 APICA|C24H32N2O|Indole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
 CBD|C21H30O2|Phytocannabinoid|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist;5-HT1A agonist|natural
@@ -323,10 +323,10 @@ MDMB-4en-PINACA|C20H27N3O3|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agon
 MDMB-BUTINACA|C19H27N3O3|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
 MDMB-CHMICA|C23H32N2O3|Indole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
 MDMB-FUBINACA|C22H24FN3O3|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
-MDMB-PINACA|C20H29N3O3|Indazole Carboxamide|Cannabinoid|||synthetic
-MMB-4en-PINACA|C19H25N3O3|Indazole Carboxamide|Cannabinoid|||synthetic
-MMB-CHMINACA|C21H29N3O3|Indazole Carboxamide|Cannabinoid|||synthetic
-MMB-PICA|C20H28N2O3|Indole Carboxamide|Cannabinoid|||synthetic
+MDMB-PINACA|C20H29N3O3|Indazole Carboxamide|Cannabinoid|cannabinoid||synthetic
+MMB-4en-PINACA|C19H25N3O3|Indazole Carboxamide|Cannabinoid|cannabinoid||synthetic
+MMB-CHMINACA|C21H29N3O3|Indazole Carboxamide|Cannabinoid|cannabinoid||synthetic
+MMB-PICA|C20H28N2O3|Indole Carboxamide|Cannabinoid|cannabinoid||synthetic
 PB-22|C23H22N2O2|Indole Ester|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
 RCS-4|C21H23NO2|Benzoylindole|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
 STS-135|C24H31FN2O|Indole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
@@ -477,8 +477,8 @@ Carfentanil|C24H30N2O3|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthet
 Cyclopropylfentanyl|C23H28N2O|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
 Fentanyl|C22H28N2O|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
 Furanylfentanyl|C24H26N2O2|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
-Methoxyacetylfentanyl|C22H28N2O2|Fentanyl Analogue|Opioid|opioid||synthetic
-Orthofluorofentanyl|C22H27FN2O|Fentanyl Analogue|Opioid|opioid||synthetic
+Methoxyacetylfentanyl|C22H28N2O2|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
+Orthofluorofentanyl|C22H27FN2O|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
 Remifentanil|C20H28N2O5|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
 Sufentanil|C22H30N2O2S|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
 Valerylfentanyl|C24H32N2O|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
@@ -488,9 +488,9 @@ Valerylfentanyl|C24H32N2O|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synt
 Butonitazene|C24H32N4O3|Nitazene|Opioid|opioid|μ-opioid agonist|synthetic
 Etonitazene|C22H28N4O3|Nitazene|Opioid|opioid|μ-opioid agonist|synthetic
 Isotonitazene|C23H30N4O3|Nitazene|Opioid|opioid|μ-opioid agonist|synthetic
-Metodesnitazene|C21H27N3O|Nitazene|Opioid|opioid||synthetic
+Metodesnitazene|C21H27N3O|Nitazene|Opioid|opioid|μ-opioid agonist|synthetic
 Metonitazene|C21H26N4O3|Nitazene|Opioid|opioid|μ-opioid agonist|synthetic
-N-Desethyl Etonitazene|C20H24N4O3|Nitazene|Opioid|opioid||synthetic
+N-Desethyl Etonitazene|C20H24N4O3|Nitazene|Opioid|opioid|μ-opioid agonist|synthetic
 N-Pyrrolidino Ethylene Isotonitazene|C24H30N4O3|Nitazene|Opioid|opioid||synthetic
 N-Pyrrolidino Etonitazene|C22H26N4O3|Nitazene|Opioid|opioid|μ-opioid agonist|synthetic
 N-Pyrrolidino Isotonitazene|C23H28N4O3|Nitazene|Opioid|opioid|μ-opioid agonist|synthetic
@@ -501,7 +501,7 @@ Protonitazene|C23H30N4O3|Nitazene|Opioid|opioid|μ-opioid agonist|synthetic
 
 # ---- Opioids: other
 2-MethylAP-237|C18H26N2O|Cinnamylpiperazine|Opioid|opioid|μ-opioid agonist|synthetic
-5,6-Dichloro Brorphine|C20H20BrCl2N3O|Benzimidazolone|Opioid|opioid||synthetic
+5,6-Dichloro Brorphine|C20H20BrCl2N3O|Benzimidazolone|Opioid|opioid|μ-opioid agonist|synthetic
 5,6-Dichloro Desmethylchlorphine|C19H18Cl3N3O|Benzimidazolone|Opioid|opioid||synthetic
 5-Chloro Desmethylchlorphine|C19H19Cl2N3O|Benzimidazolone|Opioid|opioid||synthetic
 7-Hydroxymitragynine|C23H30N2O5|Indole Alkaloid|Opioid|opioid|μ-opioid agonist;δ-opioid antagonist|natural
@@ -516,7 +516,7 @@ N-Piperidinyl Methiodone|C23H31NO2S|Thiophene|Opioid|opioid||synthetic
 N-Piperidinyl Tapentadol|C17H27NO|Piperidine|Opioid|opioid||synthetic
 O-Desmethyltramadol|C15H23NO2|Phenylpropylamine|Opioid|opioid|μ-opioid agonist;Norepinephrine reuptake inhibitor|synthetic
 Pethidine|C15H21NO2|Piperidine|Opioid|opioid|μ-opioid agonist;Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
-Spirochlorphine|C21H24ClN3O|Benzimidazolone|Opioid|opioid||synthetic
+Spirochlorphine|C21H24ClN3O|Benzimidazolone|Opioid|opioid|μ-opioid agonist|synthetic
 Tapentadol|C14H23NO|Phenylpropylamine|Opioid|opioid|μ-opioid agonist;Norepinephrine reuptake inhibitor|synthetic
 Tianeptine|C21H25ClN2O4S|Tricyclic|Opioid|opioid|μ-opioid agonist;δ-opioid agonist|synthetic
 Tramadol|C16H25NO2|Cyclohexanol|Opioid|opioid|μ-opioid agonist;Serotonin reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
@@ -593,12 +593,12 @@ Selegiline|C13H17N|Amphetamine|Unknown||MAO-B inhibitor;Dopamine releaser;Norepi
 
 # ---- Nootropics / racetams
 Aniracetam|C12H13NO3|Racetam|Unknown||AMPA PAM|synthetic
-Coluracetam|C19H23N3O3|Racetam|Unknown|||synthetic
+Coluracetam|C19H23N3O3|Racetam|Unknown||High-affinity choline uptake enhancer|synthetic
 Omberacetam|C17H22N2O4|Peptide|Unknown||AMPA PAM|synthetic
 Oxiracetam|C6H10N2O3|Racetam|Unknown||AMPA PAM|synthetic
 Phenylpiracetam|C12H14N2O2|Racetam|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor;nACh agonist|synthetic
 Piracetam|C6H10N2O2|Racetam|Unknown||AMPA PAM|synthetic
-Pramiracetam|C14H27N3O2|Racetam|Unknown|||synthetic
+Pramiracetam|C14H27N3O2|Racetam|Unknown||High-affinity choline uptake enhancer|synthetic
 
 # ---- Miscellaneous
 Buspirone|C21H31N5O2|Azaspirodecanedione|Unknown||5-HT1A agonist;D2 antagonist|synthetic
@@ -680,3 +680,17 @@ Salvinorin B methoxymethyl ether|C23H30O8|Salvinorin|Psychedelic|psychedelic|κ-
 # Structural classifications for Methiodone and N-piperidinyl Methiodone: https://www.cfsre.org/nps-discovery/monographs/methiodone
 # N-Piperidinyl Tapentadol: https://www.cfsre.org/nps-discovery/monographs/n-piperidinyl-tapentadol
 # Rilmazafone: https://pubchem.ncbi.nlm.nih.gov/compound/135366
+
+# Pharmacology review: receptor and transporter assays
+# Melatonin: https://discovery.ucl.ac.uk/id/eprint/10086565/1/Alexander_et_al-2019-British_Journal_of_Pharmacology.pdf
+# Methoxyacetylfentanyl: https://www.euda.europa.eu/system/files/publications/9606/Risk%20assessment%20methoxyacetylfentanyl.pdf
+# Orthofluorofentanyl: https://public-inspection.federalregister.gov/2019-03663.pdf
+# Metodesnitazene: https://pmc.ncbi.nlm.nih.gov/articles/PMC11026150/
+# N-Desethyl Etonitazene: https://cdn.who.int/media/docs/default-source/controlled-substances/48th-ecdd/3.3.2_n-desethyl-etonitazene-crit-rev.pdf
+# Spirochlorphine: https://doi.org/10.1007/s00414-026-04070-y
+# 5,6-Dichloro Brorphine: https://www.cfsre.org/nps-discovery/monographs/56-dichloro-brorphine
+# 4-PrO-DMT, 4-HO-DALT and 4-AcO-MPT: https://doi.org/10.1021/acsptsci.2c00222
+# 5-MeO-MALT: https://doi.org/10.1038/s41380-024-02506-8
+# 4-AcO-DALT: https://researchonline.ljmu.ac.uk/id/eprint/8163/1/Neuropharmacology_Klein_2018_DALTs.pdf
+# Coluracetam: https://pubmed.ncbi.nlm.nih.gov/18461273/
+# Pramiracetam: https://doi.org/10.1002/ddr.430030503
