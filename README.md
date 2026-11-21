@@ -49,8 +49,38 @@ npm run dev
 ## Puzzle archive
 
 Open **Archive** to browse earlier published puzzles by date and resume or view
-past results. Progress is tied to your browser and the published puzzle version.
+past results. Progress follows the published puzzle version and your browser
+or Discord account.
 The archive lists days before today in UTC.
+
+## Theme, help, and Discord sign-in
+
+The theme menu follows the operating system by default and remembers an explicit
+Light or Dark choice in the browser. **How to play** covers guessing, difficulty,
+and structure inspections with an example.
+
+Guest play works by default. To enable **Sign in with Discord**, create an
+application in the [Discord Developer Portal](https://discord.com/developers/applications)
+and add your exact callback URL under **OAuth2 → Redirects**. For Compose,
+set these values in your local `.env` or pass them through your deployment
+environment. For a native backend, export them before starting Uvicorn.
+
+```dotenv
+COMPOUNDS_DISCORD_CLIENT_ID=your-application-id
+COMPOUNDS_DISCORD_CLIENT_SECRET=your-client-secret
+COMPOUNDS_DISCORD_REDIRECT_URI=https://compounds.example.com/api/auth/discord/callback
+```
+
+Use the app's public HTTPS origin for production. For local testing, use the
+exact loopback origin and port you open in your browser, such as
+`http://127.0.0.1:8002/api/auth/discord/callback`. Recreate the app after changing
+the environment. Compose applies the account migration automatically.
+
+Discord sign-in requests only `identify`. Compounds stores the Discord user
+ID and display name and keeps its own 30-day session. Discord tokens are used
+only during sign-in. The browser's guest progress linked by its anonymous ID
+moves into the account on sign-in. If the account already has an attempt for
+that puzzle version, it keeps its existing attempt. Leaderboard names stay anonymous.
 
 ## Puzzle stats and leaderboard
 
@@ -66,7 +96,7 @@ solves, sorted by fewest mistakes, then fewest inspections, then earliest finish
 The app saves selected tiles and shuffle order in the browser and records
 submitted progress in PostgreSQL. A browser ID lets the API reuse an attempt
 for the same puzzle version if the browser loses its saved attempt reference.
-The leaderboard uses browser identity and has no account or anti-cheat system.
+The leaderboard uses anonymous labels for guest and signed-in players.
 
 After finishing, **Share result** shares the puzzle number, result, and
 color-coded guesses without revealing the answers. It uses the native share

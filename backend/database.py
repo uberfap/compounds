@@ -134,7 +134,7 @@ def puzzle_metrics(connection, puzzle):
 
 def read_attempt(connection, attempt_id, *, lock=False):
     query = """
-        SELECT attempts.state, versions.record
+        SELECT attempts.state, versions.record, attempts.player_id
         FROM attempts
         JOIN puzzle_versions AS versions USING (number, day, version)
         WHERE attempts.id = %s

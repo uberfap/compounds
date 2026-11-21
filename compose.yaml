@@ -20,6 +20,9 @@ services:
         condition: service_healthy
     environment:
       COMPOUNDS_DATABASE_URL: 'postgresql://compounds:compounds_local@db:5432/compounds?connect_timeout=5'
+      COMPOUNDS_DISCORD_CLIENT_ID: ${COMPOUNDS_DISCORD_CLIENT_ID:-}
+      COMPOUNDS_DISCORD_CLIENT_SECRET: ${COMPOUNDS_DISCORD_CLIENT_SECRET:-}
+      COMPOUNDS_DISCORD_REDIRECT_URI: ${COMPOUNDS_DISCORD_REDIRECT_URI:-}
     volumes:
       - type: bind
         source: ${COMPOUNDS_PUZZLE_BATCH:-./data/puzzles/puzzles.json}

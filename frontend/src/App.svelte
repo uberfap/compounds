@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte'
   import { flip } from 'svelte/animate'
-  import { api, ApiError, type ArchiveEntry, type Attempt, type Board, type PuzzleStats, type PuzzleStatus, type Tile } from './api'
+  import { api, ApiError, type ArchiveEntry, type Attempt, type Board, type PuzzleStats, type PuzzleStatus, type Session, type Tile } from './api'
 
   const params = new URLSearchParams(location.search)
   const debugRequested = params.get('debug') === '1'
@@ -10,6 +10,14 @@
   const day = [today.getFullYear(), today.getMonth() + 1, today.getDate()]
     .map(part => String(part).padStart(2, '0')).join('-')
   let requested = $state(Number(params.get('p')) || undefined)
+  type Theme = 'system' | 'light' | 'dark'
+  const initialTheme = document.documentElement.dataset.theme
+  let theme = $state<Theme>(initialTheme === 'light' || initialTheme === 'dark' ? initialTheme : 'system')
+  let help = $state<HTMLDialogElement>()
+  let session = $state<Session>()
+  let authBusy = $state(false)
+  let authMessage = $state('')
+  const playerKey = 'compounds-player-v1'
   let stats = $state<PuzzleStats>()
   let statsUnavailable = $state(false)
   let archive = $state<ArchiveEntry[]>()
@@ -38,7 +46,18 @@
 
   const visible = $derived(order.filter(id => !attempt?.solved.some(group => group.tiles.includes(id))))
   const tiles = $derived(new Map(board?.tiles.map(tile => [tile.id, tile])))
-  const storageKey = (puzzle: Pick<Board, 'number' | 'version'>) => `compounds-api-${puzzle.number}-${puzzle.version}`
+  const storageKey = (puzzle: Pick<Board, 'number' | 'version'>) => {
+    const prefix = session?.account ? `compounds-account-${session.account.storage_key}` : 'compounds-api'
+    return `${prefix}-${puzzle.number}-${puzzle.version}`
+  }
+
+  function setTheme(value: Theme) {
+    theme = value
+    if (value === 'system') delete document.documentElement.dataset.theme
+    else document.documentElement.dataset.theme = value
+    try { localStorage.setItem('compounds-theme', value) }
+    catch { /* The setting still applies to this page. */ }
+  }
 
   function recall(puzzle: Pick<Board, 'number' | 'version'>): { id?: string; order?: number[]; selected?: number[]; status?: PuzzleStatus } {
     try { return JSON.parse(localStorage.getItem(storageKey(puzzle)) ?? '{}') ?? {} }
@@ -58,14 +77,50 @@
   }
 
   function playerId() {
+    if (session?.account) return undefined
     try {
-      const key = 'compounds-player-v1'
-      const existing = localStorage.getItem(key)
+      const existing = localStorage.getItem(playerKey)
       if (existing) return existing
       const id = crypto.randomUUID()
-      localStorage.setItem(key, id)
+      localStorage.setItem(playerKey, id)
       return id
     } catch { return undefined }
+  }
+
+  async function initialize() {
+    loadError = ''
+    try { session = await api<Session>('/auth/session') }
+    catch (error) { loadError = errorText(error); return }
+    const result = params.get('auth')
+    if (result === 'success' && session.account) {
+      try {
+        localStorage.removeItem(playerKey)
+      } catch { /* Guest storage is optional. */ }
+    } else if (result) authMessage = 'Discord sign-in did not complete.'
+    if (result) {
+      const url = new URL(location.href)
+      url.searchParams.delete('auth')
+      history.replaceState(null, '', url)
+    }
+    await load(requested)
+  }
+
+  async function changeSession() {
+    if (authBusy) return
+    authBusy = true
+    authMessage = ''
+    try {
+      if (session?.account) {
+        await api<void>('/auth/logout', 'POST', { confirm: true })
+        location.reload()
+      } else {
+        const result = await api<{ url: string }>('/auth/discord', 'POST', { guest_id: playerId() ?? null })
+        location.assign(result.url)
+      }
+    } catch (error) {
+      authMessage = errorText(error)
+      authBusy = false
+    }
   }
 
   async function loadArchive() {
@@ -155,7 +210,7 @@
   }
 
   onMount(() => {
-    void load(requested)
+    void initialize()
     if (debugRequested) void api<{ first: number; last: number }>('/puzzles/range')
       .then(value => { range = value }).catch(() => {})
     return () => {
@@ -240,7 +295,23 @@
 </script>
 
 <main>
-  <header><h1>Compounds</h1>{#if board}<span id="num">#{board.number} · {board.date}</span>{/if}</header>
+  <header class="site-header">
+    <div><h1>Compounds</h1>{#if board}<span id="num">#{board.number} · {board.date}</span>{/if}</div>
+    <div class="utilities">
+      <button class="btn" onclick={() => help?.showModal()}>How to play</button>
+      <select aria-label="Color theme" value={theme} onchange={event => setTheme(event.currentTarget.value as Theme)}>
+        <option value="system">System theme</option>
+        <option value="light">Light theme</option>
+        <option value="dark">Dark theme</option>
+      </select>
+      {#if session?.account}
+        <button class="btn" title={session.account.name} disabled={authBusy} onclick={changeSession}>Sign out</button>
+      {:else if session?.enabled}
+        <button class="btn discord" disabled={authBusy} onclick={changeSession}>Sign in with Discord</button>
+      {/if}
+    </div>
+  </header>
+  {#if authMessage}<p class="auth-message" role="status">{authMessage}</p>{/if}
   <nav class="puzzle-nav" aria-label="Puzzle pages">
     {#if requested}<a href={location.pathname}>Today’s puzzle</a>{/if}
     <details class="puzzle-archive" ontoggle={event => { if (event.currentTarget.open) void loadArchive() }}>
@@ -278,7 +349,7 @@
       </nav>
     {/if}
     <div class="intro">
-      <p class="how"><strong>Find four groups of four.</strong> Links can be origin, effect, target, structure, or the name.</p>
+      <p class="how"><strong>Find four groups of four.</strong></p>
       <div class="difficulty">
         <span class="legend" aria-hidden="true"><i class="t0"></i><i class="t1"></i><i class="t2"></i><i class="t3"></i></span>
         Easiest to trickiest
@@ -335,7 +406,7 @@
     {/if}
   {:else if loadError}
     <p role="alert">{loadError}</p>
-    <button class="btn" onclick={() => load(requested)}>Retry</button>
+    <button class="btn" onclick={() => session ? load(requested) : initialize()}>Retry</button>
   {:else}
     <p role="status">Loading puzzle…</p>
   {/if}
@@ -379,6 +450,27 @@
   {/if}
   <footer>Substance names and classes derived in part from <a href="https://psychonautwiki.org">PsychonautWiki</a> (CC BY-SA 4.0).</footer>
 </main>
+
+<dialog class="help-dialog" bind:this={help} aria-labelledby="help-title">
+  <div class="dialog-heading">
+    <h2 id="help-title">How to play</h2>
+    <form method="dialog"><button class="btn">Close</button></form>
+  </div>
+  <p>Find four groups of four compounds. Connections can come from their names, structures, origins, effects, or targets.</p>
+  <ul>
+    <li>Select four tiles and press <strong>Submit</strong>. Correct groups move above the board.</li>
+    <li><strong>One away</strong> means three of your tiles belong together. An incorrect guess uses one of your four mistakes.</li>
+    <li>Difficulty runs from yellow (easiest) through green and blue to purple (trickiest).</li>
+    <li>Choose <strong>Structure</strong> and then a tile to inspect its skeletal structure. You can unlock four distinct structures per puzzle and revisit an unlocked structure for free.</li>
+  </ul>
+  <div class="help-example">
+    <h3>Example group</h3>
+    <div class="solved t0">
+      <b>Noble gases</b>
+      <div>Helium, Neon, Argon, Krypton</div>
+    </div>
+  </div>
+</dialog>
 
 {#if structure}
   <dialog class="svg-modal" bind:this={dialog} onclose={closeStructure} aria-labelledby="structure-title">

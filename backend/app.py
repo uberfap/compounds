@@ -13,7 +13,7 @@ from fastapi import Body, FastAPI, HTTPException, Request
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from backend import database
+from backend import auth, database
 
 BATCH = Path(__file__).resolve().parents[1] / "data" / "puzzles" / "puzzles.json"
 MAX_MISTAKES = 4
@@ -140,6 +140,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Compounds", lifespan=lifespan)
+app.include_router(auth.router)
 
 
 def debug_allowed(request: Request):
@@ -171,7 +172,13 @@ def attempt_transaction(attempt_id: UUID, request: Request, *, write=False):
         row = database.read_attempt(connection, attempt_id, lock=write)
         if row is None:
             raise HTTPException(404, "Attempt not found")
-        state, record = row
+        state, record, owner = row
+        account = auth.session_account(connection, request)
+        if account:
+            if owner != account[0]:
+                raise HTTPException(404, "Attempt not found")
+        elif owner and (auth.account_player(connection, owner) or auth.linked_guest(connection, owner)):
+            raise HTTPException(404, "Attempt not found")
         puzzle = Puzzle.from_record(record)
         if puzzle.date > release_day().isoformat() and not debug_allowed(request):
             raise HTTPException(404, "Attempt not found")
@@ -216,9 +223,10 @@ def puzzle_range(request: Request):
 
 
 @app.post("/api/puzzles/archive")
-def archive(player_id: UUID | None = Body(default=None, embed=True)):
+def archive(request: Request, player_id: UUID | None = Body(default=None, embed=True)):
     with database.connect() as connection:
-        rows = database.puzzle_archive(connection, release_day(), player_id, MAX_MISTAKES)
+        player = auth.effective_player(connection, request, player_id)
+        rows = database.puzzle_archive(connection, release_day(), player, MAX_MISTAKES)
     return [
         {"number": number, "date": day, "version": version, "status": status}
         for number, day, version, status in rows
@@ -263,7 +271,8 @@ def start_attempt(number: int, body: StartAttempt, request: Request):
         if body.version != puzzle.version:
             raise HTTPException(409, "Puzzle version changed")
         attempt = Attempt(puzzle)
-        attempt_id, state = database.resume_or_create(connection, attempt, body.player_id)
+        player = auth.effective_player(connection, request, body.player_id, write=True)
+        attempt_id, state = database.resume_or_create(connection, attempt, player)
         return Attempt.from_state(puzzle, attempt_id, state).public_state()
 
 

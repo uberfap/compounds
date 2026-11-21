@@ -1,6 +1,7 @@
 export interface Tile { id: number; name: string; has_structure: boolean }
 export interface Board { number: number; date: string; version: string; tiles: Tile[] }
 export type PuzzleStatus = 'unplayed' | 'in_progress' | 'solved' | 'missed'
+export interface Session { enabled: boolean; account: { name: string; storage_key: string } | null }
 export interface ArchiveEntry {
   number: number
   date: string
@@ -38,7 +39,7 @@ export async function api<T>(path: string, method = 'GET', body?: object): Promi
     const error = await response.json().catch(() => null)
     throw new ApiError(response.status, typeof error?.detail === 'string' ? error.detail : 'Request failed. Try again.')
   }
-  return response.json() as Promise<T>
+  return response.status === 204 ? undefined as T : response.json() as Promise<T>
 }
 
 export interface PuzzleStats {
