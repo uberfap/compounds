@@ -1,0 +1,2 @@
+catalogue_name|current_pubchem_cid|current_pubchem_title|current_inchikey|candidate_correct_cid|candidate_correct_inchikey|reason|action
+5-MeO-DiPT|15942804|6-MeO-DiPT|VVHSFCPALYIWMT-UHFFFAOYSA-N|151182|DNBPMBJFRRVTSJ-UHFFFAOYSA-N|Current CID is PubChem's 6-methoxy positional isomer, not 5-methoxy compound. Same formula, different structure.|Do not add as an alias or mark verified. Review the source structure and identity mapping; replace CID only after confirming the catalogue's intended structure.
