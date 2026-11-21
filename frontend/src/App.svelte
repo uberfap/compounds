@@ -16,6 +16,10 @@
   const nextTheme: Record<Theme, Theme> = { system: 'light', light: 'dark', dark: 'system' }
   const themeLabel = $derived(`Theme: ${theme}. Switch to ${nextTheme[theme]}.`)
   let help = $state<HTMLDialogElement>()
+  let siteInfo = $state<HTMLDialogElement>()
+  let infoTopic = $state<'privacy' | 'credits'>('privacy')
+  let archivePanel = $state<HTMLDetailsElement>()
+  let puzzleStatsPanel = $state<HTMLDetailsElement>()
   let statsDialog = $state<HTMLDialogElement>()
   let personal = $state<PlayerStats>()
   let personalError = $state('')
@@ -156,6 +160,18 @@
       personal = await api<PlayerStats>('/player/stats', 'POST', { player_id: playerId() })
     } catch (error) { personalError = errorText(error) }
     finally { personalLoading = false }
+  }
+
+  function jumpTo(panel?: HTMLDetailsElement) {
+    if (!panel) return
+    panel.open = true
+    panel.querySelector('summary')?.focus()
+    panel.scrollIntoView({ block: 'nearest' })
+  }
+
+  function showSiteInfo(topic: 'privacy' | 'credits') {
+    infoTopic = topic
+    siteInfo?.showModal()
   }
 
   function archiveStatus(entry: ArchiveEntry): PuzzleStatus {
@@ -349,7 +365,7 @@
   {#if authMessage}<p class="auth-message" role="status">{authMessage}</p>{/if}
   <nav class="puzzle-nav" aria-label="Puzzle pages">
     {#if requested}<a href={location.pathname}>Today’s puzzle</a>{/if}
-    <details class="puzzle-archive" ontoggle={event => { if (event.currentTarget.open) void loadArchive() }}>
+    <details class="puzzle-archive" bind:this={archivePanel} ontoggle={event => { if (event.currentTarget.open) void loadArchive() }}>
       <summary>Archive</summary>
       {#if archiveError}
         <p role="alert">Could not load the archive.</p>
@@ -446,7 +462,7 @@
     <p role="status">Loading puzzle…</p>
   {/if}
   {#if board}
-    <details class="puzzle-stats">
+    <details class="puzzle-stats" bind:this={puzzleStatsPanel}>
       <summary>Puzzle statistics and leaderboard</summary>
       {#if stats}
         <dl class="metrics">
@@ -483,8 +499,30 @@
       {/if}
     </details>
   {/if}
-  <footer>Substance names and classes derived in part from <a href="https://psychonautwiki.org">PsychonautWiki</a> (CC BY-SA 4.0).</footer>
+  <footer class="site-footer">
+    <p>Simplified chemical data for gameplay only.</p>
+    <nav aria-label="Footer">
+      {#if board}<button onclick={() => jumpTo(puzzleStatsPanel)}>Puzzle statistics</button>{/if}
+      <button onclick={() => jumpTo(archivePanel)}>Archive</button>
+      <button onclick={() => showSiteInfo('privacy')}>Privacy</button>
+      <button onclick={() => showSiteInfo('credits')}>License and credits</button>
+    </nav>
+  </footer>
 </main>
+
+<dialog class="help-dialog" bind:this={siteInfo} aria-labelledby="site-info-title">
+  <div class="dialog-heading">
+    <h2 id="site-info-title">{infoTopic === 'privacy' ? 'Privacy' : 'License and credits'}</h2>
+    <form method="dialog"><button class="btn">Close</button></form>
+  </div>
+  {#if infoTopic === 'privacy'}
+    <p>Your browser stores your theme, board selections and shuffle order, and a random guest identifier. The server stores submitted guesses, structure inspections, and results under that identifier or your signed-in account.</p>
+    <p>Optional Discord sign-in stores your Discord user ID and display name. A session cookie keeps you signed in. Eligible guest attempts follow your account across devices. Public leaderboards show anonymous labels.</p>
+  {:else}
+    <p>Compounds’ original code is available under the MIT License. <a href="https://github.com/uberfap/compounds/blob/main/LICENSE">Read the license</a>.</p>
+    <p>Substance names and classifications are adapted in part from <a href="https://psychonautwiki.org">PsychonautWiki</a> contributors under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Compounds selects and normalizes records and adds its own categorization.</p>
+  {/if}
+</dialog>
 
 <dialog class="help-dialog" bind:this={help} aria-labelledby="help-title">
   <div class="dialog-heading">

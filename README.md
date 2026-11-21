@@ -148,6 +148,9 @@ Run the Compose stack on your server. Point the domain at its public IP and conf
 
 ## License and data sources
 
+The game footer opens the archive, puzzle statistics, a privacy summary, and
+license and data credits.
+
 Original project code is released under the [MIT License](LICENSE). The MIT grant applies to the code. Third-party data and assets retain their applicable terms.
 
 The catalogue incorporates substance names and classifications from [PsychonautWiki](https://psychonautwiki.org/) contributors under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Compounds selects and normalizes records, combines them with additional sources, and adds its own categorization. The maintenance tools also consult [PubChem](https://pubchem.ncbi.nlm.nih.gov/) and [NCI/CADD Chemical Identifier Resolver](https://cactus.nci.nih.gov/chemical/structure).

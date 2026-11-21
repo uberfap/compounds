@@ -27,7 +27,7 @@ body {
   font: 16px/1.5 system-ui, sans-serif;
 }
 main {
-  max-width: 760px;
+  max-width: 800px;
   margin-inline: auto;
   padding: clamp(28px, 6vw, 56px) clamp(16px, 5vw, 40px) 40px;
 }
@@ -61,7 +61,15 @@ h1 {
 .puzzle-nav { display: grid; justify-items: start; gap: 8px; margin-top: 12px; font-size: .875rem; }
 .puzzle-nav a { color: var(--fg); text-underline-offset: 2px; }
 .puzzle-archive { width: 100%; }
-.puzzle-archive > summary { width: fit-content; padding-block: 6px; cursor: pointer; font-weight: 650; }
+.puzzle-archive > summary {
+  width: fit-content;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--card);
+  cursor: pointer;
+  font-weight: 650;
+}
 .puzzle-archive[open] { padding-bottom: 8px; border-bottom: 1px solid var(--line); }
 .archive-list { max-height: 16rem; overflow: auto; margin: 6px 0 0; padding: 4px; list-style: none; }
 .archive-list li + li { border-top: 1px solid var(--line); }
@@ -70,7 +78,7 @@ h1 {
 .archive-list small { color: var(--muted); margin-left: 4px; }
 .archive-status { font-weight: 650; text-align: right; }
 .archive-status.unplayed { color: var(--muted); font-weight: 400; }
-.intro { margin: 18px 0 26px; }
+.intro { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; margin: 22px 0 18px; }
 .how { margin: 0; color: var(--muted); }
 .how strong { color: var(--fg); }
 .difficulty {
@@ -84,7 +92,22 @@ h1 {
 .legend { display: inline-flex; gap: 4px; }
 .legend i { width: 11px; height: 11px; border-radius: 3px; }
 
-.groups { display: grid; gap: 12px; }
+.groups { display: grid; gap: 10px; }
+.groups .solved {
+  justify-items: start;
+  border: 1px solid color-mix(in srgb, var(--tier) 48%, var(--line));
+  border-inline-start: 5px solid var(--tier);
+  background: color-mix(in srgb, var(--tier) 13%, var(--card));
+  color: var(--fg);
+  text-align: start;
+}
+.groups .solved div { color: var(--muted); }
+.groups .t0 { --tier: var(--t0); }
+.groups .t1 { --tier: var(--t1); }
+.groups .t2 { --tier: var(--t2); }
+.groups .t3 { --tier: var(--t3); }
+.board .tile { border-radius: 16px; }
+.board .tile:not(.sel) { box-shadow: 0 2px 0 var(--line); }
 .groups + .board { margin-top: 12px; }
 .solved {
   display: grid;
@@ -301,8 +324,28 @@ h1 {
 .svg-modal-close { width: 44px; height: 44px; border: 0; border-radius: 9px; background: var(--tile); color: var(--fg); font-size: 1.125rem; cursor: pointer; }
 .svg-canvas { display: grid; place-items: center; min-height: 170px; padding: 12px; border-radius: 10px; background: #fff; }
 .svg-canvas img { width: 100%; max-width: 240px; height: auto; }
-footer { margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: .8125rem; }
-footer a { color: inherit; text-underline-offset: 2px; }
+.site-footer {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .8125rem;
+  text-align: center;
+}
+.site-footer p { max-width: 54ch; margin: 0 auto 10px; }
+.site-footer nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; }
+.site-footer button {
+  min-height: 36px;
+  padding: 4px;
+  border: 0;
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.help-dialog a { color: inherit; text-underline-offset: 3px; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
