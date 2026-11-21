@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte'
+  import { flip } from 'svelte/animate'
   import { api, ApiError, type Attempt, type Board, type PuzzleStats, type Tile } from './api'
 
   const params = new URLSearchParams(location.search)
@@ -217,29 +218,43 @@
           onclick={() => board && load(board.number + 1)}>→</button>
       </nav>
     {/if}
-    <p class="how">Find four groups of four. Links can be origin, effect, target, structure, or the name.
-      <span class="legend" aria-hidden="true"><i class="t0"></i><i class="t1"></i><i class="t2"></i><i class="t3"></i></span>
-      easiest to trickiest
-    </p>
-    {#each attempt.revealed as group (group.tier)}
-      <div class="solved t{group.tier}" class:reveal={group.tier === revealedTier}>
-        <b>{group.label}</b>
-        <div>{group.tiles.map(id => tiles.get(id)?.name).join(', ')}</div>
+    <div class="intro">
+      <p class="how"><strong>Find four groups of four.</strong> Links can be origin, effect, target, structure, or the name.</p>
+      <div class="difficulty">
+        <span class="legend" aria-hidden="true"><i class="t0"></i><i class="t1"></i><i class="t2"></i><i class="t3"></i></span>
+        Easiest to trickiest
       </div>
-    {/each}
+    </div>
+    {#if attempt.revealed.length}
+      <section class="groups" aria-label="Revealed groups">
+        {#each attempt.revealed as group (group.tier)}
+          <div class="solved t{group.tier}" class:reveal={group.tier === revealedTier}>
+            <b>{group.label}</b>
+            <div>{group.tiles.map(id => tiles.get(id)?.name).join(', ')}</div>
+          </div>
+        {/each}
+      </section>
+    {/if}
     {#if !attempt.over}
       <div class="board" class:inspect-mode={inspecting} class:shake={shaken}
         onanimationend={() => { shaken = false }}>
         {#each visible as id (id)}
           {@const tile = tiles.get(id)!}
-          <button class="tile" class:sel={selected.includes(id)} aria-pressed={selected.includes(id)}
+          <button class="tile" animate:flip={{ duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 240 }}
+            class:sel={selected.includes(id)} aria-pressed={selected.includes(id)}
             disabled={busy} onclick={() => clickTile(tile)}>
             {tile.name}
             {#if attempt.inspected.includes(id)}<span class="svg-pip" aria-hidden="true" title="Structure unlocked"></span>{/if}
           </button>
         {/each}
       </div>
-      <div id="lives" aria-live="polite">Mistakes left: {attempt.mistakes_left}</div>
+      <div id="lives" aria-live="polite">
+        <span>Mistakes left</span>
+        <span class="life-dots" aria-hidden="true">
+          {#each [1, 2, 3, 4] as life}<i class:spent={life > attempt.mistakes_left}></i>{/each}
+        </span>
+        <span>{attempt.mistakes_left}/4</span>
+      </div>
       <div class="row">
         <button class="btn" disabled={busy} onclick={shuffle}>Shuffle</button>
         <button class="btn" disabled={busy || !selected.length} onclick={() => { selected = []; save() }}>Deselect</button>
@@ -254,8 +269,10 @@
       </div>
       {#if inspecting}<p id="msg">Tap a compound to view its skeletal structure.</p>{/if}
     {:else}
-      <p id="msg">{attempt.won ? `Solved with ${attempt.mistakes} mistake${attempt.mistakes === 1 ? '' : 's'}.` : 'Out of mistakes. Here are the groups.'}</p>
-      <div class="row"><button class="btn primary" onclick={share}>Share result</button></div>
+      <div class="result">
+        <p>{attempt.won ? `Solved with ${attempt.mistakes} mistake${attempt.mistakes === 1 ? '' : 's'}.` : 'Out of mistakes. Here are the groups.'}</p>
+        <button class="btn primary" onclick={share}>Share result</button>
+      </div>
     {/if}
   {:else if loadError}
     <p role="alert">{loadError}</p>
@@ -267,7 +284,11 @@
     <details class="puzzle-stats">
       <summary>Puzzle statistics and leaderboard</summary>
       {#if stats}
-        <p>{stats.played} started · {stats.finished} finished · {stats.won} solved</p>
+        <dl class="metrics">
+          <div><dt>Started</dt><dd>{stats.played}</dd></div>
+          <div><dt>Finished</dt><dd>{stats.finished}</dd></div>
+          <div><dt>Solved</dt><dd>{stats.won}</dd></div>
+        </dl>
         {#if stats.finished}
           <p>{Math.round(100 * stats.won / stats.finished)}% solved ·
             {stats.mean_mistakes?.toFixed(1)} average mistakes ·
@@ -280,9 +301,11 @@
           </ul>
         {/if}
         {#if stats.leaderboard.length}
-          <ol>
+          <h2>Leaderboard</h2>
+          <ol class="leaderboard">
             {#each stats.leaderboard as entry (entry.player)}
-              <li>{entry.player}{entry.player === attempt?.player ? ' (you)' : ''} · {entry.mistakes} mistakes · {entry.inspections} inspections</li>
+              <li><strong>{entry.player}{entry.player === attempt?.player ? ' (you)' : ''}</strong>
+                <span>{entry.mistakes} mistakes · {entry.inspections} inspections</span></li>
             {/each}
           </ol>
         {:else}
