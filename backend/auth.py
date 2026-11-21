@@ -3,10 +3,12 @@
 import base64
 import hashlib
 import json
+import logging
 import os
 import secrets
 from dataclasses import dataclass
 from urllib.parse import urlencode, urlsplit
+from urllib.error import HTTPError
 from urllib.request import Request as UpstreamRequest, urlopen
 from uuid import UUID, uuid4
 
@@ -21,6 +23,9 @@ FLOW = "compounds_discord_flow"
 CALLBACK = "/api/auth/discord/callback"
 SESSION_SECONDS = 30 * 24 * 60 * 60
 FLOW_SECONDS = 600
+DISCORD = "https://discord.com"
+USER_AGENT = "DiscordBot (https://github.com/uberfap/compounds, 1.0)"
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -126,10 +131,13 @@ def exchange(settings, code, verifier):
         "grant_type": "authorization_code", "code": code, "redirect_uri": settings.redirect,
         "client_id": settings.client_id, "client_secret": settings.secret, "code_verifier": verifier,
     }).encode()
-    with urlopen(UpstreamRequest("https://discord.com/api/v10/oauth2/token", data=form), timeout=8) as response:
+    token_request = UpstreamRequest(DISCORD + "/api/oauth2/token", data=form, headers={
+        "User-Agent": USER_AGENT, "Content-Type": "application/x-www-form-urlencoded",
+    })
+    with urlopen(token_request, timeout=8) as response:
         access_token = json.load(response)["access_token"]
-    request = UpstreamRequest("https://discord.com/api/v10/users/@me", headers={
-        "Authorization": f"Bearer {access_token}",
+    request = UpstreamRequest(DISCORD + "/api/v10/users/@me", headers={
+        "Authorization": f"Bearer {access_token}", "User-Agent": USER_AGENT,
     })
     with urlopen(request, timeout=8) as response:
         user = json.load(response)
@@ -167,7 +175,7 @@ def start(request: Request, response: Response, guest_id: UUID | None = Body(emb
     response.headers["Cache-Control"] = "no-store"
     response.set_cookie(FLOW, state, max_age=FLOW_SECONDS, path=CALLBACK,
                         httponly=True, secure=settings.secure, samesite="lax")
-    return {"url": "https://discord.com/oauth2/authorize?" + urlencode({
+    return {"url": DISCORD + "/api/oauth2/authorize?" + urlencode({
         "client_id": settings.client_id, "redirect_uri": settings.redirect,
         "response_type": "code", "scope": "identify", "state": state,
         "code_challenge": challenge, "code_challenge_method": "S256",
@@ -175,26 +183,43 @@ def start(request: Request, response: Response, guest_id: UUID | None = Body(emb
 
 
 @router.get("/discord/callback")
-def callback(request: Request, state: str = "", code: str = "", iss: str = ""):
+def callback(request: Request, state: str = "", code: str = "", iss: str = "", error: str = ""):
     settings = config()
-    response = RedirectResponse("/?auth=failed", status_code=303, headers={
+    response = RedirectResponse("/?auth=expired", status_code=303, headers={
         "Cache-Control": "no-store", "Referrer-Policy": "no-referrer",
     })
-    response.delete_cookie(FLOW, path=CALLBACK, secure=bool(settings and settings.secure), httponly=True)
     cookie = request.cookies.get(FLOW, "")
     if not settings or not state or not secrets.compare_digest(state.encode(), cookie.encode()):
+        logger.warning("Discord callback missing a matching browser state")
         return response
+    response.delete_cookie(FLOW, path=CALLBACK, secure=settings.secure, httponly=True)
     with database.connect() as connection:
         flow = connection.execute("""
             DELETE FROM discord_flows WHERE token_hash = %s AND expires_at > now()
             RETURNING verifier, guest_id
         """, (token_hash(state),)).fetchone()
-    if not flow or not code or iss != "https://discord.com":
+    if not flow:
+        logger.warning("Discord callback flow expired or already used")
+        return response
+    if error == "access_denied":
+        response.headers["Location"] = "/?auth=cancelled"
+        return response
+    # The provider is fixed and the flow is bound to this browser with state and PKCE.
+    if error or not code or (iss and iss != DISCORD):
+        logger.warning("Discord callback returned an invalid authorization response")
+        response.headers["Location"] = "/?auth=failed"
         return response
     verifier, guest_id = flow
     try:
         discord_id, name = exchange(settings, code, verifier)
-    except (OSError, ValueError, KeyError, TypeError):
+    except HTTPError as error:
+        endpoint = "token" if error.url == DISCORD + "/api/oauth2/token" else "profile"
+        logger.warning("Discord %s request rejected (HTTP %s)", endpoint, error.code)
+        response.headers["Location"] = "/?auth=provider"
+        return response
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        logger.warning("Discord sign-in request failed (%s)", type(error).__name__)
+        response.headers["Location"] = "/?auth=provider"
         return response
     token = secrets.token_urlsafe(32)
     with database.connect() as connection:

@@ -13,6 +13,8 @@
   type Theme = 'system' | 'light' | 'dark'
   const initialTheme = document.documentElement.dataset.theme
   let theme = $state<Theme>(initialTheme === 'light' || initialTheme === 'dark' ? initialTheme : 'system')
+  const nextTheme: Record<Theme, Theme> = { system: 'light', light: 'dark', dark: 'system' }
+  const themeLabel = $derived(`Theme: ${theme}. Switch to ${nextTheme[theme]}.`)
   let help = $state<HTMLDialogElement>()
   let session = $state<Session>()
   let authBusy = $state(false)
@@ -96,6 +98,12 @@
       try {
         localStorage.removeItem(playerKey)
       } catch { /* Guest storage is optional. */ }
+    } else if (result === 'expired') {
+      authMessage = 'Discord sign-in expired or returned to a different browser origin. Start again from this page.'
+    } else if (result === 'cancelled') {
+      authMessage = 'Discord sign-in was cancelled.'
+    } else if (result === 'provider') {
+      authMessage = 'Could not complete sign-in with Discord. Try again.'
     } else if (result) authMessage = 'Discord sign-in did not complete.'
     if (result) {
       const url = new URL(location.href)
@@ -298,16 +306,24 @@
   <header class="site-header">
     <div><h1>Compounds</h1>{#if board}<span id="num">#{board.number} · {board.date}</span>{/if}</div>
     <div class="utilities">
-      <button class="btn" onclick={() => help?.showModal()}>How to play</button>
-      <select aria-label="Color theme" value={theme} onchange={event => setTheme(event.currentTarget.value as Theme)}>
-        <option value="system">System theme</option>
-        <option value="light">Light theme</option>
-        <option value="dark">Dark theme</option>
-      </select>
+      <button class="btn icon-btn" aria-label="How to play" title="How to play" onclick={() => help?.showModal()}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 0 1 6 0c0 2-3 2.5-3 4m0 3h.01"/></svg>
+      </button>
+      <button class="btn icon-btn" aria-label={themeLabel} title={themeLabel} onclick={() => setTheme(nextTheme[theme])}>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          {#if theme === 'system'}<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/>
+          {:else if theme === 'light'}<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/>
+          {:else}<path d="M20.7 15a8.8 8.8 0 0 1-11.7-11.7A9 9 0 1 0 20.7 15Z"/>{/if}
+        </svg>
+      </button>
       {#if session?.account}
-        <button class="btn" title={session.account.name} disabled={authBusy} onclick={changeSession}>Sign out</button>
+        <button class="btn icon-btn" aria-label="Sign out" title={`Sign out of ${session.account.name}`} disabled={authBusy} onclick={changeSession}>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4H5v16h5m-1-8h12m-4-4 4 4-4 4"/></svg>
+        </button>
       {:else if session?.enabled}
-        <button class="btn discord" disabled={authBusy} onclick={changeSession}>Sign in with Discord</button>
+        <button class="btn icon-btn discord" aria-label="Sign in with Discord" title="Sign in with Discord" disabled={authBusy} onclick={changeSession}>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6 6 5C4 7 3 11 3 15l4 2 2-2m7-9 2-1c2 2 3 6 3 10l-4 2-2-2M7 14c3 2 7 2 10 0M8 6c2-1 6-1 8 0m-7 5h.01m6 0h.01"/></svg>
+        </button>
       {/if}
     </div>
   </header>

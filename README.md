@@ -55,8 +55,8 @@ The archive lists days before today in UTC.
 
 ## Theme, help, and Discord sign-in
 
-The theme menu follows the operating system by default and remembers an explicit
-Light or Dark choice in the browser. **How to play** covers guessing, difficulty,
+The theme icon cycles through System, Light, and Dark and remembers the setting
+in the browser. **How to play** covers guessing, difficulty,
 and structure inspections with an example.
 
 Guest play works by default. To enable **Sign in with Discord**, create an
