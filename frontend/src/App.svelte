@@ -44,12 +44,14 @@
   let attempt = $state<Attempt>()
   let order = $state<number[]>([])
   let selected = $state<number[]>([])
-  let inspecting = $state(false)
+  let inspecting = $state<'structure' | 'synonyms' | null>(null)
   let busy = $state(false)
   let loadError = $state('')
   let message = $state('')
   let structure = $state<{ name: string; url: string }>()
   let dialog = $state<HTMLDialogElement>()
+  let synonyms = $state<{ name: string; values: string[] }>()
+  let synonymDialog = $state<HTMLDialogElement>()
   let range = $state<{ first: number; last: number }>()
   let shaken = $state(false)
   let revealedTier = $state<number>()
@@ -83,7 +85,7 @@
 
   function progress(game: Attempt): PuzzleStatus {
     if (game.over) return game.won ? 'solved' : 'missed'
-    return game.mistakes || game.solved.length || game.inspected.length || selected.length
+    return game.mistakes || game.solved.length || game.inspected.length || game.synonym_inspected.length || selected.length
       ? 'in_progress' : 'unplayed'
   }
 
@@ -226,7 +228,7 @@
         ? [...new Set(saved.selected)].filter(id => playable.includes(id)).slice(0, 4) : []
       stats = undefined
       void loadStats(puzzle)
-      inspecting = false
+      inspecting = null
       revealedTier = undefined
       requested = number
       if (number) {
@@ -271,6 +273,7 @@
   function closeStructure() {
     if (structure) URL.revokeObjectURL(structure.url)
     structure = undefined
+    synonyms = undefined
   }
 
   async function clickTile(tile: Tile) {
@@ -281,10 +284,21 @@
       save()
       return
     }
-    inspecting = false
-    if (!tile.has_structure) { toast('No structure available for ' + tile.name); return }
+    const hint = inspecting
+    if (hint === 'structure' && !tile.has_structure) { toast('No structure available for ' + tile.name); return }
+    if (hint === 'synonyms' && !tile.has_synonyms) { toast('No synonyms available for ' + tile.name); return }
+    inspecting = null
     busy = true
     try {
+      if (hint === 'synonyms') {
+        const result = await api<{ synonyms: string[]; state: Attempt }>(`/attempts/${attempt.id}/synonyms/${tile.id}`, 'POST')
+        attempt = result.state
+        save()
+        synonyms = { name: tile.name, values: result.synonyms }
+        await tick()
+        synonymDialog?.showModal()
+        return
+      }
       const result = await api<{ svg: string; state: Attempt }>(`/attempts/${attempt.id}/structures/${tile.id}`, 'POST')
       attempt = result.state
       save()
@@ -305,7 +319,7 @@
       if (response.result === 'correct') {
         revealedTier = attempt.solved.at(-1)?.tier
         selected = []
-        inspecting = false
+        inspecting = null
       } else if (response.result === 'duplicate') toast('Already guessed')
       else {
         toast(response.result === 'one_away' ? 'One away…' : 'Not quite')
@@ -417,7 +431,7 @@
       </section>
     {/if}
     {#if !attempt.over}
-      <div class="board" class:inspect-mode={inspecting} class:shake={shaken}
+      <div class="board" class:inspect-mode={!!inspecting} class:shake={shaken}
         onanimationend={() => { shaken = false }}>
         {#each visible as id (id)}
           {@const tile = tiles.get(id)!}
@@ -440,15 +454,22 @@
         <button class="btn" disabled={busy} onclick={shuffle}>Shuffle</button>
         <button class="btn" disabled={busy || !selected.length} onclick={() => { selected = []; save() }}>Deselect</button>
         {#if visible.some(id => tiles.get(id)?.has_structure)}
-          <button class="btn" class:active={inspecting} aria-pressed={inspecting}
-            disabled={busy || (!inspecting && attempt.inspections_left === 0 && !visible.some(id => attempt?.inspected.includes(id)))}
-            onclick={() => { inspecting = !inspecting }}>
-            {inspecting ? 'Cancel' : 'Structure'} ({attempt.inspections_left})
+          <button class="btn" class:active={inspecting === 'structure'} aria-pressed={inspecting === 'structure'}
+            disabled={busy || (inspecting !== 'structure' && attempt.inspections_left === 0 && !visible.some(id => attempt?.inspected.includes(id)))}
+            onclick={() => { inspecting = inspecting === 'structure' ? null : 'structure' }}>
+            {inspecting === 'structure' ? 'Cancel' : 'Structure'} ({attempt.inspections_left})
+          </button>
+        {/if}
+        {#if visible.some(id => tiles.get(id)?.has_synonyms)}
+          <button class="btn" class:active={inspecting === 'synonyms'} aria-pressed={inspecting === 'synonyms'}
+            disabled={busy || (inspecting !== 'synonyms' && attempt.synonym_hints_left === 0 && !visible.some(id => attempt?.synonym_inspected.includes(id)))}
+            onclick={() => { inspecting = inspecting === 'synonyms' ? null : 'synonyms' }}>
+            {inspecting === 'synonyms' ? 'Cancel' : 'Synonyms'} ({attempt.synonym_hints_left})
           </button>
         {/if}
         <button class="btn primary" disabled={busy || selected.length !== 4} onclick={submit}>Submit</button>
       </div>
-      {#if inspecting}<p id="msg">Tap a compound to view its skeletal structure.</p>{/if}
+      {#if inspecting}<p id="msg">{inspecting === 'structure' ? 'Tap a compound to view its skeletal structure.' : 'Tap a compound to reveal its synonyms.'}</p>{/if}
     {:else}
       <div class="result">
         <p>{attempt.won ? `Solved with ${attempt.mistakes} mistake${attempt.mistakes === 1 ? '' : 's'}.` : 'Out of mistakes. Here are the groups.'}</p>
@@ -535,6 +556,7 @@
     <li><strong>One away</strong> means three of your tiles belong together. An incorrect guess uses one of your four mistakes.</li>
     <li>Difficulty runs from yellow (easiest) through green and blue to purple (trickiest).</li>
     <li>Choose <strong>Structure</strong> and then a tile to inspect its skeletal structure. You can unlock four distinct structures per puzzle and revisit an unlocked structure for free.</li>
+    <li>Choose <strong>Synonyms</strong> to reveal other names for a tile. You can unlock synonyms for four tiles per puzzle and revisit them for free.</li>
   </ul>
   <div class="help-example">
     <h3>Example group</h3>
@@ -590,6 +612,16 @@
     {/if}
   {/if}
 </dialog>
+
+{#if synonyms}
+  <dialog class="help-dialog" bind:this={synonymDialog} onclose={() => { synonyms = undefined }} aria-labelledby="synonym-title">
+    <div class="dialog-heading">
+      <h2 id="synonym-title">Synonyms for {synonyms.name}</h2>
+      <form method="dialog"><button class="btn">Close</button></form>
+    </div>
+    <ul>{#each synonyms.values as name}<li>{name}</li>{/each}</ul>
+  </dialog>
+{/if}
 
 {#if structure}
   <dialog class="svg-modal" bind:this={dialog} onclose={closeStructure} aria-labelledby="structure-title">

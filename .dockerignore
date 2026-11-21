@@ -1,7 +1,13 @@
 **
 !Dockerfile
 !alembic.ini
+!data/
+!data/catalogue/
+!data/catalogue/compounds.csv
 !backend/
+!data/
+!data/catalogue/
+!data/catalogue/compounds.csv
 !backend/**
 backend/**/__pycache__/
 backend/**/*.pyc
