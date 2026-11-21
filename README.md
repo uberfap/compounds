@@ -125,6 +125,13 @@ The generator skips placeholder catalogue tags such as `unknown` and
 functional groups and ring motifs in the cached molecular structures. Without
 RDKit, generation still uses names, formulas, and catalogue tags.
 
+Generated batches include private balance diagnostics. Each group records its
+rule ID and raw score before clamping. Each puzzle records its relaxation level,
+near-miss count, and the number of distinct unintended quartets matched by rules
+that hit exactly four tiles on that board. Selected rule pairs include their
+catalogue support sizes and intersection size, which give directional
+containment and Jaccard overlap.
+
 Puzzle batches contain answers and structure SVGs. Generate them in a private checkout and keep them off public remotes.
 
 ```sh

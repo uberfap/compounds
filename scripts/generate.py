@@ -16,6 +16,7 @@ import logging
 import random
 import re
 import time
+import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -165,7 +166,7 @@ MISSING_TAGS = {"", "none", "unknown", "unclassified", "unspecified", "n/a", "na
 
 STRUCTURE_PATTERNS = (
     ("nitrile", "Contain a nitrile group", "[#6]#[#7]"),
-    ("ester", "Contain an ester group", "[CX3](=[OX1])[OX2][#6]"),
+    ("ester", "Contain a carboxylic ester group", "[CX3;H1,$([CX3][#6])](=[OX1])[OX2][#6]"),
     ("amide", "Contain an amide group", "[CX3](=[OX1])[NX3]"),
     ("phenol", "Contain a phenolic hydroxyl group", "[c][OX2H]"),
     ("methoxy", "Contain an aromatic methoxy group", "[c][OX2][CH3]"),
@@ -173,6 +174,13 @@ STRUCTURE_PATTERNS = (
     ("thiophene", "Contain a thiophene ring", "s1cccc1"),
     ("cyclopropane", "Contain a cyclopropane ring", "[C;r3]1[C;r3][C;r3]1"),
 )
+
+NEW_NAME_PREDS = {
+    "name:4locant": ('Names starting with "4-"', lambda n: n.startswith("4-")),
+    "name:5locant": ('Names starting with "5-"', lambda n: n.startswith("5-")),
+    "name:ol": ('Names ending in "ol"', lambda n: n.endswith("ol")),
+    "name:oxy": ('Names containing the letters "oxy"', lambda n: "oxy" in n),
+}
 
 TRIVIAL_NAME_PIDS = {"name:2c", "name:digit", "name:three", "name:meth",
                      "name:di", "name:one", "name:ine", "name:phen"}
@@ -722,6 +730,8 @@ def build(comps, cap):
         lambda c: c["mass"] is not None and 200 <= c["mass"] <= 250)
     add("mass:250_300", "formula", "Molar mass over 250 and up to 300 g/mol",
         lambda c: c["mass"] is not None and 250 < c["mass"] <= 300)
+    add("mass:300_350", "formula", "Molar mass over 300 and up to 350 g/mol",
+        lambda c: c["mass"] is not None and 300 < c["mass"] <= 350)
     add("mass:gt350", "formula", "Molar mass over 350 g/mol",
         lambda c: c["mass"] is not None and c["mass"] > 350)
 
@@ -740,6 +750,10 @@ def build(comps, cap):
     for pid, label, fn in NAME_PREDS:
         fam = "name:trivial" if pid in TRIVIAL_NAME_PIDS else "name:specific"
         add(pid, fam, label, lambda c, fn=fn: fn(normalize_alpha(c["name"]).lower()))
+    for pid, (label, fn) in NEW_NAME_PREDS.items():
+        add(pid, "name:trivial", label, lambda c, fn=fn: fn(re.sub(
+            r"^(?:\((?:r|s|±|\+|−|-)\)-)+", "",
+            unicodedata.normalize("NFKC", c["name"]).casefold())))
 
     for p in preds:
         p.matches = frozenset(i for i, c in enumerate(comps) if p.fn(c))
@@ -929,6 +943,7 @@ def board_group_difficulty_details(pred, member_ids, board_ids, chosen, lib, com
     score = int(round(max(25.0, min(100.0, raw_score))))
     return {
         "score": score,
+        "raw_score": round(raw_score, 2),
         "knowledge_prior": base,
         "visible_name_reduction": round(visible_name_bonus, 1),
         "board_false_positive_tiles": false_positives,
@@ -1019,6 +1034,20 @@ def count_near_misses(used, chosen, lib, min_size=3, max_size=6):
             continue
         n += 1
     return n
+
+
+def board_diagnostics(used, chosen, picks, lib, near_max_size):
+    intended = {frozenset(members) for members in picks.values()}
+    exact_four = {p.matches & used for p in lib if len(p.matches & used) == 4}
+    return {
+        "near_miss_rules": count_near_misses(used, chosen, lib, 3, near_max_size),
+        "exact_four_decoys": len(exact_four - intended),
+        "selected_rule_overlap": [
+            {"rules": [left.pid, right.pid], "shared": len(left.matches & right.matches),
+             "support": [len(left.matches), len(right.matches)]}
+            for left, right in combinations(chosen, 2)
+        ],
+    }
 
 
 # ---------------------------------------------------------------- generator
@@ -1174,6 +1203,7 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
         groups = []
         for p in sorted(chosen, key=lambda p: tiers[p.pid]):
             groups.append({
+                "rule_id": p.pid,
                 "tier": tiers[p.pid],
                 "label": p.label,
                 "members": [comps[i]["name"] for i in picks[p.pid]],
@@ -1182,7 +1212,8 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
             })
 
         return {"groups": groups, "board": board, "svgs": svgs,
-                "herrings": chosen_herrings}
+                "herrings": chosen_herrings,
+                "diagnostics": board_diagnostics(used, chosen, picks, lib, near_max_size)}
 
     return None
 
@@ -1269,6 +1300,7 @@ def main():
             break
         p["date"] = (start + dt.timedelta(days=d)).isoformat()
         p["number"] = d + 1
+        p["diagnostics"]["relaxation_level"] = relax
         puzzles.append(p)
         score_text = ", ".join(str(g["difficulty_score"]) for g in p["groups"])
         print(f"[PUZZLE {d + 1:>3}/{a.days}] {p['date']}: difficulty {score_text}", flush=True)
