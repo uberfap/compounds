@@ -635,6 +635,9 @@ def load(path):
         effect = (r.get("effect") or "").strip().casefold()
         if effect.startswith("inferred:"):
             effect = ""
+        pharmacological_class = (r.get("pharmacological_class") or effect).strip().casefold()
+        if pharmacological_class.startswith("inferred:"):
+            pharmacological_class = ""
         comps.append({
             "name": name,
             "formula": formula,
@@ -643,9 +646,7 @@ def load(path):
             "mass": mass,
             # New schema first; legacy columns remain supported for older CSVs.
             "scaffold_class": (r.get("scaffold_class") or r.get("class") or "").strip().casefold(),
-            "pharmacological_class": (
-                r.get("pharmacological_class") or effect
-            ).strip().casefold(),
+            "pharmacological_class": pharmacological_class,
             "effect": effect,
             "target": ";".join(targets),
             "targets": targets,
