@@ -1,0 +1,12 @@
+name|alias|source_url|source_note
+LSA|Lysergic acid amide|https://www.alabamapublichealth.gov/about/420-7-2-a.pdf|Alabama public-health controlled-substances schedule explicitly lists d-lysergic acid amide with other name LSA.
+DOC|2,5-Dimethoxy-4-chloroamphetamine|https://www.alabamapublichealth.gov/about/420-7-2-a.pdf|Alabama public-health controlled-substances schedule explicitly lists the chemical name with other name DOC.
+MDEA|3,4-Methylenedioxy-N-ethylamphetamine|https://www.dea.gov/sites/default/files/2024-12/2024-Drugs-of-Abuse-508.pdf|DEA Drugs of Abuse 2024 table lists the chemical name and MDEA among its other names.
+MDA|3,4-Methylenedioxyamphetamine|https://www.dea.gov/sites/default/files/2024-12/2024-Drugs-of-Abuse-508.pdf|DEA Drugs of Abuse 2024 table lists the chemical name with MDA as an other name.
+PMA|para-Methoxyamphetamine|https://www.dea.gov/sites/default/files/2025-01/Ecstasy-MDMA-2024-Drug-Fact-Sheet.pdf|DEA fact sheet explicitly identifies para-methoxyamphetamine as PMA.
+3-MMA|3-methylmethamphetamine|https://www.pref.nagasaki.jp/shared/uploads/2023/11/1699262563.pdf|Nagasaki Prefecture, Japan, identifies the chemical name and gives 3-MMA and 3-Methylmethamphetamine as common names.
+4-MA|4-Methylamphetamine|https://bdoc.ofdt.fr/doc_num.php?explnum_id=18182|French OFDT risk assessment lists 4-MA among code names for 4-methylamphetamine, but explicitly warns the abbreviation is ambiguous with para-methoxyamphetamine (PMA). Retain only as a documented alias, not as a safe standalone lookup key.
+MET|Methylethyltryptamine|https://precision.fda.gov/uniisearch/srs/unii/4KX1J1D3RD|FDA GSRS record for N-methyl-N-ethyltryptamine lists MET and methylethyltryptamine as synonyms.
+DMT|N,N-Dimethyltryptamine|https://www.deadiversion.usdoj.gov/drug_chem_info/dmt.pdf|DEA Drug and Chemical Evaluation explicitly titles the substance N,N-dimethyltryptamine (DMT).
+mCPP|1-(3-Chlorophenyl)piperazine|https://precision.fda.gov/uniisearch/srs/unii/REY0CNO998|FDA GSRS record for 1-(3-chlorophenyl)piperazine lists M-CPP/MCPP and related systematic names.
+DPH|Diphenhydramine|https://www.in.gov/dA/6f45a9d782/Drug_Test_Methods_2025-09-01.pdf?language_id=1|Indiana State Police Drug Unit Test Methods abbreviation appendix explicitly maps DPH to diphenhydramine.
