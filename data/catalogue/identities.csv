@@ -113,7 +113,7 @@ Fenfluramine|DBGIVFWFUFKIQN-UHFFFAOYSA-N|3337||
 Lisdexamfetamine|VOBHXZCDAVEXEY-JSGCOSHPSA-N|11597698||
 MDA|NGBBVGZWCFBOGO-UHFFFAOYSA-N|1614||
 MDEA|SKPIISDJIUTQMZ-UHFFFAOYSA-N|21966318||
-MDMA|SHXWCVYOXRDMCX-UHFFFAOYSA-N|1615|Midomafetamine;3,4-Methylenedioxymethamphetamine;Ecstasy;XTC|https://pubchem.ncbi.nlm.nih.gov/compound/1615;https://www.dea.gov/sites/default/files/2025-01/Hallucinogens-Drug-Fact-Sheet.pdf
+MDMA|SHXWCVYOXRDMCX-UHFFFAOYSA-N|1615|Midomafetamine;3,4-Methylenedioxymethamphetamine;Ecstasy;XTC;Molly|https://pubchem.ncbi.nlm.nih.gov/compound/1615;https://www.dea.gov/sites/default/files/2025-01/Hallucinogens-Drug-Fact-Sheet.pdf;https://www.dea.gov/factsheets/ecstasy-or-mdma-also-known-molly
 Methamphetamine|MYWUZJCMWCOHBA-VIFPVBQESA-N|10836||
 Phentermine|DHHVAGZRUROJKS-UHFFFAOYSA-N|4771||
 PMA|NEGYEDYHPHMHGK-UHFFFAOYSA-N|31721||
@@ -139,7 +139,7 @@ Ethylone|MJEMIOXXNCZZFK-UHFFFAOYSA-N|57252245||
 Methylone|VKEQBMCRQDSRET-UHFFFAOYSA-N|45789647||
 Eutylone|YERSNXHEOIYEGX-UHFFFAOYSA-N|57360686||
 Hexedrone|BHIZKPHLTVLXIV-UHFFFAOYSA-N|129844496||
-Mephedrone|YELGFTGWJGBAQU-UHFFFAOYSA-N|45266826|4-MMC;4-Methylmethcathinone|https://pubchem.ncbi.nlm.nih.gov/compound/45266826
+Mephedrone|YELGFTGWJGBAQU-UHFFFAOYSA-N|45266826|4-MMC;4-Methylmethcathinone;Meow Meow|https://pubchem.ncbi.nlm.nih.gov/compound/45266826;https://www.drogues-info-service.fr/content/view/pdf/20295
 Methedrone|MQUIHBQDYYAEMH-UHFFFAOYSA-N|216281||
 Methcathinone|LPLLVINFLBSFRP-UHFFFAOYSA-N|1576||
 Mexedrone|JHGDCSPZKQLBOP-UHFFFAOYSA-N|129318262||
@@ -400,7 +400,7 @@ Tapentadol|KWTWDQCKEHXFFR-SMDDNHRTSA-N|9838022||
 Tianeptine|JICJBGPOMZQUBB-UHFFFAOYSA-N|68870|Stablon|https://pubchem.ncbi.nlm.nih.gov/compound/68870
 Tramadol|TVYLLZQTGLZFBW-ZBFHGGJFSA-N|33741||
 U-47700|JGPNMZWFVRQNGU-GJZGRUSLSA-N|71719125||
-2-FDCK|PHFAGYYTDLITTB-UHFFFAOYSA-N|13771618|2F-DCK;2-FK;2-Fluorodeschloroketamine|https://www.drogues.gouv.fr/sites/default/files/2022-07/guide_NPS_2022.pdf
+2F-DCK|PHFAGYYTDLITTB-UHFFFAOYSA-N|13771618|2-FDCK;2-FK;2-Fluorodeschloroketamine|https://www.drogues.gouv.fr/sites/default/files/2022-07/guide_NPS_2022.pdf
 3-Cl-PCP|HUHBTESMMFLCAN-UHFFFAOYSA-N|125502037||
 3-F-PCP|PFPLGKFWWBXTNP-UHFFFAOYSA-N|398433||
 3-HO-PCE|MIKNPNLBFHVMKK-UHFFFAOYSA-N|137332171||
@@ -412,10 +412,10 @@ U-47700|JGPNMZWFVRQNGU-GJZGRUSLSA-N|71719125||
 3-MeO-PCP|BQQSZHHKGPOXLN-UHFFFAOYSA-N|11778080||
 4-MeO-PCP|MUZGGFNYVLGUFS-UHFFFAOYSA-N|15100753||
 DMXE|WIMLPRYZJQNQLE-UHFFFAOYSA-N|157010705||
-Deschloroketamine|ZAGBSZSITDFFAF-UHFFFAOYSA-N|437168|DCK;DXE;2-Oxo-PCM|https://www.drogues.gouv.fr/sites/default/files/2022-07/guide_NPS_2022.pdf
-Fluorexetamine|FCETYWCLCUZFJI-UHFFFAOYSA-N|137332183|FXE;3F-2oxo-PCE|https://www.cfsre.org/nps-discovery/public-alerts/2f-2oxo-pce-a-new-synthetic-hallucinogen-identified-in-recreational-drug-markets-across-north-america
+DCK|ZAGBSZSITDFFAF-UHFFFAOYSA-N|437168|Deschloroketamine;DXE;2-Oxo-PCM|https://www.drogues.gouv.fr/sites/default/files/2022-07/guide_NPS_2022.pdf
+FXE|FCETYWCLCUZFJI-UHFFFAOYSA-N|137332183|3F-2oxo-PCE;Fluorexetamine|https://www.cfsre.org/nps-discovery/public-alerts/2f-2oxo-pce-a-new-synthetic-hallucinogen-identified-in-recreational-drug-markets-across-north-america
 HXE|CQERUJSORROCGH-UHFFFAOYSA-N|163192347||
-Ketamine|YQEZLKZALYSWHR-UHFFFAOYSA-N|3821|Special K|https://www.dea.gov/sites/default/files/2025-01/Ketamine-Drug-Fact-Sheet.pdf
+Ketamine|YQEZLKZALYSWHR-UHFFFAOYSA-N|3821|Special K;K;Kit Kat;Vitamin K|https://www.dea.gov/sites/default/files/2025-01/Ketamine-Drug-Fact-Sheet.pdf;https://www.deadiversion.usdoj.gov/drug_chem_info/ketamine.pdf
 MXE|LPKTWLVEGBNOOX-UHFFFAOYSA-N|52911279|Methoxetamine|https://www.drogues.gouv.fr/sites/default/files/2022-07/guide_NPS_2022.pdf
 MXiPr|FTQIVDGNGXPEKP-UHFFFAOYSA-N|163192824||
 MXPr|AAVOSBAXDRASAH-UHFFFAOYSA-N|155817932||
@@ -433,12 +433,12 @@ DXM|MKXZASYAUGDDCJ-NJAFHUGGSA-N|5360696|Dextromethorphan|https://pubchem.ncbi.nl
 Dextrorphan|JAQUASYNZVUNQP-PVAVHDDUSA-N|5360697||
 Dizocilpine|LBOJYSIDWZQNJS-UHFFFAOYSA-N|1207||
 Memantine|BUGYDGFZZOZRHP-UHFFFAOYSA-N|4054||
-Nitrous oxide|GQPLMRYTRLFLPF-UHFFFAOYSA-N|948||
+Nitrous oxide|GQPLMRYTRLFLPF-UHFFFAOYSA-N|948|Laughing gas|https://meshb.nlm.nih.gov/record/ui?ui=D009609
 Arecoline|HJJPJSXJAXAIPN-UHFFFAOYSA-N|2230||
 Atropine|RKUNBYITZUJHSG-UHFFFAOYSA-N|3661||
 Benztropine|GIJXKZJWITVLHI-UHFFFAOYSA-N|2344||
 Benzydamine|CNBGNNVCVSKAQZ-UHFFFAOYSA-N|12555||
-Diphenhydramine|ZZVUWRFHKOJYTH-UHFFFAOYSA-N|3100||
+DPH|ZZVUWRFHKOJYTH-UHFFFAOYSA-N|3100|Diphenhydramine|https://www.nature.com/articles/s41420-023-01616-6
 Hyoscyamine|RKUNBYITZUJHSG-LGGPCSOHSA-N|64692||
 Mirtazapine|RONZAEMNMFQXRA-UHFFFAOYSA-N|4205||
 Muscimol|ZJQHPWUVQPJPQT-UHFFFAOYSA-N|4266|Agarin;Pantherine|https://pubchem.ncbi.nlm.nih.gov/compound/4266
@@ -472,10 +472,10 @@ Ethylflualprazolam|SRZYAHVJONICNV-UHFFFAOYSA-N|||
 MMB-CHMINACA|CRGGXDSTBHQLKJ-UHFFFAOYSA-N|119058052|MA-CHMINACA|https://pubchem.ncbi.nlm.nih.gov/compound/119058052
 N-sec-Butyl Butylone|VAVLXANEYVJZOG-UHFFFAOYSA-N|||
 3-MeO-2-Oxo-PCP|SLZCJSHTKSLENJ-UHFFFAOYSA-N|||
-MDMB-PINACA|QSNCKXRHFRDPRX-UHFFFAOYSA-N|171041795||
-2-Oxo-PCP|NVKXODIIEPKREY-UHFFFAOYSA-N|13509836||
+MDMB-PINACA|QSNCKXRHFRDPRX-UHFFFAOYSA-N|171041795|Methyl 3,3-dimethyl-2-[(1-pentylindazole-3-carbonyl)amino]butanoate|https://pubchem.ncbi.nlm.nih.gov/compound/171041795
+2-Oxo-PCP|NVKXODIIEPKREY-UHFFFAOYSA-N|13509836|2-Keto-PCP;2-Phenyl-2-(1-piperidinyl)cyclohexanone|https://pubchem.ncbi.nlm.nih.gov/compound/13509836;https://www.reddit.com/r/dissociatives/comments/1lqiqjm
 N-Piperidinyl Methiodone|ZVXQZJPYLLIYSB-UHFFFAOYSA-N|16206925||
-Methiodone|NLPGJSPLDNDKKZ-UHFFFAOYSA-N|113832|IC-26|https://www.cfsre.org/nps-discovery/monographs/methiodone
+IC-26|NLPGJSPLDNDKKZ-UHFFFAOYSA-N|113832|Methiodone|https://www.cfsre.org/nps-discovery/monographs/methiodone
 N-Piperidinyl Tapentadol|NVMFWVUNWRNHRJ-UHFFFAOYSA-N|89698503|PiPTapentadol;Piptap3|https://www.cfsre.org/nps-discovery/monographs/n-piperidinyl-tapentadol
 Pynazolam|TULLJLNDPPOHKC-UHFFFAOYSA-N|20368157||
 Gidazepam|XLGCMZLSEXRBSG-UHFFFAOYSA-N|121919||
@@ -484,8 +484,8 @@ MMB-PICA|XOVHYVWQBVNONJ-UHFFFAOYSA-N|139597868||
 AMB-4en-PINACA|HPIGPAIXTIMBJA-HNNXBMFYSA-N|176489744||
 Spirochlorphine|KFEYPBZJPJJRFX-UHFFFAOYSA-N|14783734|R-6890|https://pubchem.ncbi.nlm.nih.gov/compound/14783734
 Ethylbromazolam|DKTGBMWWLATMHK-UHFFFAOYSA-N|175667454||
-N-Pyrrolidino Ethylene Isotonitazene|BCRJRRWYLQWRPJ-UHFFFAOYSA-N|||
-N-Pyrrolidino Metodesnitazene|XSEDKWRIABHQMI-UHFFFAOYSA-N|168310617||
+Ethylene Isotonitazepyne|BCRJRRWYLQWRPJ-UHFFFAOYSA-N||Ethylene N-Pyrrolidino Isotonitazene;N-Pyrrolidino Ethylene Isotonitazene|https://frdd.cfsre.org/frd-report?id=NzIy
+N-Pyrrolidino Metodesnitazene|XSEDKWRIABHQMI-UHFFFAOYSA-N|168310617|2-[(4-Methoxyphenyl)methyl]-1-(2-pyrrolidin-1-ylethyl)benzimidazole|https://www.incb.org/incb/uploads/documents/Global_Projects_OPIOIDS/INCB.GRIDS.OPIOIDS.NoFOs_list.pdf
 α-PiHpP|HJZRHYAAONOQLE-UHFFFAOYSA-N|176468909||
 N-Isopropyl Butylone|YLUWYCAYKBCHRS-UHFFFAOYSA-N|165361678||
 Desalkylquazepam|UAFWJQYZZIJGPD-UHFFFAOYSA-N|3081966||
@@ -497,10 +497,10 @@ Fluetizolam|BCKPHENWWQCRCG-UHFFFAOYSA-N|12434320||
 N-Propyl Butylone|NRIHOTHAMAUSRO-UHFFFAOYSA-N|122129922|N-Propyl bk-BDB|https://pubchem.ncbi.nlm.nih.gov/compound/122129922
 N-Cyclohexyl Butylone|JUIRPSMGWVYMJT-UHFFFAOYSA-N|165362342||
 CH-FUBIATA|GSTACBDFNQHWHP-UHFFFAOYSA-N|41109040||
-2F-2oxo-PCE|RTXKYSLDFKUESF-UHFFFAOYSA-N|168323042|CanKet|https://www.cfsre.org/nps-discovery/public-alerts/2f-2oxo-pce-a-new-synthetic-hallucinogen-identified-in-recreational-drug-markets-across-north-america
+2F-NENDCK|RTXKYSLDFKUESF-UHFFFAOYSA-N|168323042|2F-2oxo-PCE;CanKet|https://www.cfsre.org/nps-discovery/public-alerts/2f-2oxo-pce-a-new-synthetic-hallucinogen-identified-in-recreational-drug-markets-across-north-america;https://www.pref.ishikawa.lg.jp/yakuji/yakuran/documents/r070124shiteiyakubutu.pdf
 2-Fluoro-2-oxo-PCiPr|DHZGPBTXJSRLAI-UHFFFAOYSA-N|||
-3-Methoxphenidine|OEMMJXOTBZTIQV-UHFFFAOYSA-N|23358045|3-MXP|https://e-space.mmu.ac.uk/629605/3/Field_UHPLC_JPBA_V6_FINAL.pdf
-4-Methoxphenidine|GNHJGDPAHWFGQN-UHFFFAOYSA-N|411430|4-MXP|https://e-space.mmu.ac.uk/629605/3/Field_UHPLC_JPBA_V6_FINAL.pdf
+3-MXP|OEMMJXOTBZTIQV-UHFFFAOYSA-N|23358045|3-Methoxphenidine|https://e-space.mmu.ac.uk/629605/3/Field_UHPLC_JPBA_V6_FINAL.pdf
+4-MXP|GNHJGDPAHWFGQN-UHFFFAOYSA-N|411430|4-Methoxphenidine|https://e-space.mmu.ac.uk/629605/3/Field_UHPLC_JPBA_V6_FINAL.pdf
 2-Fluorodiphenidine|PHODICVXYLISMP-UHFFFAOYSA-N||2-FP;2-Fluphenidine|https://e-space.mmu.ac.uk/629605/3/Field_UHPLC_JPBA_V6_FINAL.pdf
 4Cl-MAR|PEMJVPLFSLEVII-UHFFFAOYSA-N|165361753|para-Chloro-4-methylaminorex|https://njt.jog.gov.hu/jogszabaly/2022-78-20-0A
 4Br-MAR|TUHDNALAVIDYHT-UHFFFAOYSA-N|165361748|para-Bromo-4-methylaminorex|https://njt.jog.gov.hu/jogszabaly/2022-78-20-0A
@@ -513,15 +513,15 @@ DALT|LQEATNFJCMVKAC-UHFFFAOYSA-N|24839550|N,N-Diallyltryptamine|https://precisio
 N-Methyltryptamine|NCIKQJBVUNUXLW-UHFFFAOYSA-N|6088|NMT;N-Monomethyltryptamine|https://pubchem.ncbi.nlm.nih.gov/compound/6088
 5-MeO-DET|KGDVJQQWCDDEPP-UHFFFAOYSA-N|417608|5-Methoxy-N,N-diethyltryptamine|https://pubchem.ncbi.nlm.nih.gov/compound/417608
 4-AcO-DALT|WRHFDIBXZYYCHO-UHFFFAOYSA-N|119025857||
-N-Pyrrolidino Metonitazene|JTTDZHBAEQTIPA-UHFFFAOYSA-N|168323127|Metonitazepyne|https://cdn.who.int/media/docs/default-source/controlled-substances/47th-ecdd/47th-ecdd_unsg_letter.pdf
-N-Pyrrolidino Etonitazene|LQZWZCJCEPUKCJ-UHFFFAOYSA-N|155804760|Etonitazepyne|https://www.cfsre.org/images/monographs/N-Pyrrolidino_Etonitazene_051321_ToxicologyAnalyticalReport.pdf
-N-Pyrrolidino Isotonitazene|VRKDSDBBRNHHCR-UHFFFAOYSA-N|168322631|Isotonitazepyne|https://eur-lex.europa.eu/eli/dec/2026/575/oj/eng/pdf
-N-Pyrrolidino Protonitazene|KCRWXNIIXGBPID-UHFFFAOYSA-N|168322728|Protonitazepyne|https://cdn.who.int/media/docs/default-source/controlled-substances/47th-ecdd/47th-ecdd_unsg_letter_-annex.pdf
+Metonitazepyne|JTTDZHBAEQTIPA-UHFFFAOYSA-N|168323127|N-Pyrrolidino Metonitazene|https://cdn.who.int/media/docs/default-source/controlled-substances/47th-ecdd/47th-ecdd_unsg_letter.pdf
+Etonitazepyne|LQZWZCJCEPUKCJ-UHFFFAOYSA-N|155804760|N-Pyrrolidino Etonitazene|https://www.cfsre.org/images/monographs/N-Pyrrolidino_Etonitazene_051321_ToxicologyAnalyticalReport.pdf
+Isotonitazepyne|VRKDSDBBRNHHCR-UHFFFAOYSA-N|168322631|N-Pyrrolidino Isotonitazene|https://eur-lex.europa.eu/eli/dec/2026/575/oj/eng/pdf
+Protonitazepyne|KCRWXNIIXGBPID-UHFFFAOYSA-N|168322728|N-Pyrrolidino Protonitazene|https://cdn.who.int/media/docs/default-source/controlled-substances/47th-ecdd/47th-ecdd_unsg_letter_-annex.pdf
 Metodesnitazene|SFNKTTXBZXVGOH-UHFFFAOYSA-N|26412||
 N-Desethyl Etonitazene|RESPFUMJVJRUMB-UHFFFAOYSA-N|162623580||
 Cyclopropylfentanyl|OIQSKDSKROTEMN-UHFFFAOYSA-N|137332271||
 Methoxyacetylfentanyl|SADNVKRDSWWFTK-UHFFFAOYSA-N|968688||
-Orthofluorofentanyl|BKUWDIVZCJNXRA-UHFFFAOYSA-N|101454647|2-Fluorofentanyl|https://www.unodc.org/LSS/Substance/Details/633bc78d-7a9a-47c5-a226-8bef50dd5777
+2-Fluorofentanyl|BKUWDIVZCJNXRA-UHFFFAOYSA-N|101454647|Orthofluorofentanyl|https://www.unodc.org/LSS/Substance/Details/633bc78d-7a9a-47c5-a226-8bef50dd5777
 2-EEC|YHAYVXPZBPEILT-UHFFFAOYSA-N|91696117||
 3-EEC|ZGWFZYCOHXHOHU-UHFFFAOYSA-N|91696115||
 4-Methyl-N-propylcathinone|HALBJKCZJSCGGE-UHFFFAOYSA-N|82100093||
