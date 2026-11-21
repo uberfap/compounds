@@ -32,7 +32,7 @@ PRO-LAD|HZKYLVLOBYNKKM-OXQOHEQNSA-N|44457803||
 4-HO-MET|ORWQBKPSGDRPPA-UHFFFAOYSA-N|21786582||
 4-HO-MPT|XFQDDPQGBLSNCN-UHFFFAOYSA-N|21786584||
 4-HO-MiPT|RXKGHZCQFXXWFQ-UHFFFAOYSA-N|10082683|Miprocin;Hats|https://precision.fda.gov/uniisearch/srs/unii/4GAJ9OJ8YZ
-5-Hydroxytryptophan|LDCYZAJDBXYCGN-VIFPVBQESA-N|||
+5-Hydroxytryptophan|LDCYZAJDBXYCGN-VIFPVBQESA-N|439280|Oxitriptan|https://pubchem.ncbi.nlm.nih.gov/compound/439280
 5-MeO-AMT|OGNJZVNNKBZFRM-UHFFFAOYSA-N|36906||
 5-MeO-DALT|HGRHWEAUHXYNNP-UHFFFAOYSA-N|50878551||
 5-MeO-DMT|ZSTKHSQDNIGFLM-UHFFFAOYSA-N|1832||
@@ -53,7 +53,7 @@ Melatonin|DRLFMBDRBRZALE-UHFFFAOYSA-N|896||
 MiPT|KTQJVAJLJZIKKD-UHFFFAOYSA-N|29935323||
 Norbaeocystin|IKQGYCWFBVEAKF-UHFFFAOYSA-N|9795063||
 Psilocin|SPCIYGNTAMCTRO-UHFFFAOYSA-N|4980|4-HO-DMT;Psilocyn;4-Hydroxy-N,N-dimethyltryptamine|https://pubchem.ncbi.nlm.nih.gov/compound/4980
-Psilocybin|QVDSEJDULKLHCG-UHFFFAOYSA-N|||
+Psilocybin|QVDSEJDULKLHCG-UHFFFAOYSA-N|10624|Indocybin;Psilocybine|https://pubchem.ncbi.nlm.nih.gov/compound/10624
 α-ET|ZXUMUPVQYAFTLF-UHFFFAOYSA-N|8367||
 2,5-DMA|LATVFYDIBMDBSY-UHFFFAOYSA-N|62787||
 2C-B|YMHOBZXQZVXHBM-UHFFFAOYSA-N|98527||
@@ -193,7 +193,7 @@ Armodafinil|YFGHCGITMMYXAQ-LJQANCHMSA-N|9690109||
 BZP|IQXXEPZFOOTTBA-UHFFFAOYSA-N|75994||
 Bromantane|LWJALJDRFBXHKX-UHFFFAOYSA-N|4660557||
 Cocaine|ZPUCINDJVBIVPJ-LJISPDSOSA-N|446220||
-Cyclazodone|DNRKTAYPGADPGW-UHFFFAOYSA-N|||
+Cyclazodone|DNRKTAYPGADPGW-UHFFFAOYSA-N|135438121|Cyclopropylpemoline|https://pubchem.ncbi.nlm.nih.gov/compound/135438121
 Desoxypipradrol|RWTNXJXZVGHMGI-UHFFFAOYSA-N|160506||
 Dichloropane|JFUNLJPTPCQLIR-PJQZNRQZSA-N|127024||
 Ephedrine|KWGRBVOPPLSCSI-WPRPVWTQSA-N|9294||
@@ -336,17 +336,17 @@ Carisoprodol|OFZCIYFFPZCNJE-UHFFFAOYSA-N|2576||
 Chloral hydrate|RNFNDJAIBTYOQL-UHFFFAOYSA-N|2707||
 Clomethiazole|PCLITLDOTJTVDJ-UHFFFAOYSA-N|10783||
 Etomidate|NPUKDXXFDDZOKR-LLVKDONJSA-N|667484||
-Gaboxadol|ZXRVKCBLGJOCEE-UHFFFAOYSA-N|||
+Gaboxadol|ZXRVKCBLGJOCEE-UHFFFAOYSA-N|3448|THIP|https://pubchem.ncbi.nlm.nih.gov/compound/3448
 Kavain|XEAQIWGXBXCYFX-GUOLPTJISA-N|5281565||
 Meprobamate|NPPQSCRMBWNHMW-UHFFFAOYSA-N|4064||
 Propofol|OLBCVFGFOZPWHH-UHFFFAOYSA-N|4943||
-Baclofen|KPYSYYIEGFHWSV-UHFFFAOYSA-N|||
+Baclofen|KPYSYYIEGFHWSV-UHFFFAOYSA-N|2284|Lioresal|https://pubchem.ncbi.nlm.nih.gov/compound/2284
 F-Phenibut|QWHXHLDNSXLAPX-UHFFFAOYSA-N|103611||
 GBL|YEJRWHAVMIAJKC-UHFFFAOYSA-N|7302|Gamma-butyrolactone|https://www.euda.europa.eu/publications/european-drug-report/2024/new-psychoactive-substances_mt
 GHB|SJZRECIVHVDYJC-UHFFFAOYSA-N|10413|Gamma-hydroxybutyrate|https://www.euda.europa.eu/publications/european-drug-report/2024/new-psychoactive-substances_mt
-Gabapentin|UGJMXCAKCUNAIE-UHFFFAOYSA-N|||
-Phenibut|DAFOCGYVTAOKAJ-UHFFFAOYSA-N|||
-Pregabalin|AYXYPKUFHZROOJ-ZETCQYMHSA-N|||
+Gabapentin|UGJMXCAKCUNAIE-UHFFFAOYSA-N|3446|Neurontin|https://pubchem.ncbi.nlm.nih.gov/compound/3446
+Phenibut|DAFOCGYVTAOKAJ-UHFFFAOYSA-N|14113|Fenibut;Phenyl-GABA;Noophen|https://pubchem.ncbi.nlm.nih.gov/compound/14113
+Pregabalin|AYXYPKUFHZROOJ-ZETCQYMHSA-N|5486971|Lyrica|https://pubchem.ncbi.nlm.nih.gov/compound/5486971
 1,3-Butanediol|PUPZLCDOIYMWBV-UHFFFAOYSA-N|7896||
 1,4-Butanediol|WERYXYBDKMZEQL-UHFFFAOYSA-N|8064||
 2M2B|MSXVEPNJUHWQHW-UHFFFAOYSA-N|6405||
@@ -397,7 +397,7 @@ Mitragynine|LELBFTMXCIIKKX-QVRQZEMUSA-N|3034396||
 O-Desmethyltramadol|UWJUQVWARXYRCG-HIFRSBDPSA-N|9838803||
 Pethidine|XADCESSVHJOZHK-UHFFFAOYSA-N|4058||
 Tapentadol|KWTWDQCKEHXFFR-SMDDNHRTSA-N|9838022||
-Tianeptine|JICJBGPOMZQUBB-UHFFFAOYSA-N|||
+Tianeptine|JICJBGPOMZQUBB-UHFFFAOYSA-N|68870|Stablon|https://pubchem.ncbi.nlm.nih.gov/compound/68870
 Tramadol|TVYLLZQTGLZFBW-ZBFHGGJFSA-N|33741||
 U-47700|JGPNMZWFVRQNGU-GJZGRUSLSA-N|71719125||
 2-FDCK|PHFAGYYTDLITTB-UHFFFAOYSA-N|13771618|2F-DCK;2-FK;2-Fluorodeschloroketamine|https://www.drogues.gouv.fr/sites/default/files/2022-07/guide_NPS_2022.pdf
@@ -441,7 +441,7 @@ Benzydamine|CNBGNNVCVSKAQZ-UHFFFAOYSA-N|12555||
 Diphenhydramine|ZZVUWRFHKOJYTH-UHFFFAOYSA-N|3100||
 Hyoscyamine|RKUNBYITZUJHSG-LGGPCSOHSA-N|64692||
 Mirtazapine|RONZAEMNMFQXRA-UHFFFAOYSA-N|4205||
-Muscimol|ZJQHPWUVQPJPQT-UHFFFAOYSA-N|||
+Muscimol|ZJQHPWUVQPJPQT-UHFFFAOYSA-N|4266|Agarin;Pantherine|https://pubchem.ncbi.nlm.nih.gov/compound/4266
 Myristicin|BNWJOHGLIBDBOB-UHFFFAOYSA-N|4276||
 Promethazine|PWWVAXIEGOYWEE-UHFFFAOYSA-N|4927||
 Scopolamine|STECJAGHUSJQJN-USLFZFAMSA-N|3000322||
@@ -463,7 +463,7 @@ Buspirone|QWCRAEMEVRGPNT-UHFFFAOYSA-N|2477||
 Efavirenz|XPOQHMRABVBWPR-ZDUSSCGKSA-N|64139||
 Galantamine|ASUTZQLVASHGKV-JDFRZJQESA-N|9651||
 Ibogaine|HSIBGVUMFOSJPD-NXWOVTFFSA-N|442108||
-Ibotenic acid|IRJCBFDCFXCWGO-UHFFFAOYSA-N|||
+Ibotenic acid|IRJCBFDCFXCWGO-UHFFFAOYSA-N|1233||
 Salvinorin A|OBSYBRPAKCASQB-BPXDIVKOSA-N|11969624||
 Salvinorin B methoxymethyl ether|KFVUSZPWUZBAPF-AGQYDFLVSA-N|44456192||
 5-Chloro Desmethylchlorphine||||
@@ -476,7 +476,7 @@ MDMB-PINACA||||
 2-Oxo-PCP||||
 N-Piperidinyl Methiodone||||
 Methiodone|||IC-26|https://www.cfsre.org/nps-discovery/monographs/methiodone
-N-Piperidinyl Tapentadol|NVMFWVUNWRNHRJ-UHFFFAOYSA-N||PiPTapentadol;Piptap3|https://www.cfsre.org/nps-discovery/monographs/n-piperidinyl-tapentadol
+N-Piperidinyl Tapentadol|NVMFWVUNWRNHRJ-UHFFFAOYSA-N|89698503|PiPTapentadol;Piptap3|https://www.cfsre.org/nps-discovery/monographs/n-piperidinyl-tapentadol
 Pynazolam||||
 Gidazepam||||
 5,6-Dichloro Brorphine||||
@@ -492,7 +492,7 @@ Desalkylquazepam||||
 5-Methyl Etodesnitazene||||
 5,6-Dichloro Desmethylchlorphine||||
 MMB-4en-PINACA||||
-Rilmazafone|KYHFRCPLIGODFH-UHFFFAOYSA-N|||
+Rilmazafone|KYHFRCPLIGODFH-UHFFFAOYSA-N|5069|S-450191|https://pubchem.ncbi.nlm.nih.gov/compound/5069
 Fluetizolam||||
 Phenazolam||||
 N-Propyl Butylone||||
