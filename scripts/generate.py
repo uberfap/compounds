@@ -117,7 +117,8 @@ DIFFICULTY_BANDS = ((25, 37), (38, 62), (63, 87), (88, 100))
 # Fast candidate-generation strata. Manual overrides are included when a
 # predicate is put into a pool. These are only priors: the final board score
 # must still land in each fixed output band, or the whole board is rejected.
-DIFFICULTY_PRIOR_BANDS = ((0, 37), (38, 62), (63, 87), (88, 100))
+# Structural clues can reach Purple through board-specific ambiguity.
+DIFFICULTY_PRIOR_BANDS = ((0, 37), (38, 62), (63, 87), (80, 100))
 BOARD_VARIANTS_PER_PREDICATE_SET = 8
 MIN_DIFFICULTY_GAP = 10
 
