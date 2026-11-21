@@ -103,10 +103,11 @@ FAMILY_DIFFICULTY_BASE = {
     "structure": 80,
 }
 
-# Manual playtest corrections, in points on the 0-100 scale.
+# Clue-specific difficulty adjustments, in points on the 0-100 scale.
 DIFFICULTY_OVERRIDES = {
     "label:dox series": -18,
     "label:barbiturates": -18,
+    "target:κ-opioid agonist": 8,
 }
 
 # Each accepted puzzle must contain one group in every band. The generator
@@ -117,7 +118,7 @@ DIFFICULTY_BANDS = ((25, 37), (38, 62), (63, 87), (88, 100))
 # Fast candidate-generation strata. Manual overrides are included when a
 # predicate is put into a pool. These are only priors: the final board score
 # must still land in each fixed output band, or the whole board is rejected.
-# Structural clues can reach Purple through board-specific ambiguity.
+# Structural and specialist clues can reach Purple through board-specific ambiguity.
 DIFFICULTY_PRIOR_BANDS = ((0, 37), (38, 62), (63, 87), (80, 100))
 BOARD_VARIANTS_PER_PREDICATE_SET = 8
 MIN_DIFFICULTY_GAP = 10
