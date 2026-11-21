@@ -162,6 +162,12 @@ Run the Compose stack on your server. Point the domain at its public IP and conf
 
 `scripts/audit.py` checks formula-derived masses against reference values. `scripts/verify.py` compares formulas with PubChem, and `scripts/scrape.py` collects candidate records. The SMILES merge script applies reviewed additions while preserving existing entries.
 
+### Compound identifiers and aliases
+
+`data/catalogue/identities.csv` has one row per name in `compounds.csv`. It uses the same pipe delimiter. The `inchi_key` column holds the Standard InChIKey of the cached parent structure, with counterions removed and assigned stereochemistry retained. The `pubchem_cid` column holds the numeric PubChem Compound ID when the published InChIKey exactly matches the local key.
+
+`aliases` is a semicolon-separated list of reviewed alternative names. `alias_source` records the reference for those names. A blank field means the identifier or aliases have yet to be established. The generator continues to use `compounds.csv` for display names and puzzle rules.
+
 ## License and data sources
 
 The game footer opens the archive, puzzle statistics, a privacy summary, and
