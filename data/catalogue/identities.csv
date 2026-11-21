@@ -276,7 +276,7 @@ Bromazolam|KCEIOBKDDQAYCM-UHFFFAOYSA-N|12562546||
 Brotizolam|UMSGKTJDUHERQW-UHFFFAOYSA-N|2451||
 Chlordiazepoxide|BUCORZSTKDOEKQ-UHFFFAOYSA-N|2712||
 Clobazam|CXOXHMZGEKVPMT-UHFFFAOYSA-N|2789||
-Clobromazolam|BUTCFAZTKZDYCN-UHFFFAOYSA-N|1032830||
+Clobromazolam|BUTCFAZTKZDYCN-UHFFFAOYSA-N|1032830|Phenazolam|https://pubchem.ncbi.nlm.nih.gov/compound/1032830
 Clonazepam|DGBIGWXXNGSACT-UHFFFAOYSA-N|2802||
 Clonazolam|XJRGLCAWBRZUFC-UHFFFAOYSA-N|12317881||
 Cloxazolam|ZIXNZOBDFKSQTC-UHFFFAOYSA-N|2816||
@@ -466,36 +466,35 @@ Ibogaine|HSIBGVUMFOSJPD-NXWOVTFFSA-N|442108||
 Ibotenic acid|IRJCBFDCFXCWGO-UHFFFAOYSA-N|1233||
 Salvinorin A|OBSYBRPAKCASQB-BPXDIVKOSA-N|11969624||
 Salvinorin B methoxymethyl ether|KFVUSZPWUZBAPF-AGQYDFLVSA-N|44456192||
-5-Chloro Desmethylchlorphine||||
-Ethylflualprazolam||||
-2-Methoxyqualone||||
-MMB-CHMINACA|CRGGXDSTBHQLKJ-UHFFFAOYSA-N|||
-N-sec-Butyl Butylone||||
-3-MeO-2-Oxo-PCP||||
-MDMB-PINACA|QSNCKXRHFRDPRX-UHFFFAOYSA-N|||
-2-Oxo-PCP||||
-N-Piperidinyl Methiodone||||
+5-Chloro Desmethylchlorphine|IZXHVXIWDJGRNB-UHFFFAOYSA-N|||
+Ethylflualprazolam|SRZYAHVJONICNV-UHFFFAOYSA-N|||
+2-Methoxyqualone|YIEVFKLHPPPUSM-UHFFFAOYSA-N|365324||
+MMB-CHMINACA|CRGGXDSTBHQLKJ-UHFFFAOYSA-N|119058052|MA-CHMINACA|https://pubchem.ncbi.nlm.nih.gov/compound/119058052
+N-sec-Butyl Butylone|VAVLXANEYVJZOG-UHFFFAOYSA-N|||
+3-MeO-2-Oxo-PCP|SLZCJSHTKSLENJ-UHFFFAOYSA-N|||
+MDMB-PINACA|QSNCKXRHFRDPRX-UHFFFAOYSA-N|171041795||
+2-Oxo-PCP|NVKXODIIEPKREY-UHFFFAOYSA-N|13509836||
+N-Piperidinyl Methiodone|ZVXQZJPYLLIYSB-UHFFFAOYSA-N|16206925||
 Methiodone|NLPGJSPLDNDKKZ-UHFFFAOYSA-N|113832|IC-26|https://www.cfsre.org/nps-discovery/monographs/methiodone
 N-Piperidinyl Tapentadol|NVMFWVUNWRNHRJ-UHFFFAOYSA-N|89698503|PiPTapentadol;Piptap3|https://www.cfsre.org/nps-discovery/monographs/n-piperidinyl-tapentadol
 Pynazolam|TULLJLNDPPOHKC-UHFFFAOYSA-N|20368157||
 Gidazepam|XLGCMZLSEXRBSG-UHFFFAOYSA-N|121919||
-5,6-Dichloro Brorphine||||
-MMB-PICA||||
-AMB-4en-PINACA||||
-Spirochlorphine||||
-Ethylbromazolam||||
-N-Pyrrolidino Ethylene Isotonitazene||||
+5,6-Dichloro Brorphine|DJSSLECNUQMYKG-UHFFFAOYSA-N|130431386|SR-14968|https://www.unodc.org/LSS/Substance/Details/f0269646-936a-4ccb-a7ff-562fb5ccb382
+MMB-PICA|XOVHYVWQBVNONJ-UHFFFAOYSA-N|139597868||
+AMB-4en-PINACA|HPIGPAIXTIMBJA-HNNXBMFYSA-N|176489744||
+Spirochlorphine|KFEYPBZJPJJRFX-UHFFFAOYSA-N|14783734|R-6890|https://pubchem.ncbi.nlm.nih.gov/compound/14783734
+Ethylbromazolam|DKTGBMWWLATMHK-UHFFFAOYSA-N|175667454||
+N-Pyrrolidino Ethylene Isotonitazene|BCRJRRWYLQWRPJ-UHFFFAOYSA-N|||
 N-Pyrrolidino Metodesnitazene|XSEDKWRIABHQMI-UHFFFAOYSA-N|168310617||
-α-PiHpP||||
-N-Isopropyl Butylone|YLUWYCAYKBCHRS-UHFFFAOYSA-N|||
+α-PiHpP|HJZRHYAAONOQLE-UHFFFAOYSA-N|176468909||
+N-Isopropyl Butylone|YLUWYCAYKBCHRS-UHFFFAOYSA-N|165361678||
 Desalkylquazepam|UAFWJQYZZIJGPD-UHFFFAOYSA-N|3081966||
 5-Methyl Etodesnitazene|ZARKNPABJGEAOQ-UHFFFAOYSA-N|168310446||
 5,6-Dichloro Desmethylchlorphine|LAGUDYUGRSQDKS-UHFFFAOYSA-N|130431397||
-MMB-4en-PINACA|UJELURFNWPRFMM-UHFFFAOYSA-N|||
+MMB-4en-PINACA|UJELURFNWPRFMM-UHFFFAOYSA-N|168314955||
 Rilmazafone|KYHFRCPLIGODFH-UHFFFAOYSA-N|5069|S-450191|https://pubchem.ncbi.nlm.nih.gov/compound/5069
 Fluetizolam|BCKPHENWWQCRCG-UHFFFAOYSA-N|12434320||
-Phenazolam||||
-N-Propyl Butylone||||
+N-Propyl Butylone|NRIHOTHAMAUSRO-UHFFFAOYSA-N|122129922|N-Propyl bk-BDB|https://pubchem.ncbi.nlm.nih.gov/compound/122129922
 N-Cyclohexyl Butylone|JUIRPSMGWVYMJT-UHFFFAOYSA-N|165362342||
 CH-FUBIATA|GSTACBDFNQHWHP-UHFFFAOYSA-N|41109040||
 2F-2oxo-PCE|RTXKYSLDFKUESF-UHFFFAOYSA-N|168323042|CanKet|https://www.cfsre.org/nps-discovery/public-alerts/2f-2oxo-pce-a-new-synthetic-hallucinogen-identified-in-recreational-drug-markets-across-north-america

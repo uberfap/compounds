@@ -388,7 +388,6 @@ Nitrazolam|C17H13N5O2|Triazolobenzodiazepine|Depressant|depressant|GABA-A PAM|sy
 Nordazepam|C15H11ClN2O|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
 Oxazepam|C15H11ClN2O2|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
 Phenazepam|C15H10BrClN2O|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
-Phenazolam|C17H12BrClN4|Triazolobenzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
 Prazepam|C19H17ClN2O|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
 Pynazolam|C16H12N6O2|Triazolobenzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
 Pyrazolam|C16H12BrN5|Triazolobenzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
@@ -746,49 +745,6 @@ Salvinorin B methoxymethyl ether|C23H30O8|Salvinorin|Psychedelic|psychedelic|κ-
 # Inferred fields|Ethylbromazolam|target
 # Inferred fields|Ethylflualprazolam|target
 # Inferred fields|Fluetizolam|target
-# Inferred fields|Phenazolam|target
 # Inferred fields|Pynazolam|target
 # Inferred fields|2-Methoxyqualone|pharmacological_class,effect,target
 # Inferred fields|Rilmazafone|target
-# Inferred fields|5-Methyl Etodesnitazene|target
-# Inferred fields|N-Pyrrolidino Ethylene Isotonitazene|target
-# Inferred fields|5,6-Dichloro Desmethylchlorphine|target
-# Inferred fields|5-Chloro Desmethylchlorphine|target
-# Inferred fields|Methiodone|target
-# Inferred fields|N-Piperidinyl Methiodone|target
-# Inferred fields|N-Piperidinyl Tapentadol|target
-# Inferred fields|2-Fluoro-2-oxo-PCiPr|pharmacological_class,effect,target
-# Inferred fields|2-Oxo-PCP|pharmacological_class,effect,target
-# Inferred fields|2F-2oxo-PCE|target
-# Inferred fields|3-MeO-2-Oxo-PCP|pharmacological_class,effect,target
-# Inferred fields|2-Fluorodiphenidine|pharmacological_class,effect,target
-# Inferred fields|3-Methoxphenidine|pharmacological_class,effect,target
-# Inferred fields|4-Methoxphenidine|pharmacological_class,effect,target
-
-# Transporter review
-# Measured release in rat synaptosomes for 2-BMC, 2-CMC and 3-BMC: https://doi.org/10.1021/acschemneuro.8b00524
-# 4-FA and 4-FMC transporter assays: https://pubmed.ncbi.nlm.nih.gov/31068823/
-# 4-CEC: https://pmc.ncbi.nlm.nih.gov/articles/PMC10201577/
-# N-alkyl cathinones and pentedrone analogues: https://pmc.ncbi.nlm.nih.gov/articles/PMC6500773/
-# Butylone and dibutylone: https://pmc.ncbi.nlm.nih.gov/articles/PMC6534427/
-# Aminorex comparators: https://pubmed.ncbi.nlm.nih.gov/24841869/
-# Cathinone structure–activity context: https://www.gov.uk/government/publications/synthetic-cathinones-an-updated-harms-assessment/synthetic-cathinones-an-updated-harms-assessment-accessible
-# Predicted target basis for 2-FMC: Walther aryl methcathinones and 4-FMC functional assays.
-# Predicted target basis for 4-FEA: 4-fluoroamphetamine uptake assays; N-ethyl substitution makes release uncertain.
-# Predicted target basis for 2-CEC: 4-CEC; ortho substitution makes the SERT result difficult to transfer.
-# Predicted target basis for 2-EEC: 2-MMC, 3-MMC and N-ethyl cathinone comparators; release uncertain.
-# Predicted target basis for 3-EEC: 2-MMC, 3-MMC and N-ethyl cathinone comparators; release uncertain.
-# Predicted target basis for 2-MEC: 2-MMC, 3-MMC and N-ethyl cathinone comparators; release uncertain.
-# Predicted target basis for 4-Methyl-N-propylcathinone: N-propylpentedrone uptake assays.
-# Predicted target basis for N-Propyl-norbuphedrone: N-propylpentedrone uptake assays.
-# Predicted target basis for 4-Methyl-N-ethyl-N-methylcathinone: tertiary cathinone dibutylone and pentedrone uptake assays.
-# Predicted target basis for N,N-Dimethylpentedrone: tertiary cathinone dibutylone and pentedrone uptake assays.
-# Predicted target basis for N,4-Dimethylbuphedrone: pentedrone and 4-methylpentedrone uptake assays.
-# Predicted target basis for N-Cyclohexyl Butylone: butylone, dibutylone and N-alkyl cathinones; bulky N-substitution makes efflux uncertain.
-# Predicted target basis for N-Cyclohexyl Methylone: butylone, dibutylone and N-alkyl cathinones; bulky N-substitution makes efflux uncertain.
-# Predicted target basis for N-Isopropyl Butylone: butylone, dibutylone and N-alkyl cathinones; bulky N-substitution makes efflux uncertain.
-# Predicted target basis for N-Propyl Butylone: butylone, dibutylone and N-alkyl cathinones; bulky N-substitution makes efflux uncertain.
-# Predicted target basis for N-sec-Butyl Butylone: butylone, dibutylone and N-alkyl cathinones; bulky N-substitution makes efflux uncertain.
-# Predicted target basis for 4Br-MAR: cis-4-MAR and cis-4,4'-DMAR; SERT activity and stereochemistry uncertain.
-# Predicted target basis for 4Cl-MAR: cis-4-MAR and cis-4,4'-DMAR; SERT activity and stereochemistry uncertain.
-# Predicted target basis for 4F-MAR: cis-4-MAR and cis-4,4'-DMAR; SERT activity and stereochemistry uncertain.
