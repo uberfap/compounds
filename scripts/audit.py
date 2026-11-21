@@ -15,8 +15,10 @@ import re
 import sys
 from collections import Counter, defaultdict
 
-from generate import load, name_key
-from project_paths import CATALOGUE, IDENTITIES, REVIEW
+import json
+
+from generate import load, name_key, parent_formula, parse_formula
+from project_paths import CATALOGUE, IDENTITIES, REVIEW, SMILES
 
 TOL = 0.15
 
@@ -142,15 +144,66 @@ def audit_identities():
     return len(problems)
 
 
+def audit_structures():
+    """Compare each formula with the formula of its cached SMILES (largest fragment, counter-ions dropped).
+
+    Returns (keys whose formula matches the structure, number of disagreements). This catches a typo in
+    either the formula or the cached structure. It does NOT prove the structure belongs to that name:
+    only PubChem (verify.py) or a hand check does that.
+    """
+    try:
+        from rdkit import Chem, RDLogger
+    except ImportError:
+        print("(rdkit not installed: skipping the structure-vs-formula check)")
+        return set(), 0
+    RDLogger.DisableLog("rdApp.*")
+    try:
+        cache = json.loads(SMILES.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        print(f"(no {SMILES.name}: skipping the structure-vs-formula check)")
+        return set(), 0
+    cached = {name_key(n): (n, smi) for n, smi in cache.items()}
+    ok, problems = set(), 0
+    for k, c in comps.items():
+        if not c["formula"] or c["mass"] is None:
+            continue
+        if k not in cached:
+            print(f"STRUCTURE PROBLEM: {c['name']}: no cached SMILES")
+            problems += 1
+            continue
+        mol = Chem.MolFromSmiles(cached[k][1])
+        if mol is None:
+            print(f"STRUCTURE PROBLEM: {c['name']}: cached SMILES does not parse: {cached[k][1]!r}")
+            problems += 1
+            continue
+        parent = max(Chem.GetMolFrags(mol, asMols=True), key=lambda m: m.GetNumHeavyAtoms())
+        got = Counter(a.GetSymbol() for a in Chem.AddHs(parent).GetAtoms())
+        want = Counter(parse_formula(parent_formula(c["formula"])))
+        if got == want:
+            ok.add(k)
+        else:
+            fmt = lambda cnt: "".join(f"{e}{n if n > 1 else ''}" for e, n in sorted(cnt.items()))
+            print(f"STRUCTURE PROBLEM: {c['name']}: formula {fmt(want)} but cached SMILES gives {fmt(got)}")
+            problems += 1
+    return ok, problems
+
+
 identity_problems = audit_identities()
+structure_ok, structure_problems = audit_structures()
 
 unchecked = [c["name"] for k, c in comps.items()
              if k not in known and k not in pubchem_ok and k not in hand_ok and c["mass"] is not None]
+unchecked_structure_ok = [c["name"] for k, c in comps.items()
+                          if k in structure_ok and k not in known and k not in pubchem_ok and k not in hand_ok]
 no_formula = [c["name"] for c in comps.values() if c["mass"] is None]
 only_pc = len([k for k in pubchem_ok if k in comps and k not in known])
 print(f"\n{len(comps)} compounds | {len(known) - bad} by reference mass | {only_pc} more confirmed by PubChem | "
       f"{len(hand_ok - pubchem_ok - set(known))} hand-checked only | "
       f"{len(unchecked)} unchecked | {len(no_formula)} without a formula")
+if structure_ok or structure_problems:
+    print(f"structure check: {len(structure_ok)} formulas match their cached SMILES, "
+          f"{structure_problems} do not; {len(unchecked_structure_ok)} of the {len(unchecked)} 'unchecked' are in the "
+          "matching group (consistent with a structure, but name -> structure not confirmed: run verify.py)")
 if unchecked:
-    print("not confirmed by any source (check these):", ", ".join(unchecked))
-sys.exit(1 if bad or identity_problems else 0)
+    print("no reference mass, PubChem or hand check yet:", ", ".join(unchecked))
+sys.exit(1 if bad or identity_problems or structure_problems else 0)
