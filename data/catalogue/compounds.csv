@@ -31,13 +31,13 @@ PRO-LAD|C22H29N3O|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agon
 4-AcO-DET|C16H22N2O2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 4-AcO-DiPT|C18H26N2O2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 4-AcO-DMT|C14H18N2O2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
-4-AcO-DPT|C18H26N2O2|Tryptamine||Inferred: psychedelic|Inferred: 5-HT2A agonist|synthetic
-4-AcO-EPT|C17H24N2O2|Tryptamine||Inferred: psychedelic|Inferred: 5-HT2A agonist|synthetic
+4-AcO-DPT|C18H26N2O2|Tryptamine|Inferred: Psychedelic|Inferred: psychedelic|Inferred: 5-HT2A agonist|synthetic
+4-AcO-EPT|C17H24N2O2|Tryptamine|Inferred: Psychedelic|Inferred: psychedelic|Inferred: 5-HT2A agonist|synthetic
 4-AcO-MET|C15H20N2O2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 4-AcO-MiPT|C16H22N2O2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 4-AcO-MPT|C16H22N2O2|Tryptamine|Psychedelic|psychedelic|Inferred: 5-HT2A agonist|synthetic
 4-HO-DALT|C16H20N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2B agonist;5-HT2C agonist|synthetic
-4-HO-DBT|C18H28N2O|Tryptamine||Inferred: psychedelic|Inferred: 5-HT2A agonist|synthetic
+4-HO-DBT|C18H28N2O|Tryptamine|Inferred: Psychedelic|Inferred: psychedelic|Inferred: 5-HT2A agonist|synthetic
 4-HO-DET|C14H20N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 4-HO-DiPT|C16H24N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 4-HO-DPT|C16H24N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
@@ -49,19 +49,19 @@ PRO-LAD|C22H29N3O|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agon
 5-Hydroxytryptophan|C11H12N2O3|Tryptamine|Unknown|Unknown|Serotonin releaser|natural
 5-MeO-AMT|C12H16N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
 5-MeO-DALT|C17H22N2O|Tryptamine|Psychedelic|psychedelic|5-HT1A agonist;5-HT2A agonist;5-HT2C agonist|synthetic
-5-MeO-DBT|C19H30N2O|Tryptamine||Inferred: psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+5-MeO-DBT|C19H30N2O|Tryptamine|Inferred: Psychedelic|Inferred: psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 5-MeO-DET|C15H22N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist|synthetic
 5-MeO-DiPT|C17H26N2O|Tryptamine|Psychedelic|psychedelic|5-HT1A agonist;5-HT2A agonist;5-HT2C agonist|synthetic
 5-MeO-DMT|C13H18N2O|Tryptamine|Psychedelic|psychedelic|5-HT1A agonist;5-HT2A agonist;5-HT2C agonist|natural
 5-MeO-DPT|C17H26N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
-5-MeO-EPT|C16H24N2O|Tryptamine||Inferred: psychedelic|Inferred: 5-HT2A agonist|synthetic
+5-MeO-EPT|C16H24N2O|Tryptamine|Inferred: Psychedelic|Inferred: psychedelic|Inferred: 5-HT2A agonist|synthetic
 5-MeO-MALT|C15H20N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist|synthetic
 5-MeO-MET|C14H20N2O|Tryptamine|Psychedelic|psychedelic|5-HT1A agonist;5-HT2A agonist;5-HT2C agonist|synthetic
 5-MeO-MiPT|C15H22N2O|Tryptamine|Psychedelic|psychedelic|5-HT1A agonist;5-HT2A agonist;5-HT2C agonist|synthetic
 AMT|C11H14N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
 Baeocystin|C11H15N2O4P|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|natural
 Bufotenin|C12H16N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|natural
-DALT|C16H20N2|Tryptamine||Inferred: psychedelic|Inferred: 5-HT2A agonist|synthetic
+DALT|C16H20N2|Tryptamine|Inferred: Psychedelic|Inferred: psychedelic|Inferred: 5-HT2A agonist|synthetic
 DET|C14H20N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 DiPT|C16H24N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 DMT|C12H16N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;Sigma-1 agonist|natural
@@ -71,7 +71,7 @@ Melatonin|C13H16N2O2|Tryptamine|Depressant|depressant|MT1 agonist;MT2 agonist|na
 MET|C13H18N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 MiPT|C14H20N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
 MPT|C14H20N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
-N-Methyltryptamine|C11H14N2|Tryptamine||Unknown|Inferred: 5-HT2A agonist|natural
+N-Methyltryptamine|C11H14N2|Tryptamine|Unknown|Unknown|Inferred: 5-HT2A agonist|natural
 Norbaeocystin|C10H13N2O4P|Tryptamine|Unknown|Inferred: psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|natural
 Psilocin|C12H16N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|natural
 Psilocybin|C12H17N2O4P|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|natural
@@ -148,17 +148,17 @@ PMA|C10H15NO|Amphetamine|Stimulant|stimulant|Serotonin releaser;Norepinephrine r
 PMMA|C11H17NO|Amphetamine|Stimulant|stimulant|Serotonin releaser;Norepinephrine releaser|synthetic
 
 # ---- Cathinones
-2-BMC|C10H12BrNO|Cathinone||Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
-2-CEC|C11H14ClNO|Cathinone||Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
+2-BMC|C10H12BrNO|Cathinone|Inferred: Stimulant|Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
+2-CEC|C11H14ClNO|Cathinone|Inferred: Stimulant|Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
 2-CMC|C10H12ClNO|Cathinone|Stimulant|Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
-2-EEC|C13H19NO|Cathinone||Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
+2-EEC|C13H19NO|Cathinone|Inferred: Stimulant|Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
 2-FMC|C10H12FNO|Cathinone|Stimulant|stimulant|Inferred: monoamine transporter modulator|synthetic
-2-MEC|C12H17NO|Cathinone||Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
+2-MEC|C12H17NO|Cathinone|Inferred: Stimulant|Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
 2-MMC|C11H15NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
-3-BMC|C10H12BrNO|Cathinone||Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
+3-BMC|C10H12BrNO|Cathinone|Inferred: Stimulant|Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
 3-CEC|C11H14ClNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
 3-CMC|C10H12ClNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
-3-EEC|C13H19NO|Cathinone||Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
+3-EEC|C13H19NO|Cathinone|Inferred: Stimulant|Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
 3-FMC|C10H12FNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
 3-MEC|C12H17NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
 3-MMC|C11H15NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
@@ -167,8 +167,8 @@ PMMA|C11H17NO|Amphetamine|Stimulant|stimulant|Serotonin releaser;Norepinephrine 
 4-CMC|C10H12ClNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
 4-FMC|C10H12FNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
 4-MEC|C12H17NO|Cathinone|Stimulant|stimulant|Serotonin reuptake inhibitor;Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor;Serotonin releaser|synthetic
-4-Methyl-N-ethyl-N-methylcathinone|C13H19NO|Cathinone||Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
-4-Methyl-N-propylcathinone|C13H19NO|Cathinone||Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
+4-Methyl-N-ethyl-N-methylcathinone|C13H19NO|Cathinone|Inferred: Stimulant|Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
+4-Methyl-N-propylcathinone|C13H19NO|Cathinone|Inferred: Stimulant|Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
 Buphedrone|C11H15NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
 Bupropion|C13H18ClNO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor;nACh antagonist|synthetic
 Butylone|C12H15NO3|Cathinone|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
@@ -184,15 +184,15 @@ Methcathinone|C10H13NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinep
 Methedrone|C11H15NO2|Cathinone|Stimulant|stimulant|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
 Methylone|C11H13NO3|Cathinone|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
 Mexedrone|C12H17NO2|Cathinone|Stimulant|stimulant|Serotonin reuptake inhibitor;Dopamine reuptake inhibitor|synthetic
-N,4-Dimethylbuphedrone|C12H17NO|Cathinone||Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
-N,N-Dimethylpentedrone|C13H19NO|Cathinone||Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
+N,4-Dimethylbuphedrone|C12H17NO|Cathinone|Inferred: Stimulant|Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
+N,N-Dimethylpentedrone|C13H19NO|Cathinone|Inferred: Stimulant|Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
 N-Cyclohexyl Butylone|C17H23NO3|Cathinone|Stimulant|stimulant|Inferred: monoamine transporter modulator|synthetic
-N-Cyclohexyl Methylone|C16H21NO3|Cathinone||Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
+N-Cyclohexyl Methylone|C16H21NO3|Cathinone|Inferred: Stimulant|Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
 N-Ethylhexedrone|C14H21NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
 N-Ethylpentylone|C14H19NO3|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor;Serotonin reuptake inhibitor|synthetic
 N-Isopropyl Butylone|C14H19NO3|Cathinone|Stimulant|stimulant|Inferred: monoamine transporter modulator|synthetic
 N-Propyl Butylone|C14H19NO3|Cathinone|Stimulant|stimulant|Inferred: monoamine transporter modulator|synthetic
-N-Propyl-norbuphedrone|C13H19NO|Cathinone||Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
+N-Propyl-norbuphedrone|C13H19NO|Cathinone|Inferred: Stimulant|Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
 N-sec-Butyl Butylone|C15H21NO3|Cathinone|Stimulant|stimulant|Inferred: monoamine transporter modulator|synthetic
 NEP|C13H19NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
 Pentedrone|C12H17NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
@@ -240,9 +240,9 @@ Methylphenidate|C14H19NO2|Phenidate|Stimulant|stimulant|Dopamine reuptake inhibi
 3-FPM|C11H14FNO|Phenylmorpholine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
 4,4'-DMAR|C11H14N2O|Aminorex|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
 4-MAR|C10H12N2O|Aminorex|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
-4Br-MAR|C10H11BrN2O|Aminorex||Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
-4Cl-MAR|C10H11ClN2O|Aminorex||Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
-4F-MAR|C10H11FN2O|Aminorex||Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
+4Br-MAR|C10H11BrN2O|Aminorex|Inferred: Stimulant|Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
+4Cl-MAR|C10H11ClN2O|Aminorex|Inferred: Stimulant|Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
+4F-MAR|C10H11FN2O|Aminorex|Inferred: Stimulant|Inferred: stimulant|Inferred: monoamine transporter modulator|synthetic
 5-APB|C11H13NO|Benzofuran|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
 5-EAPB|C13H17NO|Benzofuran|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
 5-IAI|C9H10IN|Aminoindane|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
@@ -405,7 +405,7 @@ Phenobarbital|C12H12N2O3|Barbiturate|Depressant|depressant|GABA-A PAM|synthetic
 Secobarbital|C12H18N2O3|Barbiturate|Depressant|depressant|GABA-A PAM|synthetic
 
 # ---- Quinazolinones
-2-Methoxyqualone|C16H14N2O2|Quinazolinone||Inferred: depressant|Inferred: GABA-A PAM|synthetic
+2-Methoxyqualone|C16H14N2O2|Quinazolinone|Inferred: Depressant|Inferred: depressant|Inferred: GABA-A PAM|synthetic
 Etaqualone|C17H16N2O|Quinazolinone|Depressant|depressant|GABA-A PAM|synthetic
 Mebroqualone|C15H11BrN2O|Quinazolinone|Depressant|depressant|GABA-A PAM|synthetic
 Mecloqualone|C15H11ClN2O|Quinazolinone|Depressant|depressant|GABA-A PAM|synthetic
@@ -524,8 +524,8 @@ U-47700|C16H22Cl2N2O|Benzamide|Opioid|opioid|μ-opioid agonist;κ-opioid agonist
 
 # ---- Dissociatives: Arylcyclohexylamines
 2-FDCK|C13H16FNO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist|synthetic
-2-Fluoro-2-oxo-PCiPr|C15H20FNO|Arylcyclohexylamine||Inferred: dissociative|Inferred: NMDA antagonist|synthetic
-2-Oxo-PCP|C17H23NO|Arylcyclohexylamine||Inferred: dissociative|Inferred: NMDA antagonist|synthetic
+2-Fluoro-2-oxo-PCiPr|C15H20FNO|Arylcyclohexylamine|Inferred: Dissociative|Inferred: dissociative|Inferred: NMDA antagonist|synthetic
+2-Oxo-PCP|C17H23NO|Arylcyclohexylamine|Inferred: Dissociative|Inferred: dissociative|Inferred: NMDA antagonist|synthetic
 2F-2oxo-PCE|C14H18FNO|Arylcyclohexylamine|Dissociative|dissociative|Inferred: NMDA antagonist|synthetic
 3-Cl-PCP|C17H24ClN|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist|synthetic
 3-F-PCP|C17H24FN|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist|synthetic
@@ -533,7 +533,7 @@ U-47700|C16H22Cl2N2O|Benzamide|Opioid|opioid|μ-opioid agonist;κ-opioid agonist
 3-HO-PCP|C17H25NO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;μ-opioid agonist|synthetic
 3-Me-PCP|C18H27N|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
 3-Me-PCPy|C17H25N|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
-3-MeO-2-Oxo-PCP|C18H25NO2|Arylcyclohexylamine||Inferred: dissociative|Inferred: NMDA antagonist|synthetic
+3-MeO-2-Oxo-PCP|C18H25NO2|Arylcyclohexylamine|Inferred: Dissociative|Inferred: dissociative|Inferred: NMDA antagonist|synthetic
 3-MeO-PCE|C15H23NO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Serotonin reuptake inhibitor;Dopamine reuptake inhibitor|synthetic
 3-MeO-PCMo|C17H25NO2|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist|synthetic
 3-MeO-PCP|C18H27NO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Serotonin reuptake inhibitor;Sigma-1 agonist|synthetic
@@ -555,9 +555,9 @@ Tenocyclidine|C15H23NS|Arylcyclohexylamine|Dissociative|dissociative|NMDA antago
 Tiletamine|C12H17NOS|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist|synthetic
 
 # ---- Dissociatives: Diarylethylamines
-2-Fluorodiphenidine|C19H22FN|Diarylethylamine||Inferred: dissociative|Inferred: NMDA antagonist|synthetic
-3-Methoxphenidine|C20H25NO|Diarylethylamine||Inferred: dissociative|Inferred: NMDA antagonist|synthetic
-4-Methoxphenidine|C20H25NO|Diarylethylamine||Inferred: dissociative|Inferred: NMDA antagonist|synthetic
+2-Fluorodiphenidine|C19H22FN|Diarylethylamine|Inferred: Dissociative|Inferred: dissociative|Inferred: NMDA antagonist|synthetic
+3-Methoxphenidine|C20H25NO|Diarylethylamine|Inferred: Dissociative|Inferred: dissociative|Inferred: NMDA antagonist|synthetic
+4-Methoxphenidine|C20H25NO|Diarylethylamine|Inferred: Dissociative|Inferred: dissociative|Inferred: NMDA antagonist|synthetic
 Diphenidine|C19H23N|Diarylethylamine|Dissociative|dissociative|NMDA antagonist;Dopamine reuptake inhibitor|synthetic
 Ephenidine|C16H19N|Diarylethylamine|Dissociative|dissociative|NMDA antagonist;Dopamine reuptake inhibitor|synthetic
 Methoxphenidine|C20H25NO|Diarylethylamine|Dissociative|dissociative|NMDA antagonist;Dopamine reuptake inhibitor|synthetic
@@ -697,7 +697,7 @@ Salvinorin B methoxymethyl ether|C23H30O8|Salvinorin|Psychedelic|psychedelic|κ-
 
 # Effect and target completion
 # "Inferred: " marks a working hypothesis based on scaffold, related compounds or active metabolites.
-# Inferred target tags are excluded from puzzle rules. Unknown means no specific assignment was made.
+# Inferred effect, class and target tags are excluded from puzzle rules. Unknown means no specific assignment was made.
 # Effect tags include therapeutic uses and broad activity classes.
 # Ergot compounds: https://inchem.org/documents/jecfa/jecmono/v82je01.pdf
 # Rilmazafone pharmacology: https://pmc.ncbi.nlm.nih.gov/articles/PMC13068902/
