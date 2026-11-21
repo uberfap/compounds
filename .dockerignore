@@ -1,0 +1,17 @@
+**
+!Dockerfile
+!alembic.ini
+!backend/
+!backend/**
+backend/**/__pycache__/
+backend/**/*.pyc
+!frontend/
+!frontend/package.json
+!frontend/package-lock.json
+!frontend/index.html
+!frontend/vite.config.ts
+!frontend/tsconfig.json
+!frontend/src/
+!frontend/src/**
+!frontend/public/
+!frontend/public/**

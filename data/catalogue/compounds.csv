@@ -1,0 +1,529 @@
+name|formula|scaffold_class|pharmacological_class|effect|target|origin
+# Hand-tagged seed. Blank fields are fine: the generator just skips the tags it can't build.
+# Molar mass is computed from the formula, never typed. Review the tags before publishing.
+# Merged with scraped.csv and community lists; category/placeholder rows removed; aliases deduped.
+
+# ---- Lysergamides
+1B-LSD|C24H31N3O2|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|semisynthetic
+1D-LSD|C27H35N3O2|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|semisynthetic
+1P-ETH-LAD|C24H31N3O2|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|semisynthetic
+1P-LSD|C23H29N3O2|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|semisynthetic
+1V-LSD|C25H33N3O2|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|semisynthetic
+1cP-AL-LAD|C26H31N3O2|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|semisynthetic
+1cP-LSD|C24H29N3O2|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|semisynthetic
+1cP-MiPLA|C24H29N3O2|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|semisynthetic
+AL-LAD|C22H27N3O|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|semisynthetic
+ALD-52|C22H27N3O2|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|semisynthetic
+ETH-LAD|C21H27N3O|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|semisynthetic
+Ergometrine|C19H23N3O2|Lysergamide|Unknown||5-HT2A agonist;5-HT1A agonist;D2 agonist|natural
+Ergotamine|C33H35N5O5|Lysergamide|Unknown||5-HT1A agonist;5-HT2A agonist;D2 agonist|natural
+LAE-32|C18H21N3O|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT1A agonist|semisynthetic
+LSA|C16H17N3O|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT1A agonist;D2 agonist|natural
+LSM-775|C20H23N3O2|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|synthetic
+LSD|C20H25N3O|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|semisynthetic
+LSZ|C21H25N3O|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|synthetic
+MiPLA|C20H25N3O|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|semisynthetic
+PARGY-LAD|C22H25N3O|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|semisynthetic
+PRO-LAD|C22H29N3O|Lysergamide|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;D2 agonist|semisynthetic
+
+# ---- Tryptamines
+4-AcO-DET|C16H22N2O2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+4-AcO-DMT|C14H18N2O2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+4-AcO-DiPT|C18H26N2O2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+4-AcO-MET|C15H20N2O2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+4-AcO-MiPT|C16H22N2O2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+4-HO-DET|C14H20N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+4-HO-DPT|C16H24N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+4-HO-DiPT|C16H24N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+4-HO-EPT|C15H22N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+4-HO-MET|C13H18N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+4-HO-MPT|C14H20N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+4-HO-MiPT|C14H20N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+5-Hydroxytryptophan|C11H12N2O3|Tryptamine|Unknown||Serotonin releaser|natural
+5-MeO-AMT|C12H16N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
+5-MeO-DALT|C17H22N2O|Tryptamine|Psychedelic|psychedelic|5-HT1A agonist;5-HT2A agonist;5-HT2C agonist|synthetic
+5-MeO-DMT|C13H18N2O|Tryptamine|Psychedelic|psychedelic|5-HT1A agonist;5-HT2A agonist;5-HT2C agonist|natural
+5-MeO-DiPT|C17H26N2O|Tryptamine|Psychedelic|psychedelic|5-HT1A agonist;5-HT2A agonist;5-HT2C agonist|synthetic
+5-MeO-MET|C14H20N2O|Tryptamine|Psychedelic|psychedelic|5-HT1A agonist;5-HT2A agonist;5-HT2C agonist|synthetic
+5-MeO-MiPT|C15H22N2O|Tryptamine|Psychedelic|psychedelic|5-HT1A agonist;5-HT2A agonist;5-HT2C agonist|synthetic
+AMT|C11H14N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
+Baeocystin|C11H15N2O4P|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|natural
+Bufotenin|C12H16N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|natural
+DET|C14H20N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+DMT|C12H16N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist;Sigma-1 agonist|natural
+DPT|C16H24N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+DiPT|C16H24N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+EPT|C15H22N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+MET|C13H18N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+MPT|C14H20N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+Melatonin|C13H16N2O2|Tryptamine|Depressant|depressant||natural
+MiPT|C14H20N2|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|synthetic
+Norbaeocystin|C10H13N2O4P|Tryptamine|Unknown||5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|natural
+Psilocin|C12H16N2O|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|natural
+Psilocybin|C12H17N2O4P|Tryptamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|natural
+α-ET|C12H16N2|Tryptamine|Psychedelic|psychedelic|Serotonin releaser;Dopamine releaser;Norepinephrine releaser;5-HT2A agonist|synthetic
+
+# ---- Phenethylamines (2C, DOx, mescaline, FLY)
+2,5-DMA|C11H17NO2|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+2C-B|C10H14BrNO2|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+2C-B-FLY|C12H14BrNO2|Other|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+2C-C|C10H14ClNO2|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+2C-D|C11H17NO2|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+2C-E|C12H19NO2|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+2C-H|C10H15NO2|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+2C-I|C10H14INO2|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+2C-N|C10H14N2O4|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+2C-P|C13H21NO2|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+2C-T|C11H17NO2S|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+2C-T-2|C12H19NO2S|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+2C-T-21|C12H18FNO2S|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+2C-T-7|C13H21NO2S|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+3C-E|C13H21NO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+3C-P|C14H23NO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+Allylescaline|C13H19NO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+Bromo-DragonFLY|C13H12BrNO2|Other|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+DOB|C11H16BrNO2|Amphetamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+DOC|C11H16ClNO2|Amphetamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+DOET|C13H21NO2|Amphetamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+DOI|C11H16INO2|Amphetamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+DOM|C12H19NO2|Amphetamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+Escaline|C12H19NO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+Mescaline|C11H17NO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist;5-HT1A agonist|natural
+Methallylescaline|C14H21NO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+Proscaline|C13H21NO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+TMA-2|C12H19NO3|Amphetamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+TMA-6|C12H19NO3|Amphetamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+β-OH-2C-B|C10H14BrNO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+β-k-2C-B|C10H12BrNO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+
+# ---- NBOMe / NBOH
+25B-NBOH|C17H20BrNO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+25B-NBOMe|C18H22BrNO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+25C-NBOH|C17H20ClNO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+25C-NBOMe|C18H22ClNO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+25D-NBOMe|C19H25NO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+25E-NBOH|C19H25NO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+25E-NBOMe|C20H27NO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+25H-NBOMe|C18H23NO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+25I-NBOH|C17H20INO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+25I-NBOMe|C18H22INO3|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+25N-NBOMe|C18H22N2O5|Phenethylamine|Psychedelic|psychedelic|5-HT2A agonist;5-HT2C agonist|synthetic
+
+# ---- Amphetamines
+2-FA|C9H12FN|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+2-FEA|C11H16FN|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+2-FMA|C10H14FN|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+3-FA|C9H12FN|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+3-FEA|C11H16FN|Amphetamine|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
+3-FMA|C10H14FN|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+3-MMA|C11H17N|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
+4-FA|C9H12FN|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
+4-FMA|C10H14FN|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
+4-MA|C10H15N|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+Amphetamine|C9H13N|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+Fenethylline|C18H23N5O2|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+Fenfluramine|C12H16F3N|Amphetamine|Stimulant|stimulant|Serotonin releaser;5-HT2B agonist;5-HT2C agonist|synthetic
+Lisdexamfetamine|C15H25N3O|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+MDA|C10H13NO2|Amphetamine|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser;5-HT2A agonist|synthetic
+MDEA|C12H17NO2|Amphetamine|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
+MDMA|C11H15NO2|Amphetamine|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
+Methamphetamine|C10H15N|Amphetamine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
+Phentermine|C10H15N|Amphetamine|Stimulant|stimulant|Norepinephrine releaser;Dopamine releaser|synthetic
+PMA|C10H15NO|Amphetamine|Stimulant|stimulant|Serotonin releaser;Norepinephrine releaser;MAO-A inhibitor|synthetic
+PMMA|C11H17NO|Amphetamine|Stimulant|stimulant|Serotonin releaser;Norepinephrine releaser|synthetic
+
+# ---- Cathinones
+2-MMC|C11H15NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+3-CEC|C11H14ClNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+3-CMC|C10H12ClNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
+3-FMC|C10H12FNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+3-MEC|C12H17NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
+3-MMC|C11H15NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
+4-BMC|C10H12BrNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
+4-CMC|C10H12ClNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
+4-FMC|C10H12FNO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+4-MEC|C12H17NO|Cathinone|Stimulant|stimulant|Serotonin reuptake inhibitor;Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor;Serotonin releaser|synthetic
+Buphedrone|C11H15NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+Bupropion|C13H18ClNO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor;nACh antagonist|synthetic
+Butylone|C12H15NO3|Cathinone|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
+Cathinone|C9H11NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|natural
+Dibutylone|C13H17NO3|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor;Serotonin reuptake inhibitor|synthetic
+Dimethylone|C12H15NO3|Cathinone|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
+ETH-CAT|C11H15NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+Ethylone|C12H15NO3|Cathinone|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
+Methylone|C11H13NO3|Cathinone|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
+Eutylone|C13H17NO3|Cathinone|Entactogen|entactogen|Serotonin reuptake inhibitor;Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor;Serotonin releaser|synthetic
+Hexedrone|C13H19NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+Mephedrone|C11H15NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
+Methedrone|C11H15NO2|Cathinone|Stimulant|stimulant|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
+Methcathinone|C10H13NO|Cathinone|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+Mexedrone|C12H17NO2|Cathinone|Stimulant|stimulant|Serotonin reuptake inhibitor;Dopamine reuptake inhibitor|synthetic
+N-Ethylhexedrone|C14H21NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+N-Ethylpentylone|C14H19NO3|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor;Serotonin reuptake inhibitor|synthetic
+NEP|C13H19NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+Pentedrone|C12H17NO|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+Pentylone|C13H17NO3|Cathinone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor;Serotonin reuptake inhibitor|synthetic
+
+# ---- Pyrovalerones
+3F-α-PVP|C15H20FNO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+4-Cl-PVP|C15H20ClNO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+4-MPHP|C17H25NO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+4-MePPP|C14H19NO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+4F-α-PiHP|C16H22FNO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+4F-PHP|C16H22FNO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+4F-PVP|C15H20FNO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+MDPBP|C15H19NO3|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+MDPHP|C17H23NO3|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+MDPPP|C14H17NO3|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+MDPV|C16H21NO3|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+Naphyrone|C19H23NO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor;Serotonin reuptake inhibitor|synthetic
+PV-8|C17H25NO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+PV-9|C18H27NO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+Pyrovalerone|C16H23NO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+α-D2PV|C18H19NO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+α-PBP|C14H19NO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+α-PCyP|C18H25NO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+α-PHP|C16H23NO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+α-PPP|C13H17NO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+α-PVT|C13H19NOS|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+α-PVP|C15H21NO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+α-PiHP|C16H23NO|Pyrovalerone|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+
+# ---- Phenidates
+3,4-CTMP|C14H17Cl2NO2|Phenidate|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+4-Me-TMP|C15H21NO2|Phenidate|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+4F-EPH|C15H20FNO2|Phenidate|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+4F-MPH|C14H18FNO2|Phenidate|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+Ethylphenidate|C15H21NO2|Phenidate|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+Isopropylphenidate|C16H23NO2|Phenidate|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+Methylnaphthidate|C18H21NO2|Phenidate|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+Methylphenidate|C14H19NO2|Phenidate|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+
+# ---- Other stimulants (aminorex, aminoindane, benzofuran, piperazine, morpholine, etc.)
+2-Aminoindane|C9H11N|Aminoindane|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+4-MAR|C10H12N2O|Aminorex|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
+5-APB|C11H13NO|Benzofuran|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
+5-EAPB|C13H17NO|Benzofuran|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
+5-IAI|C9H10IN|Aminoindane|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
+5-MAPB|C12H15NO|Benzofuran|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
+6-APB|C11H13NO|Benzofuran|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
+6-APDB|C11H15NO|Benzofuran|Entactogen|entactogen|Serotonin releaser;Dopamine releaser;Norepinephrine releaser|synthetic
+Adrafinil|C15H15NO3S|Benzhydryl|Stimulant|stimulant|Dopamine reuptake inhibitor|synthetic
+Aminorex|C9H10N2O|Aminorex|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+Armodafinil|C15H15NO2S|Benzhydryl|Stimulant|stimulant|Dopamine reuptake inhibitor|synthetic
+BZP|C11H16N2|Piperazine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+Bromantane|C16H20BrN|Adamantane|Stimulant|stimulant|Dopamine reuptake inhibitor|synthetic
+Cocaine|C17H21NO4|Tropane|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor;Serotonin reuptake inhibitor|natural
+Cyclazodone|C12H12N2O2|Aminorex|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+Desoxypipradrol|C18H21N|Piperidine|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+Dichloropane|C15H17Cl2NO2|Tropane|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+Ephedrine|C10H15NO|Phenethylamine|Stimulant|stimulant|Norepinephrine releaser;Dopamine releaser|natural
+MDAI|C10H11NO2|Aminoindane|Entactogen|entactogen|Serotonin releaser;Norepinephrine releaser|synthetic
+Methiopropamine|C8H13NS|Thiophene|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+Modafinil|C15H15NO2S|Benzhydryl|Stimulant|stimulant|Dopamine reuptake inhibitor|synthetic
+N-Methylbisfluoromodafinil|C16H15F2NO2S|Benzhydryl|Stimulant|stimulant|Dopamine reuptake inhibitor|synthetic
+NM-2-AI|C10H13N|Aminoindane|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+Phenmetrazine|C11H15NO|Phenylmorpholine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+Prolintane|C15H23N|Pyrrolidine|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+Propylhexedrine|C10H21N|Cycloalkylamine|Stimulant|stimulant|Norepinephrine releaser;Dopamine releaser|synthetic
+Pseudoephedrine|C10H15NO|Phenethylamine|Stimulant|stimulant|Norepinephrine releaser;Dopamine releaser|natural
+TFMPP|C11H13F3N2|Piperazine|Psychedelic|psychedelic|Serotonin releaser;5-HT2C agonist;5-HT1A agonist|synthetic
+mCPP|C10H13ClN2|Piperazine|Psychedelic|psychedelic|Serotonin releaser;5-HT2C agonist;5-HT2B agonist|synthetic
+pFPP|C10H13FN2|Piperazine|Stimulant|stimulant|Serotonin releaser;5-HT1A agonist|synthetic
+3-FPM|C11H14FNO|Phenylmorpholine|Stimulant|stimulant|Dopamine releaser;Norepinephrine releaser|synthetic
+
+# ---- Xanthines, nicotinic, and related
+8-Chlorotheophylline|C7H7ClN4O2|Xanthine|Stimulant|stimulant|Adenosine antagonist|synthetic
+Caffeine|C8H10N4O2|Xanthine|Stimulant|stimulant|Adenosine antagonist|natural
+Cytisine|C11H14N2O|Alkaloid|Stimulant|stimulant|nACh agonist|natural
+Epibatidine|C11H13ClN2|Alkaloid|Stimulant|stimulant|nACh agonist|natural
+Lobeline|C22H27NO2|Alkaloid|Stimulant|stimulant|nACh agonist;Dopamine reuptake inhibitor|natural
+Nicotine|C10H14N2|Alkaloid|Stimulant|stimulant|nACh agonist|natural
+Theacrine|C9H12N4O3|Xanthine|Stimulant|stimulant|Adenosine antagonist|natural
+Theobromine|C7H8N4O2|Xanthine|Stimulant|stimulant|Adenosine antagonist|natural
+Theophylline|C7H8N4O2|Xanthine|Stimulant|stimulant|Adenosine antagonist|natural
+Varenicline|C13H13N3|Benzazepine|Stimulant|stimulant|nACh agonist|synthetic
+
+# ---- Cannabinoids
+5F-AKB48|C23H30FN3O|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+5F-AMB-PINACA|C19H26FN3O3|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+5F-CUMYL-PINACA|C22H26FN3O|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+5F-MDMB-PICA|C21H29FN2O3|Indole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+5F-MDMB-PINACA|C20H28FN3O3|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+5F-PB-22|C23H21FN2O2|Indole Ester|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+AB-CHMINACA|C20H28N4O2|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+AB-FUBINACA|C20H21FN4O2|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+AB-PINACA|C18H26N4O2|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+ADB-BUTINACA|C18H26N4O2|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+ADB-CHMINACA|C21H30N4O2|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+ADB-FUBINACA|C21H23FN4O2|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+ADB-PINACA|C19H28N4O2|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+AKB48|C23H31N3O|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+AM-2201|C24H22FNO|Naphthoylindole|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+AM-694|C20H19FINO|Benzoylindole|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+AMB-FUBINACA|C21H22FN3O3|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+APICA|C24H32N2O|Indole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+CBD|C21H30O2|Phytocannabinoid|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist;5-HT1A agonist|natural
+CBN|C21H26O2|Phytocannabinoid|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|natural
+CUMYL-PINACA|C22H27N3O|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+Delta-8-THC|C21H30O2|Phytocannabinoid|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|semisynthetic
+HHC|C21H32O2|Phytocannabinoid|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|semisynthetic
+JWH-018|C24H23NO|Naphthoylindole|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+JWH-073|C23H21NO|Naphthoylindole|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+JWH-081|C25H25NO2|Naphthoylindole|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+JWH-122|C25H25NO|Naphthoylindole|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+JWH-210|C26H27NO|Naphthoylindole|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+JWH-250|C22H25NO2|Phenylacetylindole|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+MDMB-4en-PICA|C21H28N2O3|Indole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+MDMB-4en-PINACA|C20H27N3O3|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+MDMB-BUTINACA|C19H27N3O3|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+MDMB-CHMICA|C23H32N2O3|Indole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+MDMB-FUBINACA|C22H24FN3O3|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+PB-22|C23H22N2O2|Indole Ester|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+RCS-4|C21H23NO2|Benzoylindole|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+STS-135|C24H31FN2O|Indole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+THC|C21H30O2|Phytocannabinoid|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|natural
+THC-O-acetate|C23H32O3|Phytocannabinoid|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|semisynthetic
+THCP|C23H34O2|Phytocannabinoid|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|natural
+THJ-018|C23H22N2O|Naphthoylindazole|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+THJ-2201|C23H21FN2O|Naphthoylindazole|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+Tetrahydrocannabihexol|C22H32O2|Phytocannabinoid|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|natural
+Tetrahydrocannabutol|C20H28O2|Phytocannabinoid|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|natural
+UR-144|C21H29NO|Cyclopropylindole|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+XLR-11|C21H28FNO|Cyclopropylindole|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+Delta-10-THC|C21H30O2|Phytocannabinoid|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+Delta-11-THC|C21H30O2|Phytocannabinoid|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic
+
+# ---- Benzodiazepines
+3-Hydroxyphenazepam|C15H10BrClN2O2|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Adinazolam|C19H18ClN5|Triazolobenzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Alprazolam|C17H13ClN4|Triazolobenzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Bromazepam|C14H10BrN3O|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Bromazolam|C17H13BrN4|Triazolobenzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Brotizolam|C15H10BrClN4S|Thienotriazolodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Chlordiazepoxide|C16H14ClN3O|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Clobazam|C16H13ClN2O2|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Clobromazolam|C17H12BrClN4|Triazolobenzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Clonazepam|C15H10ClN3O3|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Clonazolam|C17H12ClN5O2|Triazolobenzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Cloxazolam|C17H14Cl2N2O2|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Delorazepam|C15H10Cl2N2O|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Desalkylflurazepam|C15H10ClFN2O|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Deschloroetizolam|C17H16N4S|Thienotriazolodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Diazepam|C16H13ClN2O|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Diclazepam|C16H12Cl2N2O|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Estazolam|C16H11ClN4|Triazolobenzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Ethyl loflazepate|C18H14ClFN2O3|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Etizolam|C17H15ClN4S|Thienotriazolodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Fluclotizolam|C15H10ClFN4S|Thienotriazolodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Flualprazolam|C17H12ClFN4|Triazolobenzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Flubromazepam|C15H10BrFN2O|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Flubromazolam|C17H12BrFN4|Triazolobenzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Flunitrazepam|C16H12FN3O3|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Flunitrazolam|C17H12FN5O2|Triazolobenzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Flurazepam|C21H23ClFN3O|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Fonazepam|C15H10FN3O3|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Loprazolam|C23H21ClN6O3|Triazolobenzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Lorazepam|C15H10Cl2N2O2|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Lormetazepam|C16H12Cl2N2O2|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Meclonazepam|C16H12ClN3O3|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Medazepam|C16H15ClN2|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Metizolam|C16H13ClN4S|Thienotriazolodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Midazolam|C18H13ClFN3|Imidazobenzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Nifoxipam|C15H10FN3O4|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Nimetazepam|C16H13N3O3|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Nitrazepam|C15H11N3O3|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Nitrazolam|C17H13N5O2|Triazolobenzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Nordazepam|C15H11ClN2O|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Oxazepam|C15H11ClN2O2|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Phenazepam|C15H10BrClN2O|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Prazepam|C19H17ClN2O|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Pyrazolam|C16H12BrN5|Triazolobenzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Quazepam|C17H11ClF4N2S|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Temazepam|C16H13ClN2O2|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Tetrazepam|C16H17ClN2O|Benzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+Triazolam|C17H12Cl2N4|Triazolobenzodiazepine|Depressant|depressant|GABA-A PAM|synthetic
+
+# ---- Barbiturates
+Amobarbital|C11H18N2O3|Barbiturate|Depressant|depressant|GABA-A PAM|synthetic
+Butalbital|C11H16N2O3|Barbiturate|Depressant|depressant|GABA-A PAM|synthetic
+Pentobarbital|C11H18N2O3|Barbiturate|Depressant|depressant|GABA-A PAM|synthetic
+Phenobarbital|C12H12N2O3|Barbiturate|Depressant|depressant|GABA-A PAM|synthetic
+Secobarbital|C12H18N2O3|Barbiturate|Depressant|depressant|GABA-A PAM|synthetic
+
+# ---- Quinazolinones
+Etaqualone|C17H16N2O|Quinazolinone|Depressant|depressant|GABA-A PAM|synthetic
+Mebroqualone|C15H11BrN2O|Quinazolinone|Depressant|depressant|GABA-A PAM|synthetic
+Mecloqualone|C15H11ClN2O|Quinazolinone|Depressant|depressant|GABA-A PAM|synthetic
+Mephenaqualone|C22H18N2O2|Quinazolinone|Depressant|depressant|GABA-A PAM|synthetic
+Methaqualone|C16H14N2O|Quinazolinone|Depressant|depressant|GABA-A PAM|synthetic
+
+# ---- Z-drugs (non-benzodiazepine)
+Eszopiclone|C17H17ClN6O3|Cyclopyrrolone|Depressant|depressant|GABA-A PAM|synthetic
+Pagoclone|C23H22ClN3O2|Cyclopyrrolone|Depressant|depressant|GABA-A PAM|synthetic
+Zaleplon|C17H15N5O|Pyrazolopyrimidine|Depressant|depressant|GABA-A PAM|synthetic
+Zolpidem|C19H21N3O|Imidazopyridine|Depressant|depressant|GABA-A PAM|synthetic
+Zopiclone|C17H17ClN6O3|Cyclopyrrolone|Depressant|depressant|GABA-A PAM|synthetic
+
+# ---- Other GABA-A modulators
+Allopregnanolone|C21H34O2|Neurosteroid|Depressant|depressant|GABA-A PAM|natural
+Carisoprodol|C12H24N2O4|Carbamate|Depressant|depressant|GABA-A PAM|synthetic
+Chloral hydrate|C2H3Cl3O2|Alkanediol|Depressant|depressant|GABA-A PAM|synthetic
+Clomethiazole|C6H8ClNS|Thiazole|Depressant|depressant|GABA-A PAM|synthetic
+Etomidate|C14H16N2O2|Imidazole|Depressant|depressant|GABA-A PAM|synthetic
+Gaboxadol|C6H8N2O2|Isoxazole|Depressant|depressant|GABA-A agonist|synthetic
+Kavain|C14H14O3|Kavalactone|Depressant|depressant|GABA-A PAM|natural
+Meprobamate|C9H18N2O4|Carbamate|Depressant|depressant|GABA-A PAM|synthetic
+Propofol|C12H18O|Phenol|Depressant|depressant|GABA-A PAM|synthetic
+
+# ---- GABA-B / GABA analogues
+Baclofen|C10H12ClNO2|Gaba Analogue|Depressant|depressant|GABA-B agonist|synthetic
+F-Phenibut|C10H12FNO2|Gaba Analogue|Depressant|depressant|GABA-B agonist|synthetic
+GBL|C4H6O2|Lactone|Depressant|depressant|GABA-B agonist|synthetic
+GHB|C4H8O3|Lactone|Depressant|depressant|GABA-B agonist|synthetic
+Gabapentin|C9H17NO2|Gaba Analogue|Depressant|depressant|α2δ ligand|synthetic
+Phenibut|C10H13NO2|Gaba Analogue|Depressant|depressant|GABA-B agonist;α2δ ligand|synthetic
+Pregabalin|C8H17NO2|Gaba Analogue|Depressant|depressant|α2δ ligand|synthetic
+
+# ---- Other depressants & Antidepressants
+1,3-Butanediol|C4H10O2|Alkanediol|Depressant|depressant|GABA-A PAM|synthetic
+1,4-Butanediol|C4H10O2|Alkanediol|Depressant|depressant|GABA-B agonist|synthetic
+2M2B|C5H12O|Alcohol|Depressant|depressant|GABA-A PAM|synthetic
+Citalopram|C20H21FN2O|Other|Therapeutic||Serotonin reuptake inhibitor|synthetic
+Clonidine|C9H9Cl2N3|Imidazoline|Depressant|depressant|α2-adrenergic agonist|synthetic
+Escitalopram|C20H21FN2O|Other|Therapeutic||Serotonin reuptake inhibitor|synthetic
+Ethanol|C2H6O|Alcohol|Depressant|depressant|GABA-A PAM;NMDA antagonist|natural
+Paroxetine|C19H20FNO3|Other|Therapeutic||Serotonin reuptake inhibitor|synthetic
+Progesterone|C21H30O2|Steroid|Depressant|depressant|GABA-A PAM|natural
+Tizanidine|C9H8ClN5S|Imidazoline|Depressant|depressant|α2-adrenergic agonist|synthetic
+
+# ---- Opioids: Morphinans
+Buprenorphine|C29H41NO4|Morphinan|Opioid|opioid|μ-opioid agonist;κ-opioid antagonist;δ-opioid antagonist|semisynthetic
+Codeine|C18H21NO3|Morphinan|Opioid|opioid|μ-opioid agonist|natural
+Desomorphine|C17H21NO2|Morphinan|Opioid|opioid|μ-opioid agonist|semisynthetic
+Dihydrocodeine|C18H23NO3|Morphinan|Opioid|opioid|μ-opioid agonist|semisynthetic
+Ethylmorphine|C19H23NO3|Morphinan|Opioid|opioid|μ-opioid agonist|semisynthetic
+Heroin|C21H23NO5|Morphinan|Opioid|opioid|μ-opioid agonist|semisynthetic
+Hydrocodone|C18H21NO3|Morphinan|Opioid|opioid|μ-opioid agonist|semisynthetic
+Hydromorphone|C17H19NO3|Morphinan|Opioid|opioid|μ-opioid agonist|semisynthetic
+Levorphanol|C17H23NO|Morphinan|Opioid|opioid|μ-opioid agonist|synthetic
+Morphine|C17H19NO3|Morphinan|Opioid|opioid|μ-opioid agonist|natural
+Naloxone|C19H21NO4|Morphinan|Opioid|opioid|μ-opioid antagonist;κ-opioid antagonist;δ-opioid antagonist|semisynthetic
+Oxycodone|C18H21NO4|Morphinan|Opioid|opioid|μ-opioid agonist|semisynthetic
+Oxymorphone|C17H19NO4|Morphinan|Opioid|opioid|μ-opioid agonist|semisynthetic
+Thebaine|C19H21NO3|Morphinan|Unknown|||natural
+
+# ---- Opioids: Fentanyl analogues
+Acetylfentanyl|C21H26N2O|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
+Acrylfentanyl|C22H26N2O|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
+Alfentanil|C21H32N6O3|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
+Butyrylfentanyl|C23H30N2O|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
+Carfentanil|C24H30N2O3|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
+Fentanyl|C22H28N2O|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
+Furanylfentanyl|C24H26N2O2|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
+Remifentanil|C20H28N2O5|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
+Sufentanil|C22H30N2O2S|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
+Valerylfentanyl|C24H32N2O|Fentanyl Analogue|Opioid|opioid|μ-opioid agonist|synthetic
+
+# ---- Opioids: Nitazenes
+Butonitazene|C24H32N4O3|Nitazene|Opioid|opioid|μ-opioid agonist|synthetic
+Etonitazene|C22H28N4O3|Nitazene|Opioid|opioid|μ-opioid agonist|synthetic
+Isotonitazene|C23H30N4O3|Nitazene|Opioid|opioid|μ-opioid agonist|synthetic
+Metonitazene|C21H26N4O3|Nitazene|Opioid|opioid|μ-opioid agonist|synthetic
+Protonitazene|C23H30N4O3|Nitazene|Opioid|opioid|μ-opioid agonist|synthetic
+
+# ---- Opioids: other
+2-MethylAP-237|C18H26N2O|Cinnamylpiperazine|Opioid|opioid|μ-opioid agonist|synthetic
+7-Hydroxymitragynine|C23H30N2O5|Indole Alkaloid|Opioid|opioid|μ-opioid agonist;δ-opioid antagonist|natural
+AH-7921|C16H22Cl2N2O|Benzamide|Opioid|opioid|μ-opioid agonist|synthetic
+Dextropropoxyphene|C22H29NO2|Phenylpropylamine|Opioid|opioid|μ-opioid agonist;NMDA antagonist|synthetic
+Loperamide|C29H33ClN2O2|Piperidine|Opioid|opioid|μ-opioid agonist|synthetic
+MT-45|C24H32N2|Piperazine|Opioid|opioid|μ-opioid agonist;δ-opioid agonist;κ-opioid agonist|synthetic
+Methadone|C21H27NO|Phenylpropylamine|Opioid|opioid|μ-opioid agonist;NMDA antagonist;Serotonin reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+Mitragynine|C23H30N2O4|Indole Alkaloid|Opioid|opioid|μ-opioid agonist;α2-adrenergic agonist|natural
+O-Desmethyltramadol|C15H23NO2|Phenylpropylamine|Opioid|opioid|μ-opioid agonist;Norepinephrine reuptake inhibitor|synthetic
+Pethidine|C15H21NO2|Piperidine|Opioid|opioid|μ-opioid agonist;Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+Tapentadol|C14H23NO|Phenylpropylamine|Opioid|opioid|μ-opioid agonist;Norepinephrine reuptake inhibitor|synthetic
+Tianeptine|C21H25ClN2O4S|Tricyclic|Opioid|opioid|μ-opioid agonist;δ-opioid agonist|synthetic
+Tramadol|C16H25NO2|Cyclohexanol|Opioid|opioid|μ-opioid agonist;Serotonin reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+U-47700|C16H22Cl2N2O|Benzamide|Opioid|opioid|μ-opioid agonist;κ-opioid agonist|synthetic
+
+# ---- Dissociatives: Arylcyclohexylamines
+2-FDCK|C13H16FNO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist|synthetic
+3-Cl-PCP|C17H24ClN|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist|synthetic
+3-F-PCP|C17H24FN|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist|synthetic
+3-HO-PCE|C14H21NO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist|synthetic
+3-HO-PCP|C17H25NO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;μ-opioid agonist|synthetic
+3-Me-PCP|C18H27N|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor|synthetic
+3-Me-PCPy|C17H25N|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Dopamine releaser;Norepinephrine releaser;Serotonin releaser|synthetic
+3-MeO-PCE|C15H23NO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Serotonin reuptake inhibitor;Dopamine reuptake inhibitor|synthetic
+3-MeO-PCMo|C17H25NO2|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist|synthetic
+3-MeO-PCP|C18H27NO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Serotonin reuptake inhibitor;Sigma-1 agonist|synthetic
+4-MeO-PCP|C18H27NO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Serotonin reuptake inhibitor|synthetic
+DMXE|C15H21NO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Serotonin reuptake inhibitor|synthetic
+Deschloroketamine|C13H17NO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist|synthetic
+Fluorexetamine|C14H18FNO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist|synthetic
+HXE|C14H19NO2|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;μ-opioid agonist|synthetic
+Ketamine|C13H16ClNO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;D2 agonist;Sigma-1 agonist|synthetic
+MXE|C15H21NO2|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Serotonin reuptake inhibitor;Dopamine reuptake inhibitor|synthetic
+MXiPr|C16H23NO2|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Serotonin reuptake inhibitor|synthetic
+MXPr|C16H23NO2|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Serotonin reuptake inhibitor|synthetic
+N-Ethylketamine|C14H18ClNO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist|synthetic
+O-PCE|C14H19NO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Dopamine reuptake inhibitor|synthetic
+PCE|C14H21N|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Dopamine reuptake inhibitor|synthetic
+PCP|C17H25N|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Dopamine reuptake inhibitor;Sigma-1 agonist|synthetic
+Rolicyclidine|C16H23N|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Dopamine reuptake inhibitor|synthetic
+Tenocyclidine|C15H23NS|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Dopamine reuptake inhibitor|synthetic
+Tiletamine|C12H17NOS|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist|synthetic
+
+# ---- Dissociatives: Diarylethylamines
+Diphenidine|C19H23N|Diarylethylamine|Dissociative|dissociative|NMDA antagonist;Dopamine reuptake inhibitor|synthetic
+Ephenidine|C16H19N|Diarylethylamine|Dissociative|dissociative|NMDA antagonist;Dopamine reuptake inhibitor|synthetic
+Methoxphenidine|C20H25NO|Diarylethylamine|Dissociative|dissociative|NMDA antagonist;Dopamine reuptake inhibitor|synthetic
+
+# ---- Dissociatives: other
+DXM|C18H25NO|Morphinan|Dissociative|dissociative|NMDA antagonist;Serotonin reuptake inhibitor;Norepinephrine reuptake inhibitor;Sigma-1 agonist|synthetic
+Dextrorphan|C17H23NO|Morphinan|Dissociative|dissociative|NMDA antagonist;Serotonin reuptake inhibitor;Sigma-1 agonist|synthetic
+Dizocilpine|C16H15N|Dibenzocycloheptene|Dissociative|dissociative|NMDA antagonist|synthetic
+Memantine|C12H21N|Adamantane|Dissociative|dissociative|NMDA antagonist;D2 agonist;nACh antagonist|synthetic
+Nitrous oxide|N2O|Inorganic|Dissociative|dissociative|NMDA antagonist;GABA-A PAM|synthetic
+
+# ---- Deliriants
+Arecoline|C8H13NO2|Tetrahydropyridine Alkaloid|Stimulant|stimulant|Muscarinic agonist;nACh agonist|natural
+Atropine|C17H23NO3|Tropane|Deliriant|deliriant|Muscarinic antagonist|natural
+Benztropine|C21H25NO|Tropane|Deliriant|deliriant|Muscarinic antagonist;Dopamine reuptake inhibitor|synthetic
+Benzydamine|C19H23N3O|Indazole|Deliriant|deliriant|Muscarinic antagonist;5-HT2A agonist|synthetic
+Diphenhydramine|C17H21NO|Ethanolamine|Deliriant|deliriant|H1 antagonist;Muscarinic antagonist|synthetic
+Hyoscyamine|C17H23NO3|Tropane|Deliriant|deliriant|Muscarinic antagonist|natural
+Mirtazapine|C17H19N3|Piperazinoazepine|Deliriant|deliriant|H1 antagonist;5-HT2A antagonist;5-HT2C antagonist;α2-adrenergic antagonist|synthetic
+Muscimol|C4H6N2O2|Isoxazole|Deliriant|deliriant|GABA-A agonist|natural
+Myristicin|C11H12O3|Phenylpropene|Deliriant|deliriant|MAO-A inhibitor;MAO-B inhibitor|natural
+Promethazine|C17H20N2S|Phenothiazine|Deliriant|deliriant|H1 antagonist;Muscarinic antagonist;D2 antagonist|synthetic
+Scopolamine|C17H21NO4|Tropane|Deliriant|deliriant|Muscarinic antagonist|natural
+Trihexyphenidyl|C20H31NO|Piperidine|Deliriant|deliriant|Muscarinic antagonist|synthetic
+
+# ---- MAO inhibitors
+β-Carboline|C11H8N2|β-Carboline|Unknown||MAO-A inhibitor|natural
+Harmaline|C13H14N2O|β-Carboline|Psychedelic|psychedelic|MAO-A inhibitor;5-HT2A agonist|natural
+Harmine|C13H12N2O|β-Carboline|Psychedelic|psychedelic|MAO-A inhibitor;5-HT2A agonist|natural
+Moclobemide|C13H17ClN2O2|Benzamide|Unknown||MAO-A inhibitor|synthetic
+Phenelzine|C8H12N2|Hydrazine|Unknown||MAO-A inhibitor;MAO-B inhibitor|synthetic
+Selegiline|C13H17N|Amphetamine|Unknown||MAO-B inhibitor;Dopamine releaser;Norepinephrine releaser|synthetic
+
+# ---- Nootropics / racetams
+Aniracetam|C12H13NO3|Racetam|Unknown||AMPA PAM|synthetic
+Coluracetam|C19H23N3O3|Racetam|Unknown|||synthetic
+Omberacetam|C17H22N2O4|Peptide|Unknown||AMPA PAM|synthetic
+Oxiracetam|C6H10N2O3|Racetam|Unknown||AMPA PAM|synthetic
+Phenylpiracetam|C12H14N2O2|Racetam|Stimulant|stimulant|Dopamine reuptake inhibitor;Norepinephrine reuptake inhibitor;nACh agonist|synthetic
+Piracetam|C6H10N2O2|Racetam|Unknown||AMPA PAM|synthetic
+Pramiracetam|C14H27N3O2|Racetam|Unknown|||synthetic
+
+# ---- Miscellaneous
+Buspirone|C21H31N5O2|Azaspirodecanedione|Unknown||5-HT1A agonist;D2 antagonist|synthetic
+Efavirenz|C14H9ClF3NO2|Benzoxazinone|Psychedelic|psychedelic|5-HT2A agonist;GABA-A PAM|synthetic
+Galantamine|C17H21NO3|Benzazepine|Unknown||nACh agonist|natural
+Ibogaine|C20H26N2O|Indole Alkaloid|Psychedelic|psychedelic|κ-opioid agonist;NMDA antagonist;Serotonin reuptake inhibitor;nACh antagonist;Sigma-1 agonist|natural
+Ibotenic acid|C5H6N2O4|Isoxazole|Dissociative|dissociative|NMDA agonist|natural
+Salvinorin A|C23H28O8|Diterpenoid|Psychedelic|psychedelic|κ-opioid agonist|natural
+Salvinorin B methoxymethyl ether|C23H30O8|Salvinorin|Psychedelic|psychedelic|κ-opioid agonist|semisynthetic

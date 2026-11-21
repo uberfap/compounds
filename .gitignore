@@ -1,0 +1,15 @@
+cache/
+__pycache__/
+*.py[cod]
+data/catalogue/*.bak
+.venv/
+frontend/node_modules/
+frontend/dist/
+
+# Local historical snapshots, generated reports, and deployment secrets
+/archive/
+/data/review/scraped.csv
+/data/review/verify_report.csv
+.env
+.env.*
+/data/puzzles/*.json

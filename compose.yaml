@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: compounds
+      POSTGRES_PASSWORD: compounds_local
+      POSTGRES_DB: compounds
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: [CMD, pg_isready, -h, '127.0.0.1', -U, compounds, -d, compounds]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      COMPOUNDS_DATABASE_URL: 'postgresql://compounds:compounds_local@db:5432/compounds?connect_timeout=5'
+    volumes:
+      - type: bind
+        source: ${COMPOUNDS_PUZZLE_BATCH:-./data/puzzles/puzzles.json}
+        target: /run/compounds/puzzles.json
+        read_only: true
+        bind:
+          create_host_path: false
+    command:
+      - sh
+      - -ec
+      - |
+        python -m alembic upgrade head
+        python -m backend.publish /run/compounds/puzzles.json
+        exec python -m uvicorn backend.app:app --host 0.0.0.0 --port 8000
+    ports:
+      - '127.0.0.1:${COMPOUNDS_PORT:-8000}:8000'
+    healthcheck:
+      test: [CMD, python, -c, "from urllib.request import urlopen; urlopen('http://127.0.0.1:8000/api/puzzles/range', timeout=3).close()"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+volumes:
+  postgres-data:
