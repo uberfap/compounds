@@ -570,3 +570,60 @@ Phenazolam|C17H12BrClN4|Triazolobenzodiazepine|Depressant|||synthetic
 N-Propyl Butylone|C14H19NO3|Cathinone|Stimulant|||synthetic
 N-Cyclohexyl Butylone|C17H23NO3|Cathinone|Stimulant|||synthetic
 CH-FUBIATA|C23H25FN2O||Cannabinoid|||synthetic
+
+# ---- Catalogue expansion: documented research compounds
+# Arylcyclohexylamines: https://www.cfsre.org/nps-discovery/public-alerts/2f-2oxo-pce-a-new-synthetic-hallucinogen-identified-in-recreational-drug-markets-across-north-america
+2F-2oxo-PCE|C14H18FNO|Arylcyclohexylamine|Dissociative|||synthetic
+# 2-Fluoro-2-oxo-PCiPr free base: https://cdn.caymanchem.com/cdn/insert/44434.pdf
+2-Fluoro-2-oxo-PCiPr|C15H20FNO|Arylcyclohexylamine||||synthetic
+# Diarylethylamine positional isomers: https://e-space.mmu.ac.uk/629605/3/Field_UHPLC_JPBA_V6_FINAL.pdf
+3-Methoxphenidine|C20H25NO|Diarylethylamine||||synthetic
+4-Methoxphenidine|C20H25NO|Diarylethylamine||||synthetic
+2-Fluorodiphenidine|C19H22FN|Diarylethylamine||||synthetic
+# Aminorex derivatives: https://www.euseme.eu/wp-content/uploads/D2.6-analytical-procedure-for-qualitativ-analysis.pdf
+# 4,4'-DMAR: https://www.ofdt.fr/sites/ofdt/files/2023-08/field_media_document-1528-44DMARriskAssessment.pdf
+4Cl-MAR|C10H11ClN2O|Aminorex||||synthetic
+4Br-MAR|C10H11BrN2O|Aminorex||||synthetic
+4,4'-DMAR|C11H14N2O|Aminorex|Stimulant|||synthetic
+# Tryptamines: https://www.mdpi.com/1422-0067/21/23/9279
+# DALT: https://precision.fda.gov/uniisearch/srs/unii/85113MO9BC
+# 4-AcO-EPT: https://www.cfsre.org/images/monographs/4-AcO-EPT_062921_NMSLabs_Report.pdf
+# 5-MeO-DBT: https://jpet.aspetjournals.org/content/jpet/385/1/62.full.pdf
+DALT|C16H20N2|Tryptamine||||synthetic
+4-AcO-DPT|C18H26N2O2|Tryptamine||||synthetic
+4-AcO-EPT|C17H24N2O2|Tryptamine||||synthetic
+5-MeO-DPT|C17H26N2O|Tryptamine||||synthetic
+5-MeO-DBT|C19H30N2O|Tryptamine||||synthetic
+# N-Methyltryptamine: https://pubchem.ncbi.nlm.nih.gov/compound/6088
+# 5-MeO-DET: https://pubchem.ncbi.nlm.nih.gov/compound/417608
+# 4-AcO-DALT: https://www.drugsandalcohol.ie/19484/1/UNODC_The_challenge_of_new_psychoactive_substances.pdf
+N-Methyltryptamine|C11H14N2|Tryptamine||||
+5-MeO-DET|C15H22N2O|Tryptamine||||synthetic
+4-AcO-DALT|C18H22N2O2|Tryptamine||||synthetic
+# Nitazenes: https://www.cfsre.org/images/toolkits/NPS_Discovery_Datasheet_Nitazene_Analogues.pdf
+# N-Desethyl Etonitazene: https://www.cfsre.org/nps-discovery/monographs/n-desethyl-etonitazene
+N-Pyrrolidino Metonitazene|C21H24N4O3|Nitazene|Opioid|||synthetic
+N-Pyrrolidino Etonitazene|C22H26N4O3|Nitazene|Opioid|||synthetic
+N-Pyrrolidino Isotonitazene|C23H28N4O3|Nitazene|Opioid|||synthetic
+N-Pyrrolidino Protonitazene|C23H28N4O3|Nitazene|Opioid|||synthetic
+Metodesnitazene|C21H27N3O|Nitazene|Opioid|||synthetic
+N-Desethyl Etonitazene|C20H24N4O3|Nitazene|Opioid|||synthetic
+# Fentanyl analogues: UNODC Early Warning Advisory
+# https://www.unodc.org/LSS/Substance/Details/e5d2fb02-e514-4ce7-b82c-6b70b238d425
+# https://www.unodc.org/LSS/Substance/Details/874efd22-d284-4858-94c3-5d7898696a11
+# https://www.unodc.org/LSS/Substance/Details/633bc78d-7a9a-47c5-a226-8bef50dd5777
+Cyclopropylfentanyl|C23H28N2O|Fentanyl Analogue|Opioid|||synthetic
+Methoxyacetylfentanyl|C22H28N2O2|Fentanyl Analogue|Opioid|||synthetic
+Orthofluorofentanyl|C22H27FN2O|Fentanyl Analogue|Opioid|||synthetic
+# Cathinones: https://www.euda.europa.eu/system/files/documents/2025-06/euda_initial-report-nep_advanced-release_0.pdf
+# N-Cyclohexyl Methylone: https://www.cfsre.org/nps-discovery/monographs/n-cyclohexyl-methylone
+# MDPiHP: https://pubchem.ncbi.nlm.nih.gov/compound/156588946
+2-EEC|C13H19NO|Cathinone||||synthetic
+3-EEC|C13H19NO|Cathinone||||synthetic
+4-Methyl-N-propylcathinone|C13H19NO|Cathinone||||synthetic
+4-Methyl-N-ethyl-N-methylcathinone|C13H19NO|Cathinone||||synthetic
+N,N-Dimethylpentedrone|C13H19NO|Cathinone||||synthetic
+N,4-Dimethylbuphedrone|C12H17NO|Cathinone||||synthetic
+N-Propyl-norbuphedrone|C13H19NO|Cathinone||||synthetic
+N-Cyclohexyl Methylone|C16H21NO3|Cathinone||||synthetic
+MDPiHP|C17H23NO3|Pyrovalerone||||synthetic
