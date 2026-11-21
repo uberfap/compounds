@@ -55,3 +55,8 @@ footer a{color:inherit}
 .svg-canvas img{width:100%;max-width:240px;height:auto}
 .debug-nav span{text-align:center}
 .board{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+.puzzle-stats{margin-top:20px;padding:12px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+.puzzle-stats summary{cursor:pointer;font-weight:600}
+.tier-rates{display:flex;flex-wrap:wrap;gap:12px;padding:0;list-style:none}
+.tier-rates span{display:inline-block;width:1.4em;text-align:center;color:#1c1c1a;border-radius:3px}

@@ -10,7 +10,7 @@ Put a puzzle batch at `data/puzzles/puzzles.json`, or set `COMPOUNDS_PUZZLE_BATC
 docker compose up --build -d --wait
 ```
 
-Open [the game](http://127.0.0.1:8000/), [the debug navigator](http://127.0.0.1:8000/?debug=1), or [the API docs](http://127.0.0.1:8000/docs). A link such as `?p=3` opens a specific puzzle.
+Open [the game](http://127.0.0.1:8000/) or [the API docs](http://127.0.0.1:8000/docs). A link such as `?p=3` opens a specific puzzle.
 
 If port 8000 is occupied, set `COMPOUNDS_PORT` before starting. In PowerShell, use `$env:COMPOUNDS_PORT = '8001'` and open [port 8001](http://127.0.0.1:8001/).
 
@@ -45,6 +45,31 @@ npm run dev
 ```
 
 [Vite](http://localhost:5173/) proxies API requests to port 8000. Run `npm run check` for type checking and `npm run build` for a production bundle. FastAPI serves that bundle when `frontend/dist/index.html` exists at startup.
+
+## Puzzle stats and leaderboard
+
+Open **Puzzle statistics and leaderboard** below the board while playing or after
+finishing. It shows how many attempts started, finished, and solved the puzzle.
+Statistics refresh after each submitted guess. Your ranked entry is marked “you.”
+
+Each puzzle version has its own metrics. An attempt counts as started after its
+first guess. Solve rate, average mistakes, average inspections, and per-group
+solve rates use finished attempts. The leaderboard displays up to ten anonymous
+solves, sorted by fewest mistakes, then fewest inspections, then earliest finish.
+
+The app saves selected tiles and shuffle order in the browser and records
+submitted progress in PostgreSQL. A browser ID lets the API reuse an attempt
+for the same puzzle version if the browser loses its saved attempt reference.
+The leaderboard uses browser identity and has no account or anti-cheat system.
+
+After finishing, **Share result** shares the puzzle number, result, and
+color-coded guesses without revealing the answers. It uses the native share
+dialog when available and falls back to copying the result.
+
+Debug navigation is off by default. For native development only, set
+`COMPOUNDS_LOCAL_DEBUG=1` before starting Uvicorn bound to localhost and open
+`/?debug=1`. The API requires a loopback client and hostname. Keep the setting
+unset on public deployments. Public routes reject future puzzles by UTC date.
 
 ## Generate and publish puzzles
 

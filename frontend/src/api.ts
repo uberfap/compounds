@@ -3,6 +3,7 @@ export interface Board { number: number; date: string; version: string; tiles: T
 export interface Group { tier: number; label: string; tiles: number[] }
 export interface Attempt {
   id: string
+  player: string
   puzzle_version: string
   mistakes: number
   mistakes_left: number
@@ -23,6 +24,7 @@ export async function api<T>(path: string, method = 'GET', body?: object): Promi
   const base = (import.meta.env.VITE_API_ORIGIN ?? '').replace(/\/$/, '')
   const response = await fetch(base + '/api' + path, {
     method,
+    cache: 'no-store',
     ...(body && { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }),
   })
   if (!response.ok) {
@@ -30,4 +32,14 @@ export async function api<T>(path: string, method = 'GET', body?: object): Promi
     throw new ApiError(response.status, typeof error?.detail === 'string' ? error.detail : 'Request failed. Try again.')
   }
   return response.json() as Promise<T>
+}
+
+export interface PuzzleStats {
+  played: number
+  finished: number
+  won: number
+  mean_mistakes: number | null
+  mean_inspections: number | null
+  solved_by_tier: number[]
+  leaderboard: { player: string; mistakes: number; inspections: number }[]
 }

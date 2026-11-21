@@ -37,7 +37,7 @@ services:
     ports:
       - '127.0.0.1:${COMPOUNDS_PORT:-8000}:8000'
     healthcheck:
-      test: [CMD, python, -c, "from urllib.request import urlopen; urlopen('http://127.0.0.1:8000/api/puzzles/range', timeout=3).close()"]
+      test: [CMD, python, -c, "from urllib.request import urlopen; urlopen('http://127.0.0.1:8000/api/health', timeout=3).close()"]
       interval: 5s
       timeout: 5s
       retries: 12

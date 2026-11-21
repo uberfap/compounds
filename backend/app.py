@@ -2,13 +2,14 @@
 
 import hashlib
 import json
+import os
 from contextlib import asynccontextmanager, contextmanager
 from dataclasses import dataclass, field
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
 from uuid import UUID, uuid4
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -19,8 +20,13 @@ MAX_MISTAKES = 4
 MAX_INSPECTIONS = 4
 
 
+def player_label(attempt_id: UUID):
+    return "Player " + hashlib.sha256(attempt_id.bytes).hexdigest()[:10]
+
+
 class StartAttempt(BaseModel):
     version: str
+    player_id: UUID | None = None
 
 
 class Guess(BaseModel):
@@ -108,6 +114,7 @@ class Attempt:
             revealed.extend(tier for tier in range(4) if tier not in revealed)
         return {
             "id": str(self.id),
+            "player": player_label(self.id),
             "puzzle_version": self.puzzle.version,
             "mistakes": self.mistakes,
             "mistakes_left": MAX_MISTAKES - self.mistakes,
@@ -135,77 +142,134 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Compounds", lifespan=lifespan)
 
 
-def get_puzzle(connection, number: int) -> Puzzle:
+def debug_allowed(request: Request):
+    return (
+        os.environ.get("COMPOUNDS_LOCAL_DEBUG") == "1"
+        and request.url.hostname in {"localhost", "127.0.0.1", "::1"}
+        and request.client is not None
+        and request.client.host in {"127.0.0.1", "::1"}
+    )
+
+
+def release_day():
+    return datetime.now(timezone.utc).date()
+
+
+def get_puzzle(connection, number: int, request: Request) -> Puzzle:
     record = database.published_board(connection, number)
     if record is None:
         raise HTTPException(404, "Puzzle not found")
-    return Puzzle.from_record(record)
+    puzzle = Puzzle.from_record(record)
+    if puzzle.date > release_day().isoformat() and not debug_allowed(request):
+        raise HTTPException(404, "Puzzle not found")
+    return puzzle
 
 
 @contextmanager
-def attempt_transaction(attempt_id: UUID, *, write=False):
+def attempt_transaction(attempt_id: UUID, request: Request, *, write=False):
     with database.connect() as connection:
         row = database.read_attempt(connection, attempt_id, lock=write)
         if row is None:
             raise HTTPException(404, "Attempt not found")
         state, record = row
-        attempt = Attempt.from_state(Puzzle.from_record(record), attempt_id, state)
+        puzzle = Puzzle.from_record(record)
+        if puzzle.date > release_day().isoformat() and not debug_allowed(request):
+            raise HTTPException(404, "Attempt not found")
+        attempt = Attempt.from_state(puzzle, attempt_id, state)
         yield attempt
         if write:
             updated = attempt.stored_state()
             if updated != state:
-                database.write_attempt(connection, attempt_id, updated)
+                database.write_attempt(connection, attempt_id, updated, over=attempt.over)
 
 
 @app.get("/api/puzzles/daily")
-def daily_board(day: date):
+def daily_board(day: date, request: Request):
+    if not debug_allowed(request):
+        day = min(day, release_day())
     with database.connect() as connection:
         record = database.daily_board(connection, day)
     if record is None:
         raise HTTPException(404, "No puzzle published for this date")
-    return Puzzle.from_record(record).public_board()
+    puzzle = Puzzle.from_record(record)
+    if puzzle.date > release_day().isoformat() and not debug_allowed(request):
+        raise HTTPException(404, "No puzzle published for this date")
+    return puzzle.public_board()
+
+
+@app.get("/api/health")
+def health():
+    with database.connect() as connection:
+        first, _ = database.puzzle_range(connection)
+    if first is None:
+        raise HTTPException(503, "No puzzles published")
+    return {"status": "ok"}
 
 
 @app.get("/api/puzzles/range")
-def puzzle_range():
+def puzzle_range(request: Request):
+    if not debug_allowed(request):
+        raise HTTPException(404, "Puzzle navigation is unavailable")
     with database.connect() as connection:
         first, last = database.puzzle_range(connection)
     return {"first": first, "last": last}
 
 
 @app.get("/api/puzzles/{number}")
-def board(number: int):
+def board(number: int, request: Request):
     with database.connect() as connection:
-        return get_puzzle(connection, number).public_board()
+        return get_puzzle(connection, number, request).public_board()
+
+
+@app.get("/api/puzzles/{number}/stats")
+def puzzle_stats(number: int, request: Request):
+    with database.connect() as connection:
+        connection.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
+        puzzle = get_puzzle(connection, number, request)
+        totals, leaders = database.puzzle_metrics(connection, puzzle)
+    played, finished, won, mistakes, inspections, *solved_by_tier = totals
+    return {
+        "played": played,
+        "finished": finished,
+        "won": won,
+        "mean_mistakes": mistakes,
+        "mean_inspections": inspections,
+        "solved_by_tier": solved_by_tier,
+        "leaderboard": [
+            {
+                "player": player_label(attempt_id),
+                "mistakes": misses,
+                "inspections": hints,
+            }
+            for attempt_id, misses, hints in leaders
+        ],
+    }
 
 
 @app.post("/api/puzzles/{number}/attempts", status_code=201)
-def start_attempt(number: int, body: StartAttempt):
+def start_attempt(number: int, body: StartAttempt, request: Request):
     with database.connect() as connection:
-        puzzle = get_puzzle(connection, number)
+        puzzle = get_puzzle(connection, number, request)
         if body.version != puzzle.version:
             raise HTTPException(409, "Puzzle version changed")
         attempt = Attempt(puzzle)
-        database.create_attempt(
-            connection, attempt.id, puzzle.number, puzzle.date,
-            puzzle.version, attempt.stored_state(),
-        )
-        return attempt.public_state()
+        attempt_id, state = database.resume_or_create(connection, attempt, body.player_id)
+        return Attempt.from_state(puzzle, attempt_id, state).public_state()
 
 
 @app.get("/api/attempts/{attempt_id}")
-def attempt_state(attempt_id: UUID):
-    with attempt_transaction(attempt_id) as attempt:
+def attempt_state(attempt_id: UUID, request: Request):
+    with attempt_transaction(attempt_id, request) as attempt:
         return attempt.public_state()
 
 
 @app.post("/api/attempts/{attempt_id}/guesses")
-def submit_guess(attempt_id: UUID, body: Guess):
+def submit_guess(attempt_id: UUID, body: Guess, request: Request):
     key = tuple(sorted(set(body.tiles)))
     if len(key) != 4:
         raise HTTPException(422, "Choose four distinct tiles from this puzzle")
 
-    with attempt_transaction(attempt_id, write=True) as attempt:
+    with attempt_transaction(attempt_id, request, write=True) as attempt:
         if any(tile not in attempt.puzzle.tiles for tile in key):
             raise HTTPException(422, "Choose four distinct tiles from this puzzle")
         if key in attempt.guesses:
@@ -234,8 +298,8 @@ def submit_guess(attempt_id: UUID, body: Guess):
 
 
 @app.post("/api/attempts/{attempt_id}/structures/{tile}")
-def inspect_structure(attempt_id: UUID, tile: int):
-    with attempt_transaction(attempt_id, write=True) as attempt:
+def inspect_structure(attempt_id: UUID, tile: int, request: Request):
+    with attempt_transaction(attempt_id, request, write=True) as attempt:
         name = attempt.puzzle.tiles.get(tile)
         svg = attempt.puzzle.structures.get(name)
         if not svg:

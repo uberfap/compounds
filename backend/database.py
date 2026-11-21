@@ -61,11 +61,55 @@ def puzzle_range(connection):
     ).fetchone()
 
 
-def create_attempt(connection, attempt_id, number, day, version, state):
-    connection.execute("""
-        INSERT INTO attempts (id, number, day, version, state)
-        VALUES (%s, %s, %s, %s, %s)
-    """, (attempt_id, number, day, version, Jsonb(state)))
+def resume_or_create(connection, attempt, player_id):
+    puzzle = attempt.puzzle
+    identity = (puzzle.number, puzzle.date, puzzle.version)
+    row = connection.execute(
+        """
+        INSERT INTO attempts (id, number, day, version, state, player_id)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        ON CONFLICT (player_id, number, day, version) DO NOTHING
+        RETURNING id, state
+        """, (attempt.id, *identity, Jsonb(attempt.stored_state()), player_id)
+    ).fetchone()
+    if row is not None:
+        return row
+    return connection.execute("""
+        SELECT id, state FROM attempts
+        WHERE player_id = %s AND number = %s AND day = %s AND version = %s
+    """, (player_id, *identity)).fetchone()
+
+
+def puzzle_metrics(connection, puzzle):
+    args = (puzzle.number, puzzle.date, puzzle.version)
+    totals = connection.execute("""
+        WITH games AS (
+            SELECT state, jsonb_array_length(state->'solved') = 4 AS won,
+                   (state->>'mistakes')::integer AS mistakes
+            FROM attempts
+            WHERE number = %s AND day = %s AND version = %s
+              AND jsonb_array_length(state->'guesses') > 0
+        )
+        SELECT count(*), count(*) FILTER (WHERE won OR mistakes >= 4),
+               count(*) FILTER (WHERE won), avg(mistakes) FILTER (WHERE won OR mistakes >= 4),
+               avg(jsonb_array_length(state->'inspected')) FILTER (WHERE won OR mistakes >= 4),
+               count(*) FILTER (WHERE (won OR mistakes >= 4) AND state->'solved' @> '[0]'),
+               count(*) FILTER (WHERE (won OR mistakes >= 4) AND state->'solved' @> '[1]'),
+               count(*) FILTER (WHERE (won OR mistakes >= 4) AND state->'solved' @> '[2]'),
+               count(*) FILTER (WHERE (won OR mistakes >= 4) AND state->'solved' @> '[3]')
+        FROM games
+    """, args).fetchone()
+    leaders = connection.execute("""
+        SELECT id, (state->>'mistakes')::integer AS mistakes,
+               jsonb_array_length(state->'inspected') AS inspections
+        FROM attempts
+        WHERE number = %s AND day = %s AND version = %s
+          AND finished_at IS NOT NULL AND player_id IS NOT NULL
+          AND jsonb_array_length(state->'solved') = 4
+        ORDER BY mistakes, inspections, finished_at, id
+        LIMIT 10
+    """, args).fetchall()
+    return totals, leaders
 
 
 def read_attempt(connection, attempt_id, *, lock=False):
@@ -80,7 +124,9 @@ def read_attempt(connection, attempt_id, *, lock=False):
     return connection.execute(query, (attempt_id,)).fetchone()
 
 
-def write_attempt(connection, attempt_id, state):
+def write_attempt(connection, attempt_id, state, *, over):
     connection.execute(
-        "UPDATE attempts SET state = %s WHERE id = %s", (Jsonb(state), attempt_id)
+        """UPDATE attempts SET state = %s,
+           finished_at = CASE WHEN %s THEN COALESCE(finished_at, now()) ELSE finished_at END
+           WHERE id = %s""", (Jsonb(state), over, attempt_id)
     )

@@ -1,14 +1,16 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte'
-  import { api, ApiError, type Attempt, type Board, type Tile } from './api'
+  import { api, ApiError, type Attempt, type Board, type PuzzleStats, type Tile } from './api'
 
   const params = new URLSearchParams(location.search)
-  const debug = params.get('debug') === '1'
+  const debugRequested = params.get('debug') === '1'
   const colors = ['🟨', '🟩', '🟦', '🟪']
   const today = new Date()
   const day = [today.getFullYear(), today.getMonth() + 1, today.getDate()]
     .map(part => String(part).padStart(2, '0')).join('-')
   let requested = Number(params.get('p')) || undefined
+  let stats = $state<PuzzleStats>()
+  let statsUnavailable = $state(false)
   let board = $state<Board>()
   let attempt = $state<Attempt>()
   let order = $state<number[]>([])
@@ -28,15 +30,36 @@
   const tiles = $derived(new Map(board?.tiles.map(tile => [tile.id, tile])))
   const storageKey = (puzzle: Board) => `compounds-api-${puzzle.number}-${puzzle.version}`
 
-  function recall(puzzle: Board): { id?: string; order?: number[] } {
+  function recall(puzzle: Board): { id?: string; order?: number[]; selected?: number[] } {
     try { return JSON.parse(localStorage.getItem(storageKey(puzzle)) ?? '{}') ?? {} }
     catch { return {} }
   }
 
   function save() {
     if (!board || !attempt) return
-    try { localStorage.setItem(storageKey(board), JSON.stringify({ id: attempt.id, order })) }
+    try { localStorage.setItem(storageKey(board), JSON.stringify({ id: attempt.id, order, selected })) }
     catch { /* Browser storage is optional. */ }
+  }
+
+  function playerId() {
+    try {
+      const key = 'compounds-player-v1'
+      const existing = localStorage.getItem(key)
+      if (existing) return existing
+      const id = crypto.randomUUID()
+      localStorage.setItem(key, id)
+      return id
+    } catch { return undefined }
+  }
+
+  async function loadStats(puzzle: Board) {
+    statsUnavailable = false
+    try {
+      const result = await api<PuzzleStats>('/puzzles/' + puzzle.number + '/stats')
+      if (board?.number === puzzle.number && board.version === puzzle.version) stats = result
+    } catch {
+      if (board?.number === puzzle.number && board.version === puzzle.version) statsUnavailable = true
+    }
   }
 
   function toast(text: string) {
@@ -62,14 +85,18 @@
         catch (error) { if (!(error instanceof ApiError && error.status === 404)) throw error }
       }
       attempt = resumed?.puzzle_version === puzzle.version ? resumed
-        : await api<Attempt>(`/puzzles/${puzzle.number}/attempts`, 'POST', { version: puzzle.version })
+        : await api<Attempt>(`/puzzles/${puzzle.number}/attempts`, 'POST', { version: puzzle.version, player_id: playerId() })
       const ids = puzzle.tiles.map(tile => tile.id)
       const savedOrder = saved.order
       order = Array.isArray(savedOrder) && savedOrder.length === ids.length &&
         new Set(savedOrder).size === ids.length && savedOrder.every(id => ids.includes(id))
         ? savedOrder : ids
       board = puzzle
-      selected = []
+      const playable = ids.filter(id => !attempt?.solved.some(group => group.tiles.includes(id)))
+      selected = !attempt.over && Array.isArray(saved.selected)
+        ? [...new Set(saved.selected)].filter(id => playable.includes(id)).slice(0, 4) : []
+      stats = undefined
+      void loadStats(puzzle)
       inspecting = false
       revealedTier = undefined
       requested = number
@@ -94,7 +121,7 @@
 
   onMount(() => {
     void load(requested)
-    if (debug) void api<{ first: number; last: number }>('/puzzles/range')
+    if (debugRequested) void api<{ first: number; last: number }>('/puzzles/range')
       .then(value => { range = value }).catch(() => {})
     return () => {
       clearTimeout(toastTimer)
@@ -122,6 +149,7 @@
     if (!inspecting) {
       if (selected.includes(tile.id)) selected = selected.filter(id => id !== tile.id)
       else if (selected.length < 4) selected = [...selected, tile.id]
+      save()
       return
     }
     inspecting = false
@@ -155,6 +183,8 @@
         await tick()
         shaken = true
       }
+      save()
+      if (board) void loadStats(board)
     } catch (error) { toast(errorText(error)) }
     finally { busy = false }
   }
@@ -176,18 +206,14 @@
 <main>
   <header><h1>Compounds</h1>{#if board}<span id="num">#{board.number} · {board.date}</span>{/if}</header>
   {#if board && attempt}
-    {#if debug}
+    {#if range}
       <nav class="debug-nav" aria-label="Puzzle navigation">
-        <button class="btn" aria-label="Previous puzzle" disabled={busy || board.number <= (range?.first ?? 1)}
+        <button class="btn" aria-label="Previous puzzle" disabled={busy || board.number <= range.first}
           onclick={() => board && load(board.number - 1)}>←</button>
-        {#if range}
-          <input type="range" min={range.first} max={range.last} value={board.number}
+        <input type="range" min={range.first} max={range.last} value={board.number}
             aria-label="Choose puzzle day" disabled={busy}
             onchange={event => load(event.currentTarget.valueAsNumber)}>
-        {:else}
-          <span>Day {board.number}</span>
-        {/if}
-        <button class="btn" aria-label="Next puzzle" disabled={busy || board.number === range?.last}
+        <button class="btn" aria-label="Next puzzle" disabled={busy || board.number === range.last}
           onclick={() => board && load(board.number + 1)}>→</button>
       </nav>
     {/if}
@@ -216,7 +242,7 @@
       <div id="lives" aria-live="polite">Mistakes left: {attempt.mistakes_left}</div>
       <div class="row">
         <button class="btn" disabled={busy} onclick={shuffle}>Shuffle</button>
-        <button class="btn" disabled={busy || !selected.length} onclick={() => { selected = [] }}>Deselect</button>
+        <button class="btn" disabled={busy || !selected.length} onclick={() => { selected = []; save() }}>Deselect</button>
         {#if visible.some(id => tiles.get(id)?.has_structure)}
           <button class="btn" class:active={inspecting} aria-pressed={inspecting}
             disabled={busy || (!inspecting && attempt.inspections_left === 0 && !visible.some(id => attempt?.inspected.includes(id)))}
@@ -236,6 +262,38 @@
     <button class="btn" onclick={() => load(requested)}>Retry</button>
   {:else}
     <p role="status">Loading puzzle…</p>
+  {/if}
+  {#if board}
+    <details class="puzzle-stats">
+      <summary>Puzzle statistics and leaderboard</summary>
+      {#if stats}
+        <p>{stats.played} started · {stats.finished} finished · {stats.won} solved</p>
+        {#if stats.finished}
+          <p>{Math.round(100 * stats.won / stats.finished)}% solved ·
+            {stats.mean_mistakes?.toFixed(1)} average mistakes ·
+            {stats.mean_inspections?.toFixed(1)} average inspections</p>
+          <p>Group solve rates among finished attempts</p>
+          <ul class="tier-rates">
+            {#each stats.solved_by_tier as count, tier}
+              <li><span class="t{tier}">{tier + 1}</span> {Math.round(100 * count / stats.finished)}%</li>
+            {/each}
+          </ul>
+        {/if}
+        {#if stats.leaderboard.length}
+          <ol>
+            {#each stats.leaderboard as entry (entry.player)}
+              <li>{entry.player}{entry.player === attempt?.player ? ' (you)' : ''} · {entry.mistakes} mistakes · {entry.inspections} inspections</li>
+            {/each}
+          </ol>
+        {:else}
+          <p>No ranked solves yet.</p>
+        {/if}
+      {:else if statsUnavailable}
+        <p>Statistics are temporarily unavailable.</p>
+      {:else}
+        <p>Loading statistics…</p>
+      {/if}
+    </details>
   {/if}
   <footer>Substance names and classes derived in part from <a href="https://psychonautwiki.org">PsychonautWiki</a> (CC BY-SA 4.0).</footer>
 </main>
