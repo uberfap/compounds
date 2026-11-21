@@ -1,5 +1,12 @@
 export interface Tile { id: number; name: string; has_structure: boolean }
 export interface Board { number: number; date: string; version: string; tiles: Tile[] }
+export type PuzzleStatus = 'unplayed' | 'in_progress' | 'solved' | 'missed'
+export interface ArchiveEntry {
+  number: number
+  date: string
+  version: string
+  status: PuzzleStatus
+}
 export interface Group { tier: number; label: string; tiles: number[] }
 export interface Attempt {
   id: string

@@ -9,7 +9,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 from uuid import UUID, uuid4
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import Body, FastAPI, HTTPException, Request
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -213,6 +213,16 @@ def puzzle_range(request: Request):
     with database.connect() as connection:
         first, last = database.puzzle_range(connection)
     return {"first": first, "last": last}
+
+
+@app.post("/api/puzzles/archive")
+def archive(player_id: UUID | None = Body(default=None, embed=True)):
+    with database.connect() as connection:
+        rows = database.puzzle_archive(connection, release_day(), player_id, MAX_MISTAKES)
+    return [
+        {"number": number, "date": day, "version": version, "status": status}
+        for number, day, version, status in rows
+    ]
 
 
 @app.get("/api/puzzles/{number}")

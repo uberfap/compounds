@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte'
   import { flip } from 'svelte/animate'
-  import { api, ApiError, type Attempt, type Board, type PuzzleStats, type Tile } from './api'
+  import { api, ApiError, type ArchiveEntry, type Attempt, type Board, type PuzzleStats, type PuzzleStatus, type Tile } from './api'
 
   const params = new URLSearchParams(location.search)
   const debugRequested = params.get('debug') === '1'
@@ -9,9 +9,18 @@
   const today = new Date()
   const day = [today.getFullYear(), today.getMonth() + 1, today.getDate()]
     .map(part => String(part).padStart(2, '0')).join('-')
-  let requested = Number(params.get('p')) || undefined
+  let requested = $state(Number(params.get('p')) || undefined)
   let stats = $state<PuzzleStats>()
   let statsUnavailable = $state(false)
+  let archive = $state<ArchiveEntry[]>()
+  let archiveError = $state(false)
+  let archiveLoading = $state(false)
+  const statusLabels: Record<PuzzleStatus, string> = {
+    unplayed: 'Unplayed', in_progress: 'In progress', solved: 'Solved', missed: 'Missed',
+  }
+  const archiveDate = new Intl.DateTimeFormat(undefined, {
+    year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC',
+  })
   let board = $state<Board>()
   let attempt = $state<Attempt>()
   let order = $state<number[]>([])
@@ -29,17 +38,23 @@
 
   const visible = $derived(order.filter(id => !attempt?.solved.some(group => group.tiles.includes(id))))
   const tiles = $derived(new Map(board?.tiles.map(tile => [tile.id, tile])))
-  const storageKey = (puzzle: Board) => `compounds-api-${puzzle.number}-${puzzle.version}`
+  const storageKey = (puzzle: Pick<Board, 'number' | 'version'>) => `compounds-api-${puzzle.number}-${puzzle.version}`
 
-  function recall(puzzle: Board): { id?: string; order?: number[]; selected?: number[] } {
+  function recall(puzzle: Pick<Board, 'number' | 'version'>): { id?: string; order?: number[]; selected?: number[]; status?: PuzzleStatus } {
     try { return JSON.parse(localStorage.getItem(storageKey(puzzle)) ?? '{}') ?? {} }
     catch { return {} }
   }
 
   function save() {
     if (!board || !attempt) return
-    try { localStorage.setItem(storageKey(board), JSON.stringify({ id: attempt.id, order, selected })) }
+    try { localStorage.setItem(storageKey(board), JSON.stringify({ id: attempt.id, order, selected, status: progress(attempt) })) }
     catch { /* Browser storage is optional. */ }
+  }
+
+  function progress(game: Attempt): PuzzleStatus {
+    if (game.over) return game.won ? 'solved' : 'missed'
+    return game.mistakes || game.solved.length || game.inspected.length || selected.length
+      ? 'in_progress' : 'unplayed'
   }
 
   function playerId() {
@@ -51,6 +66,25 @@
       localStorage.setItem(key, id)
       return id
     } catch { return undefined }
+  }
+
+  async function loadArchive() {
+    if (archiveLoading) return
+    archiveLoading = true
+    archiveError = false
+    const player = playerId()
+    try {
+      const entries = await api<ArchiveEntry[]>('/puzzles/archive', 'POST', { player_id: player })
+      archive = entries
+    } catch { archiveError = true }
+    finally { archiveLoading = false }
+  }
+
+  function archiveStatus(entry: ArchiveEntry): PuzzleStatus {
+    if (attempt && entry.number === board?.number && entry.version === board.version) return progress(attempt)
+    if (entry.status !== 'unplayed') return entry.status
+    const saved = recall(entry)
+    return saved.status ?? (saved.selected?.length ? 'in_progress' : 'unplayed')
   }
 
   async function loadStats(puzzle: Board) {
@@ -159,6 +193,7 @@
     try {
       const result = await api<{ svg: string; state: Attempt }>(`/attempts/${attempt.id}/structures/${tile.id}`, 'POST')
       attempt = result.state
+      save()
       structure = { name: tile.name, url: URL.createObjectURL(new Blob([result.svg], { type: 'image/svg+xml' })) }
       await tick()
       dialog?.showModal()
@@ -206,6 +241,30 @@
 
 <main>
   <header><h1>Compounds</h1>{#if board}<span id="num">#{board.number} · {board.date}</span>{/if}</header>
+  <nav class="puzzle-nav" aria-label="Puzzle pages">
+    {#if requested}<a href={location.pathname}>Today’s puzzle</a>{/if}
+    <details class="puzzle-archive" ontoggle={event => { if (event.currentTarget.open) void loadArchive() }}>
+      <summary>Archive</summary>
+      {#if archiveError}
+        <p role="alert">Could not load the archive.</p>
+        <button class="btn" onclick={loadArchive}>Retry</button>
+      {:else if archive?.length}
+        <ul class="archive-list">
+          {#each archive as entry (entry.number)}
+            {@const status = archiveStatus(entry)}
+            <li><a href={'?p=' + entry.number} aria-current={entry.number === board?.number ? 'page' : undefined}>
+              <span><time datetime={entry.date}>{archiveDate.format(new Date(entry.date))}</time> <small>#{entry.number}</small></span>
+              <span class="archive-status" class:unplayed={status === 'unplayed'}>{statusLabels[status]}</span>
+            </a></li>
+          {/each}
+        </ul>
+      {:else if archiveLoading}
+        <p role="status">Loading archive.</p>
+      {:else if archive}
+        <p>No past puzzles yet.</p>
+      {/if}
+    </details>
+  </nav>
   {#if board && attempt}
     {#if range}
       <nav class="debug-nav" aria-label="Puzzle navigation">

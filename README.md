@@ -46,6 +46,12 @@ npm run dev
 
 [Vite](http://localhost:5173/) proxies API requests to port 8000. Run `npm run check` for type checking and `npm run build` for a production bundle. FastAPI serves that bundle when `frontend/dist/index.html` exists at startup.
 
+## Puzzle archive
+
+Open **Archive** to browse earlier published puzzles by date and resume or view
+past results. Progress is tied to your browser and the published puzzle version.
+The archive lists days before today in UTC.
+
 ## Puzzle stats and leaderboard
 
 Open **Puzzle statistics and leaderboard** below the board while playing or after

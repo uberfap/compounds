@@ -55,6 +55,18 @@ h1 {
   letter-spacing: -.045em;
 }
 #num { color: var(--muted); font-size: .875rem; font-variant-numeric: tabular-nums; }
+.puzzle-nav { display: grid; justify-items: start; gap: 8px; margin-top: 12px; font-size: .875rem; }
+.puzzle-nav a { color: var(--fg); text-underline-offset: 2px; }
+.puzzle-archive { width: 100%; }
+.puzzle-archive > summary { width: fit-content; padding-block: 6px; cursor: pointer; font-weight: 650; }
+.puzzle-archive[open] { padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.archive-list { max-height: 16rem; overflow: auto; margin: 6px 0 0; padding: 4px; list-style: none; }
+.archive-list li + li { border-top: 1px solid var(--line); }
+.archive-list a { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 10px 8px; text-decoration: none; }
+.archive-list a:hover, .archive-list a[aria-current] { background: var(--tile); }
+.archive-list small { color: var(--muted); margin-left: 4px; }
+.archive-status { font-weight: 650; text-align: right; }
+.archive-status.unplayed { color: var(--muted); font-weight: 400; }
 .intro { margin: 18px 0 26px; }
 .how { margin: 0; color: var(--muted); }
 .how strong { color: var(--fg); }

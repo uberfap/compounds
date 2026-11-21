@@ -61,6 +61,26 @@ def puzzle_range(connection):
     ).fetchone()
 
 
+def puzzle_archive(connection, through_day, player_id, max_mistakes):
+    return connection.execute("""
+        SELECT published.number, published.day, published.version,
+               CASE
+                   WHEN jsonb_array_length(attempts.state->'solved') = 4 THEN 'solved'
+                   WHEN (attempts.state->>'mistakes')::integer >= %s THEN 'missed'
+                   WHEN jsonb_array_length(attempts.state->'guesses') > 0
+                        OR jsonb_array_length(attempts.state->'inspected') > 0 THEN 'in_progress'
+                   ELSE 'unplayed'
+               END AS status
+        FROM published_puzzles AS published
+        LEFT JOIN attempts
+               ON (attempts.number, attempts.day, attempts.version) =
+                  (published.number, published.day, published.version)
+              AND attempts.player_id = %s
+        WHERE published.day < %s
+        ORDER BY published.day DESC
+    """, (max_mistakes, player_id, through_day)).fetchall()
+
+
 def resume_or_create(connection, attempt, player_id):
     puzzle = attempt.puzzle
     identity = (puzzle.number, puzzle.date, puzzle.version)
