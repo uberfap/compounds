@@ -10,7 +10,18 @@ Put a puzzle batch at `data/puzzles/puzzles.json`, or set `COMPOUNDS_PUZZLE_BATC
 docker compose up --build -d --wait
 ```
 
-Open [the game](http://127.0.0.1:8000/) or [the API docs](http://127.0.0.1:8000/docs). A link such as `?p=3` opens a specific puzzle.
+For a fresh checkout without a private batch, generate a small local schedule first. In PowerShell, with Python installed:
+
+```powershell
+python -m pip install rdkit
+New-Item -ItemType Directory -Force data/puzzles | Out-Null
+python scripts/generate.py --start ((Get-Date).ToUniversalTime().ToString('yyyy-MM-dd')) --days 3 --out data/puzzles/puzzles.json
+docker compose up --build -d --wait
+```
+
+Use an existing private batch to replay its published boards. Generate a new batch to try the updated catalogue names and structures in new puzzles.
+
+Open [the game](http://127.0.0.1:8000/) or [the API docs](http://127.0.0.1:8000/docs). A link such as `?p=3` opens a specific puzzle. To try synonym hints, click **Synonyms**, then click a tile with aliases. The first reveal spends one of four synonym points. Reopening the same hint is free.
 
 If port 8000 is occupied, set `COMPOUNDS_PORT` before starting. In PowerShell, use `$env:COMPOUNDS_PORT = '8001'` and open [port 8001](http://127.0.0.1:8001/).
 
@@ -19,7 +30,7 @@ Compose builds Svelte, starts PostgreSQL, applies migrations, and publishes the 
 ## How it works
 
 - **Svelte + TypeScript** renders the board, tracks selection and shuffle order, and remembers the anonymous attempt ID in browser storage.
-- **FastAPI** serves the frontend and API on one origin. It checks guesses and spends structure inspections on the server.
+- **FastAPI** serves the frontend and API on one origin. It checks guesses and tracks structure and synonym hint allowances on the server.
 - **PostgreSQL + Alembic** store attempts and versioned boards. A changed board starts a separate playthrough, and existing attempts remain tied to their original versions.
 - **Python** generates dated puzzles from the compound catalogue. Optional RDKit support renders skeletal structures during generation.
 
@@ -160,13 +171,27 @@ Run the Compose stack on your server. Point the domain at its public IP and conf
 | `data/review/` | Reference values and curated review data |
 | `data/puzzles/` | Local puzzle batches, excluded from Git |
 
-`scripts/audit.py` checks formula-derived masses against reference values. `scripts/verify.py` compares formulas with PubChem, and `scripts/scrape.py` collects candidate records. The SMILES merge script applies reviewed additions while preserving existing entries.
-
 ### Compound identifiers and aliases
 
 `data/catalogue/identities.csv` has one row per name in `compounds.csv`. It uses the same pipe delimiter. The `inchi_key` column holds the Standard InChIKey of the cached parent structure, with counterions removed and assigned stereochemistry retained. The `pubchem_cid` column holds the numeric PubChem Compound ID when the published InChIKey exactly matches the local key.
 
 `aliases` is a semicolon-separated list of reviewed alternative names. `alias_source` records the reference for those names. A blank field means the identifier or aliases have yet to be established. The generator uses `compounds.csv` for display names and puzzle rules. The API reads aliases from that file for synonym hints, including on older boards whose tile names now appear as aliases. Existing attempt records start with four synonym points. Deploy the new application build to enable hints on published puzzles.
+
+### Verify the catalogue
+
+Run these commands from the repository root. Verification writes its report before the audit reads it.
+
+```sh
+python -m pip install rdkit
+python scripts/verify.py
+python scripts/audit.py
+```
+
+`verify.py` checks PubChem records by CID. A `MATCH` requires the exact InChIKey, a compatible formula, and a name confirmed by PubChem or a sourced entry in `data/catalogue/aliases.csv`. That file records evidence for identity review. The game draws its playable synonyms from `compounds.csv`.
+
+PubChem responses are cached locally. Use `python scripts/verify.py --offline` to reuse cached responses. A CID without a cached response can still be checked in an online run.
+
+`audit.py` checks the catalogue against reference masses, verifier results, and documented checks in `data/review/hand_checked.csv`. With RDKit installed it also compares catalogue formulas with cached SMILES. Eight records currently have independently documented checks and blank PubChem CIDs. They can pass the formula audit while still reporting `NO PUBCHEM DATA`.
 
 ## License and data sources
 
