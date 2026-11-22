@@ -274,7 +274,7 @@ TFMPP|C11H13F3N2|Piperazine|Psychedelic|psychedelic|Serotonin releaser;5-HT2C ag
 
 # ---- Xanthines, nicotinic, and related
 8-Chlorotheophylline|C7H7ClN4O2|Xanthine|Stimulant|stimulant|Adenosine antagonist|synthetic|
-Caffeine|C8H10N4O2|Xanthine|Stimulant|stimulant|Adenosine antagonist|natural|
+Caffeine|C8H10N4O2|Xanthine|Stimulant|stimulant|Adenosine antagonist;A1 adenosine receptor antagonist;A2A adenosine receptor antagonist|natural|
 Cytisine|C11H14N2O|Alkaloid|Stimulant|stimulant|nACh agonist|natural|
 Epibatidine|C11H13ClN2|Alkaloid|Stimulant|stimulant|nACh agonist|natural|
 Lobeline|C22H27NO2|Alkaloid|Stimulant|stimulant|nACh agonist;Dopamine reuptake inhibitor|natural|
@@ -282,7 +282,7 @@ Nicotine|C10H14N2|Alkaloid|Stimulant|stimulant|nACh agonist|natural|
 Theacrine|C9H12N4O3|Xanthine|Stimulant|stimulant|Adenosine antagonist|natural|
 Theobromine|C7H8N4O2|Xanthine|Stimulant|stimulant|Adenosine antagonist|natural|
 Theophylline|C7H8N4O2|Xanthine|Stimulant|stimulant|Adenosine antagonist|natural|
-Varenicline|C13H13N3|Benzazepine|Stimulant|stimulant|nACh agonist|synthetic|
+Varenicline|C13H13N3|Benzazepine|Stimulant|stimulant|α4β2 nicotinic acetylcholine receptor partial agonist|synthetic|
 
 # ---- Cannabinoids
 5F-AKB48|C23H30FN3O|Indazole Carboxamide|Cannabinoid|cannabinoid|CB1 agonist;CB2 agonist|synthetic|
@@ -432,11 +432,11 @@ Propofol|C12H18O|Phenol|Depressant|depressant|GABA-A PAM|synthetic|
 # ---- GABA-B / GABA analogues
 Baclofen|C10H12ClNO2|Gaba Analogue|Depressant|depressant|GABA-B agonist|synthetic|Lioresal
 F-Phenibut|C10H12FNO2|Gaba Analogue|Depressant|depressant|GABA-B agonist|synthetic|
-Gabapentin|C9H17NO2|Gaba Analogue|Depressant|depressant|α2δ ligand|synthetic|Neurontin
+Gabapentin|C9H17NO2|Gaba Analogue|Depressant|depressant|α2δ ligand;Voltage-gated calcium channel α2δ-1 subunit ligand|synthetic|Neurontin
 GBL|C4H6O2|Lactone|Depressant|depressant|GABA-B agonist|synthetic|Gamma-butyrolactone
 GHB|C4H8O3|Lactone|Depressant|depressant|GABA-B agonist|synthetic|Gamma-hydroxybutyrate
 Phenibut|C10H13NO2|Gaba Analogue|Depressant|depressant|GABA-B agonist;α2δ ligand|synthetic|Fenibut;Phenyl-GABA;Noophen
-Pregabalin|C8H17NO2|Gaba Analogue|Depressant|depressant|α2δ ligand|synthetic|Lyrica
+Pregabalin|C8H17NO2|Gaba Analogue|Depressant|depressant|α2δ ligand;Voltage-gated calcium channel α2δ-1 subunit ligand|synthetic|Lyrica
 
 # ---- Other depressants & Antidepressants
 1,3-Butanediol|C4H10O2|Alkanediol|Depressant|depressant|GABA-A PAM|synthetic|
@@ -541,7 +541,7 @@ DCK|C13H17NO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist|synth
 DMXE|C15H21NO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Serotonin reuptake inhibitor|synthetic|
 FXE|C14H18FNO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist|synthetic|3F-2oxo-PCE;Fluorexetamine
 HXE|C14H19NO2|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;μ-opioid agonist|synthetic|
-Ketamine|C13H16ClNO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;D2 agonist;Sigma-1 agonist|synthetic|Special K;K;Kit Kat;Vitamin K
+Ketamine|C13H16ClNO|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Noncompetitive NMDA receptor antagonist|synthetic|Special K;K;Kit Kat;Vitamin K
 MXE|C15H21NO2|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Serotonin reuptake inhibitor;Dopamine reuptake inhibitor|synthetic|Methoxetamine
 MXiPr|C16H23NO2|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Serotonin reuptake inhibitor|synthetic|
 MXPr|C16H23NO2|Arylcyclohexylamine|Dissociative|dissociative|NMDA antagonist;Serotonin reuptake inhibitor|synthetic|
@@ -565,7 +565,7 @@ Methoxphenidine|C20H25NO|Diarylethylamine|Dissociative|dissociative|NMDA antagon
 Dextrorphan|C17H23NO|Morphinan|Dissociative|dissociative|NMDA antagonist;Serotonin reuptake inhibitor;Sigma-1 agonist|synthetic|
 Dizocilpine|C16H15N|Dibenzocycloheptene|Dissociative|dissociative|NMDA antagonist|synthetic|
 DXM|C18H25NO|Morphinan|Dissociative|dissociative|NMDA antagonist;Serotonin reuptake inhibitor;Norepinephrine reuptake inhibitor;Sigma-1 agonist|synthetic|Dextromethorphan
-Memantine|C12H21N|Adamantane|Dissociative|dissociative|NMDA antagonist;D2 agonist;nACh antagonist|synthetic|
+Memantine|C12H21N|Adamantane|Dissociative|dissociative|NMDA antagonist;Uncompetitive NMDA receptor open-channel blocker;5-HT3 antagonist;nACh antagonist|synthetic|
 Nitrous oxide|N2O|Inorganic|Dissociative|dissociative|NMDA antagonist;GABA-A PAM|synthetic|Laughing gas
 
 # ---- Deliriants
@@ -575,7 +575,7 @@ Benztropine|C21H25NO|Tropane|Deliriant|deliriant|Muscarinic antagonist;Dopamine 
 Benzydamine|C19H23N3O|Indazole|Deliriant|deliriant|Muscarinic antagonist;5-HT2A agonist|synthetic|
 DPH|C17H21NO|Ethanolamine|Deliriant|deliriant|H1 antagonist;Muscarinic antagonist|synthetic|Diphenhydramine
 Hyoscyamine|C17H23NO3|Tropane|Deliriant|deliriant|Muscarinic antagonist|natural|
-Mirtazapine|C17H19N3|Piperazinoazepine|Deliriant|deliriant|H1 antagonist;5-HT2A antagonist;5-HT2C antagonist;α2-adrenergic antagonist|synthetic|
+Mirtazapine|C17H19N3|Piperazinoazepine|Deliriant|deliriant|H1 antagonist;5-HT2A antagonist;5-HT2C antagonist;5-HT3 antagonist;α2-adrenergic antagonist|synthetic|
 Muscimol|C4H6N2O2|Isoxazole|Deliriant|deliriant|GABA-A agonist|natural|Agarin;Pantherine
 Myristicin|C11H12O3|Phenylpropene|Deliriant|deliriant|MAO-A inhibitor;MAO-B inhibitor|natural|
 Promethazine|C17H20N2S|Phenothiazine|Deliriant|deliriant|H1 antagonist;Muscarinic antagonist;D2 antagonist|synthetic|
@@ -600,9 +600,9 @@ Piracetam|C6H10N2O2|Racetam|Unknown|nootropic|AMPA PAM|synthetic|
 Pramiracetam|C14H27N3O2|Racetam|Unknown|nootropic|High-affinity choline uptake enhancer|synthetic|
 
 # ---- Miscellaneous
-Buspirone|C21H31N5O2|Azaspirodecanedione|Unknown|anxiolytic|5-HT1A agonist;D2 antagonist|synthetic|
+Buspirone|C21H31N5O2|Azaspirodecanedione|Unknown|anxiolytic|Presynaptic 5-HT1A agonist;Postsynaptic 5-HT1A partial agonist|synthetic|
 Efavirenz|C14H9ClF3NO2|Benzoxazinone|Psychedelic|psychedelic|5-HT2A agonist;GABA-A PAM|synthetic|
-Galantamine|C17H21NO3|Benzazepine|Unknown|cognitive symptom treatment|nACh agonist|natural|
+Galantamine|C17H21NO3|Benzazepine|Unknown|cognitive symptom treatment|Acetylcholinesterase inhibitor|natural|
 Ibogaine|C20H26N2O|Indole Alkaloid|Psychedelic|psychedelic|κ-opioid agonist;NMDA antagonist;Serotonin reuptake inhibitor;nACh antagonist;Sigma-1 agonist|natural|
 Ibotenic acid|C5H6N2O4|Isoxazole|Dissociative|dissociative|NMDA agonist|natural|
 Salvinorin A|C23H28O8|Diterpenoid|Psychedelic|psychedelic|κ-opioid agonist|natural|

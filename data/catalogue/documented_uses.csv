@@ -1,8 +1,8 @@
 name|clue|source_url|family
-Etomidate|Labeled for induction of general anesthesia|https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=eb63c7d7-5eca-4751-be51-45cf4d7715aa|documented_use
-Ketamine|Labeled for induction of general anesthesia|https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=64a483f2-eb08-4993-84ce-9d8ddc757f2c|documented_use
-Midazolam|Labeled for induction of general anesthesia|https://www.dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=b7effb82-e180-46f0-b2e8-a0d8ebc32a2a&type=display|documented_use
-Propofol|Labeled for induction of general anesthesia|https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?audience=professional&setid=5ec25932-6c21-4cd5-8f60-80761f2e20a6|documented_use
+Etomidate|Labeled for use during induction of general anesthesia|https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=eb63c7d7-5eca-4751-be51-45cf4d7715aa|documented_use
+Ketamine|Labeled for use during induction of general anesthesia|https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=64a483f2-eb08-4993-84ce-9d8ddc757f2c|documented_use
+Midazolam|Labeled for use during induction of general anesthesia|https://www.dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=b7effb82-e180-46f0-b2e8-a0d8ebc32a2a&type=display|documented_use
+Propofol|Labeled for use during induction of general anesthesia|https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?audience=professional&setid=5ec25932-6c21-4cd5-8f60-80761f2e20a6|documented_use
 Amphetamine|Labeled for treatment of ADHD|https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=f469fb38-0380-4621-9db3-a4f429126156|documented_use
 Methylphenidate|Labeled for treatment of ADHD|https://dailymed.nlm.nih.gov/dailymed/downloadpdffile.cfm?setId=c0bf0835-6a2f-4067-a158-8b86c4b0668a|documented_use
 Lisdexamfetamine|Labeled for treatment of ADHD|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e928c7e6-c889-4854-a9c1-e23fb860ba8e|documented_use
@@ -29,3 +29,16 @@ Morphine|Active metabolites of another catalogue compound|https://dailymed.nlm.n
 Nordazepam|Active metabolites of another catalogue compound|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=9e85abed-1a8b-4762-a31f-f2c7f196b8af|metabolite
 Temazepam|Active metabolites of another catalogue compound|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=9e85abed-1a8b-4762-a31f-f2c7f196b8af|metabolite
 Oxazepam|Active metabolites of another catalogue compound|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=9e85abed-1a8b-4762-a31f-f2c7f196b8af|metabolite
+Fentanyl|Labeled for use during induction of general anesthesia|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=58dcd3f7-e3d8-4929-a186-8f680a51ff11|documented_use
+Sufentanil|Labeled for use during induction of general anesthesia|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=20293943-46ff-4345-1aa4-929b4e017a25|documented_use
+Remifentanil|Labeled for use during induction of general anesthesia|https://dailymed.nlm.nih.gov/dailymed/getFile.cfm?setid=d2374b84-81c9-44f9-a4a9-1071281b2531&type=pdf|documented_use
+CBD|Labeled to treat or control certain seizures|https://dailymed.nlm.nih.gov/dailymed/getFile.cfm?setid=8bf27097-4870-43fb-94f0-f3d0871d1eec|documented_use
+Lorazepam|Labeled to treat or control certain seizures|https://dailymed.nlm.nih.gov/dailymed/downloadpdffile.cfm?setId=4489a72f-5fd0-42e5-859b-8530d500a562|documented_use
+GHB|Labeled for narcolepsy or associated excessive sleepiness|https://dailymed.nlm.nih.gov/dailymed/getFile.cfm?setid=926eb076-a4a8-45e4-91ef-411f0aa4f3ca|documented_use
+Armodafinil|Labeled for narcolepsy or associated excessive sleepiness|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=3dd49302-f757-d945-e063-6294a90afcba|documented_use
+Modafinil|Labeled for narcolepsy or associated excessive sleepiness|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0391f182-1958-9fef-a944-53b229ce99e7|documented_use
+Methylphenidate|Labeled for narcolepsy or associated excessive sleepiness|https://dailymed.nlm.nih.gov/dailymed/downloadpdffile.cfm?setId=c0bf0835-6a2f-4067-a158-8b86c4b0668a|documented_use
+Diazepam|Labeled for acute treatment of certain seizure episodes|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=52fc91f4-992f-47cb-a7d2-b26d74577481|documented_use
+Lorazepam|Labeled for acute treatment of certain seizure episodes|https://dailymed.nlm.nih.gov/dailymed/downloadpdffile.cfm?setId=4489a72f-5fd0-42e5-859b-8530d500a562|documented_use
+Midazolam|Labeled for acute treatment of certain seizure episodes|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2b29422e-54d5-4a49-8522-e9cf752368c3|documented_use
+Pentobarbital|Labeled for acute treatment of certain seizure episodes|https://dailymed.nlm.nih.gov/dailymed/getFile.cfm?setid=5c380ab0-4386-48b6-80ab-ca594b23bc74&type=pdf|documented_use
