@@ -146,11 +146,16 @@ undefined## Repository layout
 
 ### Target curation
 
+The `target_detail` column records supplied pharmacology reference leads, including assay endpoints, reported ranges, inference labels, and notes where available. The generator reads the canonical `target` tokens for predicates. Label-backed clinical uses are in `documented_uses.csv`.
+
+
 The target column uses distinct tags for established molecular actions. Keep broader tags where they remain accurate and useful for puzzle grouping. Mark inferred fields with the catalogue's existing annotations so the generator excludes them from clue rules.
 
 The current target review uses sources for [caffeine](https://pmc.ncbi.nlm.nih.gov/articles/PMC6247400/), [varenicline](https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/021928Orig1s051lbl.pdf), [galantamine](https://www.dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=10497273-d907-0514-e063-6294a90a1362&type=display), and [gabapentin and pregabalin](https://pmc.ncbi.nlm.nih.gov/articles/PMC7265598/).
 
 The follow-up review cites [buspirone](https://www.medsafe.govt.nz/profs/datasheet/b/buspironeviatristab.pdf), [mirtazapine](https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=979eec8b-1bf4-466b-812e-85a111ce1cb5), [ketamine](https://www.accessdata.fda.gov/drugsatfda_docs/label/2026/016812s057lbl.pdf), and [memantine](https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=b9f27baf-aa2a-443a-9ef5-e002d23407ba). Documented uses apply to the cited formulation. The anesthesia clue includes labeled use during induction, including as an adjunct. The narcolepsy clue includes sodium oxybate under its parent catalogue entry, GHB. Use entries require a source before they can enter the puzzle generator.
+
+The NMDA receptor channel-blocker clue uses [documented pore blockade](https://pmc.ncbi.nlm.nih.gov/articles/PMC6080888/) for Ketamine, PCP, Dizocilpine, and Memantine. Smoking-cessation entries use product labeling from the US and UK.
 
 ## License and data sources
 
