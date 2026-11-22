@@ -165,6 +165,8 @@ PHARMACOLOGICAL_LABEL = {
 }
 
 MISSING_TAGS = {"", "none", "unknown", "unclassified", "unspecified", "n/a", "na", "other", "others", "mixed", "-"}
+# Fields a "# Inferred fields|<name>|<f1>,<f2>" comment line may mark as inferred (kept out of puzzle rules).
+INFERRABLE_FIELDS = {"target", "effect", "pharmacological_class"}
 MAX_EXACT_FOUR_DECOYS = 2
 
 STRUCTURE_PATTERNS = (
@@ -200,6 +202,26 @@ def plural(s):
 
 def normalize_alpha(text):
     return re.sub(r"alpha", "α", text, flags=re.IGNORECASE)
+
+
+# Greek letters that appear in compound names, with the ASCII spelling the review files / PubChem use.
+GREEK_ASCII = {"α": "alpha", "β": "beta", "γ": "gamma", "δ": "delta", "Δ": "delta", "ε": "epsilon",
+               "κ": "kappa", "λ": "lambda", "μ": "mu", "σ": "sigma", "ω": "omega"}
+
+
+def ascii_name(text):
+    """Spell Greek letters out ("α-PVP" -> "alpha-PVP"), e.g. for PubChem queries. Keeps case."""
+    text = unicodedata.normalize("NFKC", str(text))
+    return "".join(GREEK_ASCII.get(ch, ch) for ch in text).strip()
+
+
+def name_key(text):
+    """Spelling-independent key for comparing compound names across files.
+
+    "α-PVP", "alpha-PVP" and "Alpha-PVP" all give "alpha-pvp"; likewise β/beta and Δ/delta. Use this
+    for lookups and joins only. The stored and displayed form stays Unicode (see normalize_alpha).
+    """
+    return ascii_name(text).casefold()
 
 
 def format_target_label(t):
@@ -392,10 +414,7 @@ def fetch_smiles_online(name, timeout=15, retries=2, logger=None,
                         expected_elements=None):
     """Look up a name in PubChem, then CACTUS, validating formula at each source."""
     logger = logger or logging.getLogger(__name__)
-    query_name = (name.replace("α", "alpha")
-                      .replace("β", "beta")
-                      .replace("Δ", "delta")
-                      .strip())
+    query_name = ascii_name(name)
     encoded = urllib.parse.quote(query_name, safe="")
     errors = []
 
@@ -612,16 +631,28 @@ def resolve_smiles_map(comps, cache_path, fetch_missing=False, *, timeout=15,
 # --------------------------------------------------------------------- data
 def load(path):
     with open(path, encoding="utf-8", newline="") as f:
-        lines, inferred = [], {}
-        for line in f:
+        lines, inferred, warnings = [], {}, []
+        for lineno, line in enumerate(f, 1):
             if line.startswith("# Inferred fields|"):
-                _, compound, fields = line.strip().split("|", 2)
-                inferred[compound] = set(fields.split(","))
+                parts = line.strip().split("|", 2)
+                if len(parts) < 3 or not parts[1].strip():
+                    warnings.append(f"line {lineno}: malformed inferred-fields annotation {line.strip()!r}")
+                    continue
+                compound = parts[1].strip()
+                fields = {x.strip() for x in parts[2].split(",") if x.strip()}
+                unknown = fields - INFERRABLE_FIELDS
+                if unknown:
+                    warnings.append(
+                        f"line {lineno}: {compound}: unknown inferred field(s) {sorted(unknown)} "
+                        f"(expected {sorted(INFERRABLE_FIELDS)}); they will not be applied"
+                    )
+                inferred.setdefault(compound, set()).update(fields & INFERRABLE_FIELDS)
             elif line.strip() and not line.lstrip().startswith("#"):
                 lines.append(line)
-    comps, seen, warnings = [], set(), []
+    comps, seen, row_names = [], set(), set()
     for r in csv.DictReader(lines, delimiter="|"):
         raw_name = (r.get("name") or "").strip()
+        row_names.add(raw_name)
         name = normalize_alpha(raw_name)
         if not name or name.lower() in seen:
             continue
@@ -659,6 +690,11 @@ def load(path):
             "targets": targets,
             "origin": (r.get("origin") or "").strip().lower(),
         })
+    for compound in sorted(set(inferred) - row_names):
+        warnings.append(
+            f"inferred-fields annotation names {compound!r}, which is not a compound in the file; "
+            "its inferred fields are NOT being hidden from anything"
+        )
     return comps, warnings
 
 
@@ -799,8 +835,9 @@ def _dedupe(preds, threshold=0.9):
 
 def _compact_name(value):
     """Normalize names for simple, human-visible substring comparisons."""
-    value = normalize_alpha(str(value)).casefold()
-    return re.sub(r"[^a-z0-9]+", "", value)
+    # name_key spells Greek letters out first ("β-OH-2C-B" -> "betaoh2cb"); the old
+    # normalize_alpha + [^a-z0-9] strip silently dropped α and β from the comparison.
+    return re.sub(r"[^a-z0-9]+", "", name_key(value))
 
 
 def _shared_name_signal(member_names, distractor_names):
