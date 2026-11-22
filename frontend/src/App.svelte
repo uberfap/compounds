@@ -260,6 +260,28 @@
     }
   })
 
+  const labelMeasure = document.createElement('canvas').getContext('2d')
+
+  function fitTileLabel(label: HTMLSpanElement, name: string) {
+    const fit = () => {
+      if (!labelMeasure || !label.parentElement || !label.clientWidth) return
+      const font = getComputedStyle(label.parentElement)
+      const size = Number.parseFloat(font.fontSize)
+      labelMeasure.font = `${font.fontWeight} ${font.fontSize} ${font.fontFamily}`
+      const longest = Math.max(...name.split(/[\s-]+/).map(word => labelMeasure.measureText(word).width))
+      const scale = Math.max(0.72, Math.min(1, (label.clientWidth - 1) / Math.max(1, longest)))
+      label.style.fontSize = scale === 1 ? '' : `${Math.floor(size * scale * 10) / 10}px`
+    }
+
+    const observer = new ResizeObserver(fit)
+    observer.observe(label)
+    fit()
+    return {
+      update(next: string) { name = next; fit() },
+      destroy() { observer.disconnect() },
+    }
+  }
+
   function shuffle() {
     const next = [...order]
     for (let i = next.length - 1; i > 0; i--) {
@@ -438,7 +460,7 @@
           <button class="tile" animate:flip={{ duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 240 }}
             class:sel={selected.includes(id)} aria-pressed={selected.includes(id)}
             disabled={busy} onclick={() => clickTile(tile)}>
-            {tile.name}
+            <span class="tile-label" use:fitTileLabel={tile.name}>{tile.name}</span>
             {#if attempt.inspected.includes(id)}<span class="svg-pip" aria-hidden="true" title="Structure unlocked"></span>{/if}
           </button>
         {/each}

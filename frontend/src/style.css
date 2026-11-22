@@ -133,6 +133,7 @@ h1 {
   cursor: pointer;
   transition: background-color 160ms, color 160ms, border-color 160ms, scale 140ms;
 }
+.tile-label { display: block; text-wrap: balance; }
 @media (hover: hover) {
   .tile:not(:disabled):not(.sel):hover, .btn:not(:disabled):not(.primary):not(.active):hover { background: var(--hover); }
 }
