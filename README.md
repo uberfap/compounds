@@ -10,7 +10,9 @@ Put a puzzle batch at `data/puzzles/puzzles.json`, or set `COMPOUNDS_PUZZLE_BATC
 docker compose up --build -d --wait
 ```
 
-For a fresh checkout without a private batch, generate a small local schedule first. In PowerShell, with Python installed:
+For a fresh checkout without a private batch, generate a small local schedule first. Install Python 3 and make sure Docker Compose is available. Start Docker Desktop on Windows or macOS, or start the Docker Engine on Linux.
+
+### Windows (PowerShell)
 
 ```powershell
 python -m pip install rdkit
@@ -19,11 +21,22 @@ python scripts/generate.py --start ((Get-Date).ToUniversalTime().ToString('yyyy-
 docker compose up --build -d --wait
 ```
 
+### Linux and macOS (Bash or Zsh)
+
+```sh
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install rdkit
+mkdir -p data/puzzles
+python scripts/generate.py --start "$(date -u +%F)" --days 3 --out data/puzzles/puzzles.json
+docker compose up --build -d --wait
+```
+
 Use an existing private batch to replay its published boards. Generate a new batch to try the updated catalogue names and structures in new puzzles.
 
 Open [the game](http://127.0.0.1:8000/) or [the API docs](http://127.0.0.1:8000/docs). A link such as `?p=3` opens a specific puzzle. To try synonym hints, click **Synonyms**, then click a tile with aliases. The first reveal spends one of four synonym points. Reopening the same hint is free.
 
-If port 8000 is occupied, set `COMPOUNDS_PORT` before starting. In PowerShell, use `$env:COMPOUNDS_PORT = '8001'` and open [port 8001](http://127.0.0.1:8001/).
+If port 8000 is occupied, set `COMPOUNDS_PORT` before starting. Use `$env:COMPOUNDS_PORT = '8001'` in PowerShell or `export COMPOUNDS_PORT=8001` in Bash or Zsh, then open [port 8001](http://127.0.0.1:8001/).
 
 Compose builds Svelte, starts PostgreSQL, applies migrations, and publishes the mounted puzzle batch before starting FastAPI. Use `docker compose logs -f app` to inspect startup and `docker compose down` to stop the stack. The named database volume keeps attempts and puzzle versions across restarts and container replacement.
 
