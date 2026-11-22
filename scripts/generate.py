@@ -1500,6 +1500,7 @@ def main():
                             seen_predsets,
                             svg_cache,
                             min_props=max(0, a.min_props - (1 if relax >= 2 else 0)),
+                            tries=16000 if relax == 0 else 4000,
                             seen_use_quartets=seen_use_quartets, trace_rule=a.trace_rule, trace=trace)
             if p is not None:
                 break

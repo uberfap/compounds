@@ -189,6 +189,10 @@ The cooldown test generated 40 boards across seeds 1 and 2. For a matched 30-boa
 
 The κ-opioid rule appeared in 2,111 draws. It scored Purple on 1,906 scored variants, and 364 also passed the full board difficulty check. Fourteen reached the partition solver and each failed its uniqueness check. No generated Purple group used the rule.
 
+#### Seed 1 comparison
+
+The 60-board run starting 2026-11-22 produced 34 formula, 8 structure, 7 dual-target, 4 documented-use, 4 prodrug, 2 metabolite, and 1 single-target Purple clue. Blue used six origin/class and six action-type clues. The five documented-use appearances used distinct quartets. All boards passed the solution and decoy checks without relaxing constraints. The unrestricted search now tries up to 16,000 rule sets before it relaxes constraints.
+
 ### Purple clue balance benchmark
 
 A private 60-board sample used seed 1 and a start date of 2026-11-22. The trial multiplied formula-rule sampling weights in the Purple candidate pool by 0.4. Final difficulty bands and solution checks were the same in both runs.
