@@ -169,6 +169,14 @@ python -m backend.publish /path/to/private/puzzles.json
 
 For Docker, set `COMPOUNDS_PUZZLE_BATCH` to the private file before starting the stack. Outside Docker, run the publisher with the target database connection configured. It replaces the active schedule in a single transaction and retains historical versions used by attempts.
 
+### Purple clue rotation
+
+The generator alternates requested Purple families across the batch: pharmacology, formula, structure, pharmacology, and documented use. Each request gets a bounded search. If the search cannot build a valid board, the generator falls back to the normal search and records the fallback in diagnostics. The final Purple score band, unique-solution check, and two-decoy cap still apply.
+
+Dual-target clues require both catalogue tags, at least five matching compounds across at least three scaffold classes, and a meaningful difference from each individual target. The existing target loader excludes records whose target fields are marked as inferred. Documented-use clues come from `documented_uses.csv` beside the catalogue. Each included compound needs a source URL. The first rule uses prescribing labels that explicitly list induction of general anesthesia.
+
+A private 30-board test used seeds 1 and 2, with 15 boards per seed. Purple contained 14 formula, 3 structure, 7 dual-target, and 6 documented-use clues. The reserved search succeeded on 21 boards. All boards had four difficulty tiers, one solution, at most two exact-four decoys, and zero constraint relaxation. The documented-use clues used the same four compounds, and the κ-opioid agonist clue did not appear.
+
 ### Purple clue balance benchmark
 
 A private 60-board sample used seed 1 and a start date of 2026-11-22. The trial multiplied formula-rule sampling weights in the Purple candidate pool by 0.4. Final difficulty bands and solution checks were the same in both runs.
