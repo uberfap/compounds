@@ -46,6 +46,7 @@
   let selected = $state<number[]>([])
   let inspecting = $state<'structure' | 'synonyms' | null>(null)
   let busy = $state(false)
+  let substanceCount = $state<number>()
   let loadError = $state('')
   let message = $state('')
   let structure = $state<{ name: string; url: string }>()
@@ -59,6 +60,10 @@
 
   const visible = $derived(order.filter(id => !attempt?.solved.some(group => group.tiles.includes(id))))
   const tiles = $derived(new Map(board?.tiles.map(tile => [tile.id, tile])))
+  const synonymTargets = $derived(new Set(visible.filter(id =>
+    tiles.get(id)?.has_synonyms &&
+    attempt && (attempt.synonym_hints_left > 0 || attempt.synonym_inspected.includes(id)),
+  )))
   const storageKey = (puzzle: Pick<Board, 'number' | 'version'>) => {
     const prefix = session?.account ? `compounds-account-${session.account.storage_key}` : 'compounds-api'
     return `${prefix}-${puzzle.number}-${puzzle.version}`
@@ -252,6 +257,8 @@
 
   onMount(() => {
     void initialize()
+    void api<{ substance_count: number }>('/catalogue')
+      .then(value => { substanceCount = value.substance_count }).catch(() => {})
     if (debugRequested) void api<{ first: number; last: number }>('/puzzles/range')
       .then(value => { range = value }).catch(() => {})
     return () => {
@@ -453,13 +460,14 @@
       </section>
     {/if}
     {#if !attempt.over}
-      <div class="board" class:inspect-mode={!!inspecting} class:shake={shaken}
+      <div class="board" class:inspect-mode={inspecting === 'structure'} class:synonym-mode={inspecting === 'synonyms'} class:shake={shaken}
         onanimationend={() => { shaken = false }}>
         {#each visible as id (id)}
           {@const tile = tiles.get(id)!}
           <button class="tile" animate:flip={{ duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 240 }}
             class:sel={selected.includes(id)} aria-pressed={selected.includes(id)}
-            disabled={busy} onclick={() => clickTile(tile)}>
+            class:synonym-target={inspecting === 'synonyms' && synonymTargets.has(id)}
+            disabled={busy || (inspecting === 'synonyms' && !synonymTargets.has(id))} onclick={() => clickTile(tile)}>
             <span class="tile-label" use:fitTileLabel={tile.name}>{tile.name}</span>
             {#if attempt.inspected.includes(id)}<span class="svg-pip" aria-hidden="true" title="Structure unlocked"></span>{/if}
           </button>
@@ -482,13 +490,11 @@
             {inspecting === 'structure' ? 'Cancel' : 'Structure'} ({attempt.inspections_left})
           </button>
         {/if}
-        {#if visible.some(id => tiles.get(id)?.has_synonyms)}
-          <button class="btn" class:active={inspecting === 'synonyms'} aria-pressed={inspecting === 'synonyms'}
-            disabled={busy || (inspecting !== 'synonyms' && attempt.synonym_hints_left === 0 && !visible.some(id => attempt?.synonym_inspected.includes(id)))}
-            onclick={() => { inspecting = inspecting === 'synonyms' ? null : 'synonyms' }}>
-            {inspecting === 'synonyms' ? 'Cancel' : 'Synonyms'} ({attempt.synonym_hints_left})
-          </button>
-        {/if}
+        <button class="btn" class:active={inspecting === 'synonyms'} aria-pressed={inspecting === 'synonyms'}
+          disabled={busy || (!synonymTargets.size && inspecting !== 'synonyms')}
+          onclick={() => { inspecting = inspecting === 'synonyms' ? null : 'synonyms' }}>
+          {inspecting === 'synonyms' ? 'Cancel' : 'Synonyms'}{#if synonymTargets.size} ({attempt.synonym_hints_left}){/if}
+        </button>
         <button class="btn primary" disabled={busy || selected.length !== 4} onclick={submit}>Submit</button>
       </div>
       {#if inspecting}<p id="msg">{inspecting === 'structure' ? 'Tap a compound to view its skeletal structure.' : 'Tap a compound to reveal its synonyms.'}</p>{/if}
@@ -543,6 +549,7 @@
     </details>
   {/if}
   <footer class="site-footer">
+    {#if substanceCount !== undefined}<p>{substanceCount.toLocaleString()} substances in the catalogue</p>{/if}
     <p>Simplified chemical data for gameplay only.</p>
     <nav aria-label="Footer">
       {#if board}<button onclick={() => jumpTo(puzzleStatsPanel)}>Puzzle statistics</button>{/if}

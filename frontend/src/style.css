@@ -141,6 +141,8 @@ h1 {
 .btn.primary, .btn.active { background: var(--fg); color: var(--bg); border-color: var(--fg); }
 .tile:not(:disabled):active, .btn:not(:disabled):active { scale: .96; }
 .board.inspect-mode .tile { border-style: dashed; border-color: var(--fg); }
+.board.synonym-mode .tile:not(.synonym-target) { opacity: .45; cursor: default; }
+.tile.synonym-target { border-color: var(--fg); outline: 2px solid var(--fg); outline-offset: -4px; }
 .svg-pip {
   position: absolute;
   top: 6px;

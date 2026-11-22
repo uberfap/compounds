@@ -25,17 +25,23 @@ CATALOGUE = BATCH.parents[1] / "catalogue" / "compounds.csv"
 
 
 @lru_cache(maxsize=1)
-def catalogue_synonyms():
+def catalogue_metadata():
     names = {}
+    count = 0
     with CATALOGUE.open(encoding="utf-8", newline="") as source:
         rows = csv.DictReader((line for line in source if not line.startswith("#") and line.strip()), delimiter="|")
         for row in rows:
+            count += 1
             aliases = [name.strip() for name in (row.get("aliases") or "").split(";") if name.strip()]
             if aliases:
                 group = (row["name"], *aliases)
                 for name in group:
                     names[name] = tuple(other for other in group if other != name)
-    return names
+    return count, names
+
+
+def catalogue_synonyms():
+    return catalogue_metadata()[1]
 
 
 def player_label(attempt_id: UUID):
@@ -228,6 +234,11 @@ def daily_board(day: date, request: Request):
     if puzzle.date > release_day().isoformat() and not debug_allowed(request):
         raise HTTPException(404, "No puzzle published for this date")
     return puzzle.public_board()
+
+
+@app.get("/api/catalogue")
+def catalogue_summary():
+    return {"substance_count": catalogue_metadata()[0]}
 
 
 @app.get("/api/health")

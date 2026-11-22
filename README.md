@@ -34,7 +34,7 @@ docker compose up --build -d --wait
 
 Use an existing private batch to replay its published boards. Generate a new batch to try the updated catalogue names and structures in new puzzles.
 
-Open [the game](http://127.0.0.1:8000/) or [the API docs](http://127.0.0.1:8000/docs). A link such as `?p=3` opens a specific puzzle. To try synonym hints, click **Synonyms**, then click a tile with aliases. The first reveal spends one of four synonym points. Reopening the same hint is free.
+Open [the game](http://127.0.0.1:8000/) or [the API docs](http://127.0.0.1:8000/docs). A link such as `?p=3` opens a specific puzzle. To try synonym hints, click **Synonyms**, then click a tile with aliases. The first reveal spends one of four synonym points. Reopening the same hint is free. Eligible tiles are highlighted in synonym mode. The button is disabled and hides its point count when no visible tile can be inspected. The footer shows the total number of substances in the catalogue.
 
 If port 8000 is occupied, set `COMPOUNDS_PORT` before starting. Use `$env:COMPOUNDS_PORT = '8001'` in PowerShell or `export COMPOUNDS_PORT=8001` in Bash or Zsh, then open [port 8001](http://127.0.0.1:8001/).
 
