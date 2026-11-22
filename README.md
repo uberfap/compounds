@@ -171,15 +171,17 @@ For Docker, set `COMPOUNDS_PUZZLE_BATCH` to the private file before starting the
 
 ### Purple clue rotation
 
-The generator alternates requested Purple families across the batch: pharmacology, formula, structure, pharmacology, and documented use. Each request gets a bounded search. If the search cannot build a valid board, the generator falls back to the normal search and records the fallback in diagnostics. The final Purple score band, unique-solution check, and two-decoy cap still apply.
+The generator alternates requested Purple families across the batch: pharmacology, formula, documented use, structure, prodrug, pharmacology, and active metabolite. Each request gets a bounded search. If the search cannot build a valid board, the generator falls back to the normal search and records the fallback in diagnostics. The final Purple score band, unique-solution check, and two-decoy cap still apply.
 
-Dual-target clues require both catalogue tags, at least five matching compounds across at least three scaffold classes, and a meaningful difference from each individual target. The existing target loader excludes records whose target fields are marked as inferred. Documented-use clues come from `documented_uses.csv` beside the catalogue. Each included compound needs a source URL. The first rule uses prescribing labels that explicitly list induction of general anesthesia.
+Dual-target clues require both catalogue tags, at least five matching compounds across at least three scaffold classes, and a meaningful difference from each individual target. The existing target loader excludes records whose target fields are marked as inferred. Documented uses, prodrugs, and active metabolites share `documented_uses.csv` beside the catalogue. Each row lists the catalogue name, player-facing clue, source URL, and family. A missing or blank family defaults to `documented_use`. Recognized families are `documented_use`, `prodrug`, and `metabolite`. Use the Indications section of a DailyMed label for documented uses, and cite a prescribing label or peer-reviewed study for metabolic relationships between catalogue compounds. The four-member minimum applies to all three families.
+
+Origin and pharmacological class conjunctions use natural and semisynthetic compounds. Action-type clues use the curated target tags and distinguish reuptake inhibition from other inhibition. These two derived families are capped at Blue. Deduplication drops the broad positive allosteric modulator clue because its catalogue matches overlap the existing GABA-A PAM clue above the deduplication threshold.
 
 A private 30-board test used seeds 1 and 2, with 15 boards per seed. Purple contained 14 formula, 3 structure, 7 dual-target, and 6 documented-use clues. The reserved search succeeded on 21 boards. All boards had four difficulty tiers, one solution, at most two exact-four decoys, and zero constraint relaxation. The documented-use clues used the same four compounds, and the κ-opioid agonist clue did not appear.
 
 #### Documented-use cooldown and rule tracing
 
-A documented-use quartet can appear once per generated batch. If the rotation has exhausted the available quartets, that slot falls back to the normal search.
+Each sourced quartet can appear once per generated batch across documented-use, prodrug, and active-metabolite clues. If the rotation has exhausted the available quartets, that slot falls back to the normal search.
 
 Use `--trace-rule "target:κ-opioid agonist"` when generating a private batch to print counters for predicate draws, board variants, scores, and acceptance checks. Draw counts refer to sets of rules. Later counts refer to board variants. The near-miss, partition, and decoy checks run on variants that improve the current difficulty cost for their rule set. An omitted counter means zero.
 

@@ -1,5 +1,31 @@
-name|clue|source_url
-Etomidate|Labeled for induction of general anesthesia|https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=eb63c7d7-5eca-4751-be51-45cf4d7715aa
-Ketamine|Labeled for induction of general anesthesia|https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=64a483f2-eb08-4993-84ce-9d8ddc757f2c
-Midazolam|Labeled for induction of general anesthesia|https://www.dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=b7effb82-e180-46f0-b2e8-a0d8ebc32a2a&type=display
-Propofol|Labeled for induction of general anesthesia|https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?audience=professional&setid=5ec25932-6c21-4cd5-8f60-80761f2e20a6
+name|clue|source_url|family
+Etomidate|Labeled for induction of general anesthesia|https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=eb63c7d7-5eca-4751-be51-45cf4d7715aa|documented_use
+Ketamine|Labeled for induction of general anesthesia|https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=64a483f2-eb08-4993-84ce-9d8ddc757f2c|documented_use
+Midazolam|Labeled for induction of general anesthesia|https://www.dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=b7effb82-e180-46f0-b2e8-a0d8ebc32a2a&type=display|documented_use
+Propofol|Labeled for induction of general anesthesia|https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?audience=professional&setid=5ec25932-6c21-4cd5-8f60-80761f2e20a6|documented_use
+Amphetamine|Labeled for treatment of ADHD|https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=f469fb38-0380-4621-9db3-a4f429126156|documented_use
+Methylphenidate|Labeled for treatment of ADHD|https://dailymed.nlm.nih.gov/dailymed/downloadpdffile.cfm?setId=c0bf0835-6a2f-4067-a158-8b86c4b0668a|documented_use
+Lisdexamfetamine|Labeled for treatment of ADHD|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e928c7e6-c889-4854-a9c1-e23fb860ba8e|documented_use
+Methamphetamine|Labeled for treatment of ADHD|https://dailymed.nlm.nih.gov/dailymed/downloadpdffile.cfm?setId=f03a68d5-ed00-8a2d-af68-28be909ea85f|documented_use
+Clonidine|Labeled for treatment of ADHD|https://dailymed.nlm.nih.gov/dailymed/downloadpdffile.cfm?setId=aa7700e2-ae5d-44c4-a609-76de19c705a7|documented_use
+Phenobarbital|Labeled to treat or control certain seizures|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6c7189e8-949e-4ecd-bfdf-5347d4f1a387|documented_use
+Clonazepam|Labeled to treat or control certain seizures|https://dailymed.nlm.nih.gov/dailymed/downloadpdffile.cfm?setId=542f22e8-dad2-47a8-93b6-30936715d73b|documented_use
+Clobazam|Labeled to treat or control certain seizures|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=de03bd69-2dca-459c-93b4-541fd3e9571c|documented_use
+Diazepam|Labeled to treat or control certain seizures|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=9e85abed-1a8b-4762-a31f-f2c7f196b8af|documented_use
+Pentobarbital|Labeled to treat or control certain seizures|https://dailymed.nlm.nih.gov/dailymed/getFile.cfm?setid=5c380ab0-4386-48b6-80ab-ca594b23bc74&type=pdf|documented_use
+Gabapentin|Labeled to treat or control certain seizures|https://dailymed.nlm.nih.gov/dailymed/downloadpdffile.cfm?setId=ee9ad9ed-6d9f-4ee1-9d7f-cfad438df388|documented_use
+Pregabalin|Labeled to treat or control certain seizures|https://www.dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=d4734e7d-5079-455e-8ff5-8f4539c998a9&type=display|documented_use
+Methadone|Labeled for treatment of opioid dependence|https://www.dailymed.nlm.nih.gov/dailymed/getFile.cfm?setid=5baef1bf-8bf0-429c-a4ce-1c93171f3f15&type=pdf|documented_use
+Buprenorphine|Labeled for treatment of opioid dependence|https://www.dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=1bf8b35a-b769-465c-a2f8-099868dfcd2f&type=display|documented_use
+Psilocybin|Prodrugs yielding another catalogue compound|https://pmc.ncbi.nlm.nih.gov/articles/PMC11089204/|prodrug
+4-AcO-DMT|Prodrugs yielding another catalogue compound|https://pmc.ncbi.nlm.nih.gov/articles/PMC10804612/|prodrug
+ALD-52|Prodrugs yielding another catalogue compound|https://pmc.ncbi.nlm.nih.gov/articles/PMC9191647/|prodrug
+1P-LSD|Prodrugs yielding another catalogue compound|https://pmc.ncbi.nlm.nih.gov/articles/PMC9191647/|prodrug
+1B-LSD|Prodrugs yielding another catalogue compound|https://pmc.ncbi.nlm.nih.gov/articles/PMC9191647/|prodrug
+1P-ETH-LAD|Prodrugs yielding another catalogue compound|https://pmc.ncbi.nlm.nih.gov/articles/PMC9191646/|prodrug
+Psilocin|Active metabolites of another catalogue compound|https://pmc.ncbi.nlm.nih.gov/articles/PMC11089204/|metabolite
+LSD|Active metabolites of another catalogue compound|https://pmc.ncbi.nlm.nih.gov/articles/PMC9191647/|metabolite
+Morphine|Active metabolites of another catalogue compound|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5819bdf7-300e-45b8-8f3a-447b53656293|metabolite
+Nordazepam|Active metabolites of another catalogue compound|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=9e85abed-1a8b-4762-a31f-f2c7f196b8af|metabolite
+Temazepam|Active metabolites of another catalogue compound|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=9e85abed-1a8b-4762-a31f-f2c7f196b8af|metabolite
+Oxazepam|Active metabolites of another catalogue compound|https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=9e85abed-1a8b-4762-a31f-f2c7f196b8af|metabolite

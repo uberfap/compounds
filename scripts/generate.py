@@ -101,12 +101,18 @@ FAMILY_DIFFICULTY_BASE = {
     "target": 72,
     "target_pair": 88,
     "documented_use": 92,
+    "prodrug": 90,
+    "metabolite": 90,
+    "origin_class": 64,
+    "action_type": 65,
     "formula": 92,
     "structure": 80,
 }
 
 # Clue-specific difficulty adjustments, in points on the 0-100 scale.
 DIFFICULTY_OVERRIDES = {
+    "documented_use:Labeled for treatment of ADHD": -8,
+    "origin_class:semisynthetic:psychedelic": -4,
     "label:dox series": -18,
     "label:barbiturates": -18,
     "target:κ-opioid agonist": 12,
@@ -122,7 +128,11 @@ DIFFICULTY_BANDS = ((25, 37), (38, 62), (63, 87), (88, 100))
 # must still land in each fixed output band, or the whole board is rejected.
 # Structural and specialist clues can reach Purple through board-specific ambiguity.
 DIFFICULTY_PRIOR_BANDS = ((0, 37), (38, 62), (63, 87), (80, 100))
-PURPLE_FAMILY_ROTATION = ("pharmacology", "formula", "structure", "pharmacology", "documented_use")
+SOURCED_FAMILIES = {"documented_use", "prodrug", "metabolite"}
+PURPLE_FAMILY_ROTATION = (
+    "pharmacology", "formula", "documented_use", "structure",
+    "prodrug", "pharmacology", "metabolite",
+)
 PURPLE_PHARMACOLOGY_FAMILIES = {"target", "target_pair"}
 PURPLE_ROTATION_TRIES = 700
 BOARD_VARIANTS_PER_PREDICATE_SET = 8
@@ -155,6 +165,10 @@ FAMILY_PRIORITY = {
     "target": 4,
     "target_pair": 4,
     "documented_use": 4,
+    "prodrug": 4,
+    "metabolite": 4,
+    "origin_class": 4,
+    "action_type": 4,
     "formula": 5,
     "structure": 5,
 }
@@ -792,12 +806,39 @@ def build(comps, cap, uses_path=None):
     if uses_path is not None:
         uses = defaultdict(set)
         with uses_path.open(encoding="utf-8", newline="") as source:
-            for row in csv.DictReader(source, delimiter="|"):
-                if row["source_url"]:
-                    uses[row["clue"]].add(row["name"])
-        for label, names in sorted(uses.items()):
-            add(f"documented_use:{label}", "documented_use", label,
+            reader = csv.DictReader(source, delimiter="|")
+            for row in reader:
+                family = (row.get("family") or "").strip() or "documented_use"
+                if family not in SOURCED_FAMILIES:
+                    raise ValueError(f"{uses_path}:{reader.line_num}: unknown clue family {family!r}")
+                if (row.get("source_url") or "").strip():
+                    uses[family, row["clue"]].add(row["name"])
+        for (family, label), names in sorted(uses.items()):
+            add(f"{family}:{label}", family, label,
                 lambda c, names=names: c["name"] in names)
+
+    origin_classes = {
+        (c["origin"], c["pharmacological_class"]) for c in comps
+        if c["origin"] in {"natural", "semisynthetic"}
+        and c["pharmacological_class"] not in MISSING_TAGS
+    }
+    for origin, category in sorted(origin_classes):
+        class_label = PHARMACOLOGICAL_LABEL.get(category, plural(category)).lower()
+        add(f"origin_class:{origin}:{category}", "origin_class",
+            f"{origin.capitalize()} {class_label}",
+            lambda c, o=origin, category=category:
+            (c["origin"], c["pharmacological_class"]) == (o, category))
+
+    actions = (
+        ("release", "Have a releasing action", r" releaser$"),
+        ("reuptake", "Inhibit reuptake", r" reuptake inhibitor$"),
+        ("pam", "Positive allosteric modulators", r" (?:pam|positive allosteric modulator)$"),
+        ("antagonist", "Antagonists", r" antagonist$"),
+    )
+    for key, label, pattern in actions:
+        suffix = re.compile(pattern, re.IGNORECASE)
+        add(f"action_type:{key}", "action_type", label,
+            lambda c, suffix=suffix: any(suffix.search(t) for t in c["targets"]))
 
     for sym, word in [("Br", "bromine"), ("Cl", "chlorine"), ("F", "fluorine"),
                       ("I", "iodine"), ("S", "sulfur"), ("P", "phosphorus")]:
@@ -1030,7 +1071,8 @@ def board_group_difficulty_details(pred, member_ids, board_ids, chosen, lib, com
 
     manual_adjustment = _difficulty_override(pred)
     raw_score = base - visible_name_bonus + board_ambiguity_bonus + manual_adjustment
-    score = int(round(max(25.0, min(100.0, raw_score))))
+    ceiling = DIFFICULTY_BANDS[2][1] if pred.family in {"origin_class", "action_type"} else 100
+    score = int(round(max(25.0, min(ceiling, raw_score))))
     return {
         "score": score,
         "raw_score": round(raw_score, 2),
@@ -1186,7 +1228,7 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
                 "Adjust FAMILY_DIFFICULTY_BASE / DIFFICULTY_PRIOR_BANDS or add predicates."
             )
         available = [p for p in pool if not (
-            p.family == "documented_use" and len(p.matches) == 4 and p.matches in seen_use_quartets
+            p.family in SOURCED_FAMILIES and len(p.matches) == 4 and p.matches in seen_use_quartets
         )]
         predicate_pools.append(available or pool)
 
@@ -1195,7 +1237,7 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
             purple_pool = [p for p in predicate_pools[-1] if p.family in PURPLE_PHARMACOLOGY_FAMILIES]
         else:
             purple_pool = [p for p in predicate_pools[-1] if p.family == purple_family]
-        if purple_family == "documented_use":
+        if purple_family in SOURCED_FAMILIES:
             purple_pool = [p for p in purple_pool
                            if len(p.matches) > 4 or p.matches not in seen_use_quartets]
         if not purple_pool:
@@ -1214,7 +1256,7 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
             continue
 
         prop_count = sum(1 for p in chosen if p.family in PROPERTY_FAMILIES)
-        if purple_family in {"pharmacology", "documented_use"}:
+        if purple_family in SOURCED_FAMILIES or purple_family == "pharmacology":
             # A reserved non-structural Purple clue fills one property slot.
             prop_count += 1
         if prop_count < min_props:
@@ -1245,7 +1287,7 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
             if not ok or len(used) != 16:
                 continue
 
-            if any(p.family == "documented_use" and frozenset(picks[p.pid]) in seen_use_quartets
+            if any(p.family in SOURCED_FAMILIES and frozenset(picks[p.pid]) in seen_use_quartets
                    for p in chosen):
                 continue
             if tracing:
@@ -1333,7 +1375,7 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
         seen_predsets.add(predkey)
         for p in chosen:
             pred_use[p.pid] += 1
-            if p.family == "documented_use":
+            if p.family in SOURCED_FAMILIES:
                 seen_use_quartets.add(frozenset(picks[p.pid]))
         if tracing:
             trace["published_purple"] += tiers[trace_rule] == 3
