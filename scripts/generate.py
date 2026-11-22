@@ -99,15 +99,23 @@ FAMILY_DIFFICULTY_BASE = {
     "scaffold_class": 54,
     "origin": 48,
     "target": 72,
+    "target_pair": 88,
+    "documented_use": 92,
+    "prodrug": 90,
+    "metabolite": 90,
+    "origin_class": 64,
+    "action_type": 65,
     "formula": 92,
     "structure": 80,
 }
 
 # Clue-specific difficulty adjustments, in points on the 0-100 scale.
 DIFFICULTY_OVERRIDES = {
+    "documented_use:Labeled for treatment of ADHD": -8,
+    "origin_class:semisynthetic:psychedelic": -4,
     "label:dox series": -18,
     "label:barbiturates": -18,
-    "target:κ-opioid agonist": 8,
+    "target:κ-opioid agonist": 12,
 }
 
 # Each accepted puzzle must contain one group in every band. The generator
@@ -120,6 +128,13 @@ DIFFICULTY_BANDS = ((25, 37), (38, 62), (63, 87), (88, 100))
 # must still land in each fixed output band, or the whole board is rejected.
 # Structural and specialist clues can reach Purple through board-specific ambiguity.
 DIFFICULTY_PRIOR_BANDS = ((0, 37), (38, 62), (63, 87), (80, 100))
+SOURCED_FAMILIES = {"documented_use", "prodrug", "metabolite"}
+PURPLE_FAMILY_ROTATION = (
+    "pharmacology", "formula", "documented_use", "structure",
+    "prodrug", "pharmacology", "metabolite",
+)
+PURPLE_PHARMACOLOGY_FAMILIES = {"target", "target_pair"}
+PURPLE_ROTATION_TRIES = 700
 BOARD_VARIANTS_PER_PREDICATE_SET = 8
 MIN_DIFFICULTY_GAP = 10
 
@@ -148,6 +163,12 @@ FAMILY_PRIORITY = {
     "name:trivial": 3,
     "name:specific": 3,
     "target": 4,
+    "target_pair": 4,
+    "documented_use": 4,
+    "prodrug": 4,
+    "metabolite": 4,
+    "origin_class": 4,
+    "action_type": 4,
     "formula": 5,
     "structure": 5,
 }
@@ -743,7 +764,7 @@ NAME_PREDS = [
 ]
 
 
-def build(comps, cap):
+def build(comps, cap, uses_path=None):
     preds = []
 
     def add(pid, fam, label, fn):
@@ -760,9 +781,64 @@ def build(comps, cap):
         label = plural(scaffold.title())
         add(f"scaffold_class:{scaffold}", "scaffold_class", label,
             lambda c, scaffold=scaffold: c["scaffold_class"] == scaffold)
-    for t in sorted({t for c in comps for t in c["targets"]} - MISSING_TAGS):
+    target_ids = defaultdict(set)
+    for compound_id, compound in enumerate(comps):
+        for target in compound["targets"]:
+            if target not in MISSING_TAGS:
+                target_ids[target].add(compound_id)
+
+    for t in sorted(target_ids):
         add(f"target:{t}", "target", format_target_label(t),
             lambda c, t=t: t in c["targets"])
+
+    for left, right in combinations(sorted(target_ids), 2):
+        shared = target_ids[left] & target_ids[right]
+        if not 5 <= len(shared) <= cap * len(comps):
+            continue
+        if len(shared) > 0.8 * min(len(target_ids[left]), len(target_ids[right])):
+            continue
+        if len({comps[i]["scaffold_class"] for i in shared} - MISSING_TAGS) < 3:
+            continue
+        add(f"target_pair:{left}|{right}", "target_pair",
+            f"Both: {format_target_label(left)} + {format_target_label(right)}",
+            lambda c, left=left, right=right: left in c["targets"] and right in c["targets"])
+
+    if uses_path is not None:
+        uses = defaultdict(set)
+        with uses_path.open(encoding="utf-8", newline="") as source:
+            reader = csv.DictReader(source, delimiter="|")
+            for row in reader:
+                family = (row.get("family") or "").strip() or "documented_use"
+                if family not in SOURCED_FAMILIES:
+                    raise ValueError(f"{uses_path}:{reader.line_num}: unknown clue family {family!r}")
+                if (row.get("source_url") or "").strip():
+                    uses[family, row["clue"]].add(row["name"])
+        for (family, label), names in sorted(uses.items()):
+            add(f"{family}:{label}", family, label,
+                lambda c, names=names: c["name"] in names)
+
+    origin_classes = {
+        (c["origin"], c["pharmacological_class"]) for c in comps
+        if c["origin"] in {"natural", "semisynthetic"}
+        and c["pharmacological_class"] not in MISSING_TAGS
+    }
+    for origin, category in sorted(origin_classes):
+        class_label = PHARMACOLOGICAL_LABEL.get(category, plural(category)).lower()
+        add(f"origin_class:{origin}:{category}", "origin_class",
+            f"{origin.capitalize()} {class_label}",
+            lambda c, o=origin, category=category:
+            (c["origin"], c["pharmacological_class"]) == (o, category))
+
+    actions = (
+        ("release", "Have a releasing action", r" releaser$"),
+        ("reuptake", "Inhibit reuptake", r" reuptake inhibitor$"),
+        ("pam", "Positive allosteric modulators", r" (?:pam|positive allosteric modulator)$"),
+        ("antagonist", "Antagonists", r" antagonist$"),
+    )
+    for key, label, pattern in actions:
+        suffix = re.compile(pattern, re.IGNORECASE)
+        add(f"action_type:{key}", "action_type", label,
+            lambda c, suffix=suffix: any(suffix.search(t) for t in c["targets"]))
 
     for sym, word in [("Br", "bromine"), ("Cl", "chlorine"), ("F", "fluorine"),
                       ("I", "iodine"), ("S", "sulfur"), ("P", "phosphorus")]:
@@ -995,7 +1071,8 @@ def board_group_difficulty_details(pred, member_ids, board_ids, chosen, lib, com
 
     manual_adjustment = _difficulty_override(pred)
     raw_score = base - visible_name_bonus + board_ambiguity_bonus + manual_adjustment
-    score = int(round(max(25.0, min(100.0, raw_score))))
+    ceiling = DIFFICULTY_BANDS[2][1] if pred.family in {"origin_class", "action_type"} else 100
+    score = int(round(max(25.0, min(ceiling, raw_score))))
     return {
         "score": score,
         "raw_score": round(raw_score, 2),
@@ -1127,10 +1204,13 @@ def weighted_sample(rng, pool, k, weight):
 
 def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
                 min_herrings, max_family, max_near_misses, near_max_size,
-                seen_predsets, svg_cache, min_props=2, tries=4000):
+                seen_predsets, svg_cache, min_props=2, tries=4000, purple_family=None,
+                seen_use_quartets=None, trace_rule=None, trace=None):
     if len(lib) < 4:
         raise SystemExit("Need at least four usable groups to generate a puzzle.")
 
+    if seen_use_quartets is None:
+        seen_use_quartets = set()
     wc = lambda i: 1 / (1 + comp_use[i]) ** 2
     wp = lambda p: 1 / (1 + pred_use[p.pid]) ** 2.5
 
@@ -1147,16 +1227,38 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
                 f"No predicates available for candidate-prior band {low}-{high}. "
                 "Adjust FAMILY_DIFFICULTY_BASE / DIFFICULTY_PRIOR_BANDS or add predicates."
             )
-        predicate_pools.append(pool)
+        available = [p for p in pool if not (
+            p.family in SOURCED_FAMILIES and len(p.matches) == 4 and p.matches in seen_use_quartets
+        )]
+        predicate_pools.append(available or pool)
+
+    if purple_family is not None:
+        if purple_family == "pharmacology":
+            purple_pool = [p for p in predicate_pools[-1] if p.family in PURPLE_PHARMACOLOGY_FAMILIES]
+        else:
+            purple_pool = [p for p in predicate_pools[-1] if p.family == purple_family]
+        if purple_family in SOURCED_FAMILIES:
+            purple_pool = [p for p in purple_pool
+                           if len(p.matches) > 4 or p.matches not in seen_use_quartets]
+        if not purple_pool:
+            return None
+        predicate_pools[-1] = purple_pool
 
     for _ in range(tries):
         chosen = [rng.choices(pool, weights=[wp(p) for p in pool])[0]
                   for pool in predicate_pools]
         predkey = frozenset(p.pid for p in chosen)
+        tracing = trace is not None and trace_rule in predkey
+        if tracing:
+            trace["draws"] += 1
+            trace["last_slot_draws"] += chosen[-1].pid == trace_rule
         if len(predkey) != 4 or predkey in seen_predsets:
             continue
 
         prop_count = sum(1 for p in chosen if p.family in PROPERTY_FAMILIES)
+        if purple_family in SOURCED_FAMILIES or purple_family == "pharmacology":
+            # A reserved non-structural Purple clue fills one property slot.
+            prop_count += 1
         if prop_count < min_props:
             continue
 
@@ -1185,6 +1287,12 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
             if not ok or len(used) != 16:
                 continue
 
+            if any(p.family in SOURCED_FAMILIES and frozenset(picks[p.pid]) in seen_use_quartets
+                   for p in chosen):
+                continue
+            if tracing:
+                trace["tiles_assigned"] += 1
+
             key = frozenset(used)
             if key in seen:
                 continue
@@ -1212,13 +1320,23 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
             # A playable balanced board MUST have one group in every fixed band.
             # This rejects combinations like 25/70/80/100 instead of simply
             # assigning those four scores to four different colours.
+            if tracing:
+                trace["scored"] += 1
+                trace["purple_score"] += tiers[trace_rule] == 3
             if set(tiers.values()) != {0, 1, 2, 3}:
+                continue
+
+            if purple_family is not None and tiers[chosen[-1].pid] != 3:
                 continue
 
             ordered_scores = sorted(scores.values())
             gaps = [ordered_scores[i + 1] - ordered_scores[i] for i in range(3)]
             if min(gaps) < MIN_DIFFICULTY_GAP:
                 continue
+
+            tracing_purple = tracing and tiers[trace_rule] == 3
+            if tracing_purple:
+                trace["balanced_purple"] += 1
 
             cost = difficulty_balance_cost(ordered_scores)
             if cost >= best_cost:
@@ -1228,11 +1346,17 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
             # the difficulty-balance test.
             if count_near_misses(used, chosen, lib, 3, near_max_size, group_mass=True) > max_near_misses:
                 continue
+            if tracing_purple:
+                trace["near_miss_pass"] += 1
             if count_partitions(used, lib) != 1:
                 continue
+            if tracing_purple:
+                trace["unique_solution_pass"] += 1
             if count_exact_four_decoys(used, picks, lib) > MAX_EXACT_FOUR_DECOYS:
                 continue
 
+            if tracing_purple:
+                trace["decoy_pass"] += 1
             best_cost = cost
             best_candidate = (used.copy(), {k: list(v) for k, v in picks.items()},
                               dict(scores), dict(difficulty_details), dict(tiers),
@@ -1251,6 +1375,10 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
         seen_predsets.add(predkey)
         for p in chosen:
             pred_use[p.pid] += 1
+            if p.family in SOURCED_FAMILIES:
+                seen_use_quartets.add(frozenset(picks[p.pid]))
+        if tracing:
+            trace["published_purple"] += tiers[trace_rule] == 3
         for i in used:
             comp_use[i] += 1
 
@@ -1317,6 +1445,7 @@ def main():
     ap.add_argument("--smiles-delay", type=float, default=0.25,
                     help="delay between compound lookups in seconds (default: 0.25)")
     ap.add_argument("--out", default=PUZZLES)
+    ap.add_argument("--trace-rule", help="print generation counters for one rule ID")
     a = ap.parse_args()
 
     comps, warnings = load(a.data)
@@ -1333,7 +1462,12 @@ def main():
     else:
         print(f"  SMILES available for {smi_count}/{len(comps)} compounds")
 
-    lib = build(comps, a.cap)
+    uses_path = Path(a.data).with_name("documented_uses.csv")
+    lib = build(comps, a.cap, uses_path if uses_path.is_file() else None)
+    if a.trace_rule and not any(p.pid == a.trace_rule for p in lib):
+        ap.error(f"unknown rule ID: {a.trace_rule}")
+    trace = Counter() if a.trace_rule else None
+    seen_use_quartets = set()
     trivial = sum(1 for p in lib if p.family == "name:trivial")
     specific = sum(1 for p in lib if p.family == "name:specific")
     print(f"{len(comps)} compounds, {len(lib)} usable group predicates")
@@ -1348,8 +1482,16 @@ def main():
     start = dt.date.fromisoformat(a.start)
     puzzles = []
     for d in range(a.days):
-        p = None
+        requested_purple = PURPLE_FAMILY_ROTATION[d % len(PURPLE_FAMILY_ROTATION)]
+        p = make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
+                        a.min_herrings, a.max_family, a.max_near_misses, a.near_max_size,
+                        seen_predsets, svg_cache, min_props=a.min_props,
+                        tries=PURPLE_ROTATION_TRIES, purple_family=requested_purple,
+                        seen_use_quartets=seen_use_quartets, trace_rule=a.trace_rule, trace=trace)
+        rotation_matched = p is not None
         for relax in range(4):
+            if p is not None:
+                break
             p = make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
                             max(0, a.min_herrings - relax),
                             a.max_family + relax,
@@ -1357,7 +1499,9 @@ def main():
                             a.near_max_size,
                             seen_predsets,
                             svg_cache,
-                            min_props=max(0, a.min_props - (1 if relax >= 2 else 0)))
+                            min_props=max(0, a.min_props - (1 if relax >= 2 else 0)),
+                            tries=16000 if relax == 0 else 4000,
+                            seen_use_quartets=seen_use_quartets, trace_rule=a.trace_rule, trace=trace)
             if p is not None:
                 break
         if p is None:
@@ -1367,10 +1511,14 @@ def main():
         p["date"] = (start + dt.timedelta(days=d)).isoformat()
         p["number"] = d + 1
         p["diagnostics"]["relaxation_level"] = relax
+        p["diagnostics"]["purple_family_requested"] = requested_purple
+        p["diagnostics"]["purple_rotation_matched"] = rotation_matched
         puzzles.append(p)
         score_text = ", ".join(str(g["difficulty_score"]) for g in p["groups"])
         print(f"[PUZZLE {d + 1:>3}/{a.days}] {p['date']}: difficulty {score_text}", flush=True)
 
+    if trace is not None:
+        print("Rule trace:", json.dumps(trace, sort_keys=True))
     output = Path(a.out)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(puzzles, ensure_ascii=False, indent=1), encoding="utf-8")
