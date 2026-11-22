@@ -229,6 +229,14 @@ Run the Compose stack on your server. Point the domain at its public IP and conf
 
 `aliases` is a semicolon-separated list of reviewed alternative names. `alias_source` records the reference for those names. A blank field means the identifier or aliases have yet to be established. The generator uses `compounds.csv` for display names and puzzle rules. The API reads aliases from that file for synonym hints, including on older boards whose tile names now appear as aliases. Alias reveals are unlimited.
 
+### Target curation
+
+The target column uses distinct tags for established molecular actions. Keep broader tags where they remain accurate and useful for puzzle grouping. Mark inferred fields with the catalogue's existing annotations so the generator excludes them from clue rules.
+
+The current target review uses sources for [caffeine](https://pmc.ncbi.nlm.nih.gov/articles/PMC6247400/), [varenicline](https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/021928Orig1s051lbl.pdf), [galantamine](https://www.dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=10497273-d907-0514-e063-6294a90a1362&type=display), and [gabapentin and pregabalin](https://pmc.ncbi.nlm.nih.gov/articles/PMC7265598/).
+
+Documented uses apply to the cited formulation. The anesthesia clue includes labeled use during induction, including as an adjunct. The narcolepsy clue includes sodium oxybate under its parent catalogue entry, GHB. Use entries require a source before they can enter the puzzle generator.
+
 ### Verify the catalogue
 
 Run these commands from the repository root. Verification writes its report before the audit reads it.
