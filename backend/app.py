@@ -20,7 +20,6 @@ from backend import auth, database
 BATCH = Path(__file__).resolve().parents[1] / "data" / "puzzles" / "puzzles.json"
 MAX_MISTAKES = 4
 MAX_INSPECTIONS = 4
-MAX_SYNONYM_HINTS = 4
 CATALOGUE = BATCH.parents[1] / "catalogue" / "compounds.csv"
 
 
@@ -149,7 +148,6 @@ class Attempt:
             "mistakes": self.mistakes,
             "mistakes_left": MAX_MISTAKES - self.mistakes,
             "inspections_left": MAX_INSPECTIONS - len(self.inspected),
-            "synonym_hints_left": MAX_SYNONYM_HINTS - len(self.synonym_inspected),
             "inspected": sorted(self.inspected),
             "synonym_inspected": sorted(self.synonym_inspected),
             "solved": [groups[tier] for tier in self.solved],
@@ -430,8 +428,6 @@ def inspect_synonyms(attempt_id: UUID, tile: int, request: Request):
             raise HTTPException(409, "Attempt is over")
         if any(tile in attempt.puzzle.groups[tier]["tiles"] for tier in attempt.solved):
             raise HTTPException(422, "Choose an unsolved tile")
-        if tile not in attempt.synonym_inspected and len(attempt.synonym_inspected) >= MAX_SYNONYM_HINTS:
-            raise HTTPException(409, "No synonym checks left")
         attempt.synonym_inspected.add(tile)
         return {"tile": tile, "synonyms": synonyms, "state": attempt.public_state()}
 

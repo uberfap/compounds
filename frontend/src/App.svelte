@@ -60,10 +60,7 @@
 
   const visible = $derived(order.filter(id => !attempt?.solved.some(group => group.tiles.includes(id))))
   const tiles = $derived(new Map(board?.tiles.map(tile => [tile.id, tile])))
-  const synonymTargets = $derived(new Set(visible.filter(id =>
-    tiles.get(id)?.has_synonyms &&
-    attempt && (attempt.synonym_hints_left > 0 || attempt.synonym_inspected.includes(id)),
-  )))
+  const synonymTargets = $derived(new Set(visible.filter(id => tiles.get(id)?.has_synonyms)))
   const storageKey = (puzzle: Pick<Board, 'number' | 'version'>) => {
     const prefix = session?.account ? `compounds-account-${session.account.storage_key}` : 'compounds-api'
     return `${prefix}-${puzzle.number}-${puzzle.version}`
@@ -315,7 +312,7 @@
     }
     const hint = inspecting
     if (hint === 'structure' && !tile.has_structure) { toast('No structure available for ' + tile.name); return }
-    if (hint === 'synonyms' && !tile.has_synonyms) { toast('No synonyms available for ' + tile.name); return }
+    if (hint === 'synonyms' && !tile.has_synonyms) { toast('No aliases available for ' + tile.name); return }
     inspecting = null
     busy = true
     try {
@@ -493,11 +490,11 @@
         <button class="btn" class:active={inspecting === 'synonyms'} aria-pressed={inspecting === 'synonyms'}
           disabled={busy || (!synonymTargets.size && inspecting !== 'synonyms')}
           onclick={() => { inspecting = inspecting === 'synonyms' ? null : 'synonyms' }}>
-          {inspecting === 'synonyms' ? 'Cancel' : 'Synonyms'}{#if synonymTargets.size} ({attempt.synonym_hints_left}){/if}
+          {inspecting === 'synonyms' ? 'Cancel' : 'Aliases'}
         </button>
         <button class="btn primary" disabled={busy || selected.length !== 4} onclick={submit}>Submit</button>
       </div>
-      {#if inspecting}<p id="msg">{inspecting === 'structure' ? 'Tap a compound to view its skeletal structure.' : 'Tap a compound to reveal its synonyms.'}</p>{/if}
+      {#if inspecting}<p id="msg">{inspecting === 'structure' ? 'Tap a compound to view its skeletal structure.' : 'Tap a compound to reveal its aliases.'}</p>{/if}
     {:else}
       <div class="result">
         <p>{attempt.won ? `Solved with ${attempt.mistakes} mistake${attempt.mistakes === 1 ? '' : 's'}.` : 'Out of mistakes. Here are the groups.'}</p>
@@ -585,7 +582,7 @@
     <li><strong>One away</strong> means three of your tiles belong together. An incorrect guess uses one of your four mistakes.</li>
     <li>Difficulty runs from yellow (easiest) through green and blue to purple (trickiest).</li>
     <li>Choose <strong>Structure</strong> and then a tile to inspect its skeletal structure. You can unlock four distinct structures per puzzle and revisit an unlocked structure for free.</li>
-    <li>Choose <strong>Synonyms</strong> to reveal other names for a tile. You can unlock synonyms for four tiles per puzzle and revisit them for free.</li>
+    <li>Choose <strong>Aliases</strong> to reveal other names for any highlighted tile.</li>
   </ul>
   <div class="help-example">
     <h3>Example group</h3>
@@ -645,7 +642,7 @@
 {#if synonyms}
   <dialog class="help-dialog" bind:this={synonymDialog} onclose={() => { synonyms = undefined }} aria-labelledby="synonym-title">
     <div class="dialog-heading">
-      <h2 id="synonym-title">Synonyms for {synonyms.name}</h2>
+      <h2 id="synonym-title">Aliases for {synonyms.name}</h2>
       <form method="dialog"><button class="btn">Close</button></form>
     </div>
     <ul>{#each synonyms.values as name}<li>{name}</li>{/each}</ul>

@@ -29,7 +29,6 @@ export interface Attempt {
   inspections_left: number
   inspected: number[]
   synonym_inspected: number[]
-  synonym_hints_left: number
   solved: Group[]
   revealed: Group[]
   over: boolean
