@@ -1,11 +1,13 @@
 """HTTP API for the published Compounds puzzle batch."""
 
+import csv
 import hashlib
 import json
 import os
 from contextlib import asynccontextmanager, contextmanager
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta, timezone
+from functools import lru_cache
 from pathlib import Path
 from uuid import UUID, uuid4
 
@@ -18,6 +20,22 @@ from backend import auth, database
 BATCH = Path(__file__).resolve().parents[1] / "data" / "puzzles" / "puzzles.json"
 MAX_MISTAKES = 4
 MAX_INSPECTIONS = 4
+MAX_SYNONYM_HINTS = 4
+CATALOGUE = BATCH.parents[1] / "catalogue" / "compounds.csv"
+
+
+@lru_cache(maxsize=1)
+def catalogue_synonyms():
+    names = {}
+    with CATALOGUE.open(encoding="utf-8", newline="") as source:
+        rows = csv.DictReader((line for line in source if not line.startswith("#") and line.strip()), delimiter="|")
+        for row in rows:
+            aliases = [name.strip() for name in (row.get("aliases") or "").split(";") if name.strip()]
+            if aliases:
+                group = (row["name"], *aliases)
+                for name in group:
+                    names[name] = tuple(other for other in group if other != name)
+    return names
 
 
 def player_label(attempt_id: UUID):
@@ -65,7 +83,10 @@ class Puzzle:
             "date": self.date,
             "version": self.version,
             "tiles": [
-                {"id": tile, "name": name, "has_structure": name in self.structures}
+                {
+                    "id": tile, "name": name, "has_structure": name in self.structures,
+                    "has_synonyms": name in catalogue_synonyms(),
+                }
                 for tile, name in self.tiles.items()
             ],
         }
@@ -78,6 +99,7 @@ class Attempt:
     mistakes: int = 0
     solved: list[int] = field(default_factory=list)
     inspected: set[int] = field(default_factory=set)
+    synonym_inspected: set[int] = field(default_factory=set)
     guesses: dict[tuple[int, ...], list[int]] = field(default_factory=dict)
 
     @classmethod
@@ -88,6 +110,7 @@ class Attempt:
             mistakes=state["mistakes"],
             solved=list(state["solved"]),
             inspected=set(state["inspected"]),
+            synonym_inspected=set(state.get("synonym_inspected", [])),
             guesses={tuple(tiles): tiers for tiles, tiers in state["guesses"]},
         )
 
@@ -96,6 +119,7 @@ class Attempt:
             "mistakes": self.mistakes,
             "solved": self.solved,
             "inspected": sorted(self.inspected),
+            "synonym_inspected": sorted(self.synonym_inspected),
             "guesses": [[list(tiles), tiers] for tiles, tiers in self.guesses.items()],
         }
 
@@ -119,7 +143,9 @@ class Attempt:
             "mistakes": self.mistakes,
             "mistakes_left": MAX_MISTAKES - self.mistakes,
             "inspections_left": MAX_INSPECTIONS - len(self.inspected),
+            "synonym_hints_left": MAX_SYNONYM_HINTS - len(self.synonym_inspected),
             "inspected": sorted(self.inspected),
+            "synonym_inspected": sorted(self.synonym_inspected),
             "solved": [groups[tier] for tier in self.solved],
             "revealed": [groups[tier] for tier in revealed],
             "over": self.over,
@@ -380,6 +406,23 @@ def inspect_structure(attempt_id: UUID, tile: int, request: Request):
         svg = svg.replace("<style>path{fill:none;stroke:currentColor;",
                           "<style>path:not([fill]){fill:none;stroke:currentColor;", 1)
         return {"tile": tile, "svg": svg, "state": attempt.public_state()}
+
+
+@app.post("/api/attempts/{attempt_id}/synonyms/{tile}")
+def inspect_synonyms(attempt_id: UUID, tile: int, request: Request):
+    with attempt_transaction(attempt_id, request, write=True) as attempt:
+        name = attempt.puzzle.tiles.get(tile)
+        synonyms = catalogue_synonyms().get(name)
+        if not synonyms:
+            raise HTTPException(404, "Synonyms not found")
+        if attempt.over:
+            raise HTTPException(409, "Attempt is over")
+        if any(tile in attempt.puzzle.groups[tier]["tiles"] for tier in attempt.solved):
+            raise HTTPException(422, "Choose an unsolved tile")
+        if tile not in attempt.synonym_inspected and len(attempt.synonym_inspected) >= MAX_SYNONYM_HINTS:
+            raise HTTPException(409, "No synonym checks left")
+        attempt.synonym_inspected.add(tile)
+        return {"tile": tile, "synonyms": synonyms, "state": attempt.public_state()}
 
 
 frontend_build = BATCH.parents[2] / "frontend" / "dist"

@@ -236,7 +236,11 @@ def parent_formula(f):
 def parse_targets(raw):
     if not raw:
         return []
-    return [t.strip() for t in raw.split(";") if t.strip()]
+    return [
+        tag for item in raw.split(";")
+        if (tag := item.strip()).casefold() not in MISSING_TAGS
+        and not tag.casefold().startswith("inferred:")
+    ]
 
 
 # ----------------------------------------------------------- structure SVG
@@ -608,7 +612,13 @@ def resolve_smiles_map(comps, cache_path, fetch_missing=False, *, timeout=15,
 # --------------------------------------------------------------------- data
 def load(path):
     with open(path, encoding="utf-8", newline="") as f:
-        lines = [l for l in f if l.strip() and not l.lstrip().startswith("#")]
+        lines, inferred = [], {}
+        for line in f:
+            if line.startswith("# Inferred fields|"):
+                _, compound, fields = line.strip().split("|", 2)
+                inferred[compound] = set(fields.split(","))
+            elif line.strip() and not line.lstrip().startswith("#"):
+                lines.append(line)
     comps, seen, warnings = [], set(), []
     for r in csv.DictReader(lines, delimiter="|"):
         raw_name = (r.get("name") or "").strip()
@@ -627,7 +637,14 @@ def load(path):
             except KeyError as exc:
                 warnings.append(f"{name}: cannot parse formula {formula!r} ({exc})")
                 el = mass = None
-        targets = parse_targets(r.get("target") or "")
+        inferred_fields = inferred.get(raw_name, set())
+        targets = [] if "target" in inferred_fields else parse_targets(r.get("target") or "")
+        effect = (r.get("effect") or "").strip().casefold()
+        if "effect" in inferred_fields or effect.startswith("inferred:"):
+            effect = ""
+        pharmacological_class = (r.get("pharmacological_class") or effect).strip().casefold()
+        if "pharmacological_class" in inferred_fields or pharmacological_class.startswith("inferred:"):
+            pharmacological_class = ""
         comps.append({
             "name": name,
             "formula": formula,
@@ -636,10 +653,8 @@ def load(path):
             "mass": mass,
             # New schema first; legacy columns remain supported for older CSVs.
             "scaffold_class": (r.get("scaffold_class") or r.get("class") or "").strip().casefold(),
-            "pharmacological_class": (
-                r.get("pharmacological_class") or r.get("effect") or ""
-            ).strip().casefold(),
-            "effect": (r.get("effect") or "").strip().casefold(),
+            "pharmacological_class": pharmacological_class,
+            "effect": effect,
             "target": ";".join(targets),
             "targets": targets,
             "origin": (r.get("origin") or "").strip().lower(),

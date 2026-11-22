@@ -68,7 +68,8 @@ def player_puzzles(connection, before_day, player_id, max_mistakes):
                    WHEN jsonb_array_length(attempts.state->'solved') = 4 THEN 'solved'
                    WHEN (attempts.state->>'mistakes')::integer >= %s THEN 'missed'
                    WHEN jsonb_array_length(attempts.state->'guesses') > 0
-                        OR jsonb_array_length(attempts.state->'inspected') > 0 THEN 'in_progress'
+                        OR jsonb_array_length(attempts.state->'inspected') > 0
+                        OR jsonb_array_length(attempts.state->'synonym_inspected') > 0 THEN 'in_progress'
                    ELSE 'unplayed'
                END AS status,
                (attempts.state->>'mistakes')::integer,

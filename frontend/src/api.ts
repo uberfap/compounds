@@ -1,4 +1,4 @@
-export interface Tile { id: number; name: string; has_structure: boolean }
+export interface Tile { id: number; name: string; has_structure: boolean; has_synonyms: boolean }
 export interface Board { number: number; date: string; version: string; tiles: Tile[] }
 export type PuzzleStatus = 'unplayed' | 'in_progress' | 'solved' | 'missed'
 export interface Session { enabled: boolean; account: { name: string; storage_key: string } | null }
@@ -28,6 +28,8 @@ export interface Attempt {
   mistakes_left: number
   inspections_left: number
   inspected: number[]
+  synonym_inspected: number[]
+  synonym_hints_left: number
   solved: Group[]
   revealed: Group[]
   over: boolean

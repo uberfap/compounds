@@ -1,6 +1,6 @@
 # Compounds
 
-Compounds is a daily chemistry puzzle. Sort 16 compounds into four groups of four by linking their names, structures, origins, or pharmacology. You get four mistakes and four distinct skeletal-structure inspections. Revisiting an inspected structure is free.
+Compounds is a daily chemistry puzzle. Sort 16 compounds into four groups of four by linking their names, structures, origins, or pharmacology. You get four mistakes and four distinct skeletal-structure inspections. A separate allowance unlocks synonyms for up to four tiles that have them. Revisiting an unlocked hint is free.
 
 ## Run locally
 
@@ -89,7 +89,7 @@ daily streaks, and 30 recent published puzzles. Stats use the currently
 published version of each puzzle. Signed-in players see the same submitted
 progress across devices. Guest stats follow the browser identity.
 
-A puzzle counts as played after your first guess or structure inspection.
+A puzzle counts as played after your first guess, structure inspection, or synonym unlock.
 Win rate uses finished puzzles. Archive solves count toward the overall
 totals, while streaks require consecutive release days solved on the same
 UTC date. A streak through yesterday stays current until you lose today's
@@ -161,6 +161,12 @@ Run the Compose stack on your server. Point the domain at its public IP and conf
 | `data/puzzles/` | Local puzzle batches, excluded from Git |
 
 `scripts/audit.py` checks formula-derived masses against reference values. `scripts/verify.py` compares formulas with PubChem, and `scripts/scrape.py` collects candidate records. The SMILES merge script applies reviewed additions while preserving existing entries.
+
+### Compound identifiers and aliases
+
+`data/catalogue/identities.csv` has one row per name in `compounds.csv`. It uses the same pipe delimiter. The `inchi_key` column holds the Standard InChIKey of the cached parent structure, with counterions removed and assigned stereochemistry retained. The `pubchem_cid` column holds the numeric PubChem Compound ID when the published InChIKey exactly matches the local key.
+
+`aliases` is a semicolon-separated list of reviewed alternative names. `alias_source` records the reference for those names. A blank field means the identifier or aliases have yet to be established. The generator uses `compounds.csv` for display names and puzzle rules. The API reads aliases from that file for synonym hints, including on older boards whose tile names now appear as aliases. Existing attempt records start with four synonym points. Deploy the new application build to enable hints on published puzzles.
 
 ## License and data sources
 
