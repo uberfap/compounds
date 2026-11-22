@@ -1,6 +1,6 @@
 param(
     [string]$Catalogue = 'data/catalogue/identities.csv',
-    [string]$Output = 'pubchem-synonym-review.csv'
+    [string]$Output = 'data/review/pubchem-synonym-review.csv'
 )
 
 $ErrorActionPreference = 'Stop'

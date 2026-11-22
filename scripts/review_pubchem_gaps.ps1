@@ -1,7 +1,7 @@
 param(
     [string]$Catalogue = 'data/catalogue/identities.csv',
-    [string]$Review = 'pubchem-synonym-review.csv',
-    [string]$Output = 'pubchem-synonym-gaps.csv'
+    [string]$Review = 'data/review/pubchem-synonym-review.csv',
+    [string]$Output = 'data/review/pubchem-synonym-gaps.csv'
 )
 
 $ErrorActionPreference = 'Stop'
