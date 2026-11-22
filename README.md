@@ -157,6 +157,10 @@ The follow-up review cites [buspirone](https://www.medsafe.govt.nz/profs/datashe
 
 The NMDA receptor channel-blocker clue uses [documented pore blockade](https://pmc.ncbi.nlm.nih.gov/articles/PMC6080888/) for Ketamine, PCP, Dizocilpine, and Memantine. Smoking-cessation entries use product labeling from the US and UK.
 
+### Assay-specific clues
+
+The generator includes three evidence-backed groups: DAT versus SERT uptake inhibition in rat synaptosomes, partial 5-HT2A agonism in a human receptor calcium-response assay, and potentiation of the alpha1-beta2-gamma1 GABA-A receptor in oocytes. Each target token names its assay context. Individual observations and citations are recorded in `target_detail`.
+
 ## License and data sources
 
 The game footer opens the archive, puzzle statistics, a privacy summary, and

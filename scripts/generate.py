@@ -44,6 +44,9 @@ ATOMIC = {"H": 1.008, "C": 12.011, "N": 14.007, "O": 15.999, "F": 18.998,
 ORIGIN_LABEL = {"natural": "Naturally occurring", "semisynthetic": "Semisynthetic",
                 "synthetic": "Fully synthetic"}
 TARGET_LABEL = {
+    "DAT-over-SERT uptake inhibitor in rat synaptosomes": "Inhibit DAT uptake more than SERT in rat synaptosomes",
+    "5-HT2A partial agonist in a calcium assay": "Partial 5-HT2A agonists in a calcium assay",
+    "GABA-A alpha1-beta2-gamma1 PAM in oocytes": "Potentiate alpha1-beta2-gamma1 GABA-A in oocytes",
     "NMDA receptor channel blocker": "NMDA receptor channel blockers",
     "Dopamine releaser": "Dopamine releasers",
     "Norepinephrine releaser": "Norepinephrine releasers",
@@ -112,6 +115,9 @@ FAMILY_DIFFICULTY_BASE = {
 
 # Clue-specific difficulty adjustments, in points on the 0-100 scale.
 DIFFICULTY_OVERRIDES = {
+    "target:DAT-over-SERT uptake inhibitor in rat synaptosomes": 8,
+    "target:5-HT2A partial agonist in a calcium assay": 10,
+    "target:GABA-A alpha1-beta2-gamma1 PAM in oocytes": 10,
     "documented_use:Labeled for treatment of insomnia": -14,
     "target:NMDA receptor channel blocker": 12,
     "documented_use:Labeled for treatment of ADHD": -8,
