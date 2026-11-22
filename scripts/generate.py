@@ -44,6 +44,7 @@ ATOMIC = {"H": 1.008, "C": 12.011, "N": 14.007, "O": 15.999, "F": 18.998,
 ORIGIN_LABEL = {"natural": "Naturally occurring", "semisynthetic": "Semisynthetic",
                 "synthetic": "Fully synthetic"}
 TARGET_LABEL = {
+    "NMDA receptor channel blocker": "NMDA receptor channel blockers",
     "Dopamine releaser": "Dopamine releasers",
     "Norepinephrine releaser": "Norepinephrine releasers",
     "Serotonin releaser": "Serotonin releasers",
@@ -111,6 +112,8 @@ FAMILY_DIFFICULTY_BASE = {
 
 # Clue-specific difficulty adjustments, in points on the 0-100 scale.
 DIFFICULTY_OVERRIDES = {
+    "documented_use:Labeled for treatment of insomnia": -14,
+    "target:NMDA receptor channel blocker": 12,
     "documented_use:Labeled for treatment of ADHD": -8,
     "origin_class:semisynthetic:psychedelic": -4,
     "label:dox series": -18,
