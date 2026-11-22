@@ -1162,10 +1162,13 @@ def weighted_sample(rng, pool, k, weight):
 
 def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
                 min_herrings, max_family, max_near_misses, near_max_size,
-                seen_predsets, svg_cache, min_props=2, tries=4000, purple_family=None):
+                seen_predsets, svg_cache, min_props=2, tries=4000, purple_family=None,
+                seen_use_quartets=None, trace_rule=None, trace=None):
     if len(lib) < 4:
         raise SystemExit("Need at least four usable groups to generate a puzzle.")
 
+    if seen_use_quartets is None:
+        seen_use_quartets = set()
     wc = lambda i: 1 / (1 + comp_use[i]) ** 2
     wp = lambda p: 1 / (1 + pred_use[p.pid]) ** 2.5
 
@@ -1182,13 +1185,19 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
                 f"No predicates available for candidate-prior band {low}-{high}. "
                 "Adjust FAMILY_DIFFICULTY_BASE / DIFFICULTY_PRIOR_BANDS or add predicates."
             )
-        predicate_pools.append(pool)
+        available = [p for p in pool if not (
+            p.family == "documented_use" and len(p.matches) == 4 and p.matches in seen_use_quartets
+        )]
+        predicate_pools.append(available or pool)
 
     if purple_family is not None:
         if purple_family == "pharmacology":
             purple_pool = [p for p in predicate_pools[-1] if p.family in PURPLE_PHARMACOLOGY_FAMILIES]
         else:
             purple_pool = [p for p in predicate_pools[-1] if p.family == purple_family]
+        if purple_family == "documented_use":
+            purple_pool = [p for p in purple_pool
+                           if len(p.matches) > 4 or p.matches not in seen_use_quartets]
         if not purple_pool:
             return None
         predicate_pools[-1] = purple_pool
@@ -1197,6 +1206,10 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
         chosen = [rng.choices(pool, weights=[wp(p) for p in pool])[0]
                   for pool in predicate_pools]
         predkey = frozenset(p.pid for p in chosen)
+        tracing = trace is not None and trace_rule in predkey
+        if tracing:
+            trace["draws"] += 1
+            trace["last_slot_draws"] += chosen[-1].pid == trace_rule
         if len(predkey) != 4 or predkey in seen_predsets:
             continue
 
@@ -1232,6 +1245,12 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
             if not ok or len(used) != 16:
                 continue
 
+            if any(p.family == "documented_use" and frozenset(picks[p.pid]) in seen_use_quartets
+                   for p in chosen):
+                continue
+            if tracing:
+                trace["tiles_assigned"] += 1
+
             key = frozenset(used)
             if key in seen:
                 continue
@@ -1259,6 +1278,9 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
             # A playable balanced board MUST have one group in every fixed band.
             # This rejects combinations like 25/70/80/100 instead of simply
             # assigning those four scores to four different colours.
+            if tracing:
+                trace["scored"] += 1
+                trace["purple_score"] += tiers[trace_rule] == 3
             if set(tiers.values()) != {0, 1, 2, 3}:
                 continue
 
@@ -1270,6 +1292,10 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
             if min(gaps) < MIN_DIFFICULTY_GAP:
                 continue
 
+            tracing_purple = tracing and tiers[trace_rule] == 3
+            if tracing_purple:
+                trace["balanced_purple"] += 1
+
             cost = difficulty_balance_cost(ordered_scores)
             if cost >= best_cost:
                 continue
@@ -1278,11 +1304,17 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
             # the difficulty-balance test.
             if count_near_misses(used, chosen, lib, 3, near_max_size, group_mass=True) > max_near_misses:
                 continue
+            if tracing_purple:
+                trace["near_miss_pass"] += 1
             if count_partitions(used, lib) != 1:
                 continue
+            if tracing_purple:
+                trace["unique_solution_pass"] += 1
             if count_exact_four_decoys(used, picks, lib) > MAX_EXACT_FOUR_DECOYS:
                 continue
 
+            if tracing_purple:
+                trace["decoy_pass"] += 1
             best_cost = cost
             best_candidate = (used.copy(), {k: list(v) for k, v in picks.items()},
                               dict(scores), dict(difficulty_details), dict(tiers),
@@ -1301,6 +1333,10 @@ def make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
         seen_predsets.add(predkey)
         for p in chosen:
             pred_use[p.pid] += 1
+            if p.family == "documented_use":
+                seen_use_quartets.add(frozenset(picks[p.pid]))
+        if tracing:
+            trace["published_purple"] += tiers[trace_rule] == 3
         for i in used:
             comp_use[i] += 1
 
@@ -1367,6 +1403,7 @@ def main():
     ap.add_argument("--smiles-delay", type=float, default=0.25,
                     help="delay between compound lookups in seconds (default: 0.25)")
     ap.add_argument("--out", default=PUZZLES)
+    ap.add_argument("--trace-rule", help="print generation counters for one rule ID")
     a = ap.parse_args()
 
     comps, warnings = load(a.data)
@@ -1385,6 +1422,10 @@ def main():
 
     uses_path = Path(a.data).with_name("documented_uses.csv")
     lib = build(comps, a.cap, uses_path if uses_path.is_file() else None)
+    if a.trace_rule and not any(p.pid == a.trace_rule for p in lib):
+        ap.error(f"unknown rule ID: {a.trace_rule}")
+    trace = Counter() if a.trace_rule else None
+    seen_use_quartets = set()
     trivial = sum(1 for p in lib if p.family == "name:trivial")
     specific = sum(1 for p in lib if p.family == "name:specific")
     print(f"{len(comps)} compounds, {len(lib)} usable group predicates")
@@ -1403,7 +1444,8 @@ def main():
         p = make_puzzle(rng, comps, lib, comp_use, pred_use, seen, div_keys,
                         a.min_herrings, a.max_family, a.max_near_misses, a.near_max_size,
                         seen_predsets, svg_cache, min_props=a.min_props,
-                        tries=PURPLE_ROTATION_TRIES, purple_family=requested_purple)
+                        tries=PURPLE_ROTATION_TRIES, purple_family=requested_purple,
+                        seen_use_quartets=seen_use_quartets, trace_rule=a.trace_rule, trace=trace)
         rotation_matched = p is not None
         for relax in range(4):
             if p is not None:
@@ -1415,7 +1457,8 @@ def main():
                             a.near_max_size,
                             seen_predsets,
                             svg_cache,
-                            min_props=max(0, a.min_props - (1 if relax >= 2 else 0)))
+                            min_props=max(0, a.min_props - (1 if relax >= 2 else 0)),
+                            seen_use_quartets=seen_use_quartets, trace_rule=a.trace_rule, trace=trace)
             if p is not None:
                 break
         if p is None:
@@ -1431,6 +1474,8 @@ def main():
         score_text = ", ".join(str(g["difficulty_score"]) for g in p["groups"])
         print(f"[PUZZLE {d + 1:>3}/{a.days}] {p['date']}: difficulty {score_text}", flush=True)
 
+    if trace is not None:
+        print("Rule trace:", json.dumps(trace, sort_keys=True))
     output = Path(a.out)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(puzzles, ensure_ascii=False, indent=1), encoding="utf-8")

@@ -177,6 +177,16 @@ Dual-target clues require both catalogue tags, at least five matching compounds 
 
 A private 30-board test used seeds 1 and 2, with 15 boards per seed. Purple contained 14 formula, 3 structure, 7 dual-target, and 6 documented-use clues. The reserved search succeeded on 21 boards. All boards had four difficulty tiers, one solution, at most two exact-four decoys, and zero constraint relaxation. The documented-use clues used the same four compounds, and the κ-opioid agonist clue did not appear.
 
+#### Documented-use cooldown and rule tracing
+
+A documented-use quartet can appear once per generated batch. If the rotation has exhausted the available quartets, that slot falls back to the normal search.
+
+Use `--trace-rule "target:κ-opioid agonist"` when generating a private batch to print counters for predicate draws, board variants, scores, and acceptance checks. Draw counts refer to sets of rules. Later counts refer to board variants. The near-miss, partition, and decoy checks run on variants that improve the current difficulty cost for their rule set. An omitted counter means zero.
+
+The cooldown test generated 40 boards across seeds 1 and 2. For a matched 30-board comparison, documented-use Purple clues fell from 6 to 2, dual-target clues rose from 7 to 10, formula clues fell from 14 to 13, and structure clues rose from 3 to 5. Rotation requests matched on 22 of 30 boards, up from 21. Across all 40 boards the generator used 21 distinct Purple rules and matched 27 rotation requests. Every board had one solution, all four tiers, at most two exact-four decoys, and no relaxation.
+
+The κ-opioid rule appeared in 2,111 draws. It scored Purple on 1,906 scored variants, and 364 also passed the full board difficulty check. Fourteen reached the partition solver and each failed its uniqueness check. No generated Purple group used the rule.
+
 ### Purple clue balance benchmark
 
 A private 60-board sample used seed 1 and a start date of 2026-11-22. The trial multiplied formula-rule sampling weights in the Purple candidate pool by 0.4. Final difficulty bands and solution checks were the same in both runs.
