@@ -169,6 +169,21 @@ python -m backend.publish /path/to/private/puzzles.json
 
 For Docker, set `COMPOUNDS_PUZZLE_BATCH` to the private file before starting the stack. Outside Docker, run the publisher with the target database connection configured. It replaces the active schedule in a single transaction and retains historical versions used by attempts.
 
+### Purple clue balance benchmark
+
+A private 60-board sample used seed 1 and a start date of 2026-11-22. The trial multiplied formula-rule sampling weights in the Purple candidate pool by 0.4. Final difficulty bands and solution checks were the same in both runs.
+
+| Purple clues | Current generator | Trial |
+| --- | ---: | ---: |
+| Formula | 46 | 44 |
+| Structure | 12 | 13 |
+| Pharmacology targets | 2 | 3 |
+| κ-opioid agonists | 0 | 0 |
+| Distinct Purple rules | 22 | 24 |
+| Boards requiring relaxation | 0 | 1 |
+
+Every board had one solution and at most two exact-four decoys. The trial produced 79 exact-four decoys across the schedule, up from 67. The generator retains the current weights.
+
 ## Self-host
 
 Run the Compose stack on your server. Point the domain at its public IP and configure a public HTTPS listener to serve the app. The default Compose port is loopback-only. A host reverse proxy can forward HTTPS traffic to `127.0.0.1:8000`, or the application server can handle TLS directly with a certificate and key. PostgreSQL stays on the Docker network. Back up the database volume or take PostgreSQL dumps if player progress matters.
