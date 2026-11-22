@@ -67,10 +67,23 @@ def same_compound(csv_formula, pc_formula):
     return any(b - ad == a and not (a - b) for ad in ADDUCTS)
 
 
-def get_json(url):
+def get_json(url, retries=3):
+    """GET a PUG REST URL, retrying busy/transient failures (429, 5xx, timeouts) with a growing pause."""
     request = urllib.request.Request(url, headers=UA)
-    with urllib.request.urlopen(request, timeout=30) as response:
-        return json.load(response)
+    for attempt in range(retries + 1):
+        try:
+            with urllib.request.urlopen(request, timeout=30) as response:
+                return json.load(response)
+        except urllib.error.HTTPError as exc:
+            if exc.code in (429, 500, 502, 503, 504) and attempt < retries:
+                time.sleep(2 * (attempt + 1))
+                continue
+            raise
+        except (urllib.error.URLError, TimeoutError):
+            if attempt < retries:
+                time.sleep(2 * (attempt + 1))
+                continue
+            raise
 
 
 def fetch_cid_info(cid, cache):
@@ -106,7 +119,10 @@ def fetch_cid_info(cid, cache):
         info["lookup_error"] = ";".join(filter(None, [info["lookup_error"], suffix]))
     time.sleep(0.25)
 
-    cache[cache_key] = info
+    # Never cache a failed lookup: a timeout or 429 would otherwise stick forever and the CID would
+    # report "INCOMPLETE PUBCHEM DATA" on every later run instead of being retried.
+    if not info["lookup_error"]:
+        cache[cache_key] = info
     return info
 
 
@@ -232,7 +248,7 @@ def main():
         if cid:
             cache_key = f"cid:{cid}"
             info = cache.get(cache_key)
-            if info is None and not args.offline:
+            if (info is None or info.get("lookup_error")) and not args.offline:  # also retry stale cached errors
                 try:
                     info = fetch_cid_info(cid, cache)
                 except Exception as exc:

@@ -53,7 +53,9 @@ for k, m in known.items():
 pubchem_ok = set()
 try:
     with open(REVIEW / "verify_report.csv", encoding="utf-8", newline="") as f:
-        pubchem_ok = {name_key(r["name"]) for r in csv.DictReader(f, delimiter="|") if r["status"] == "match"}
+        # verify.py writes "MATCH" (structure, formula AND name confirmed); older reports used "match".
+        pubchem_ok = {name_key(r["name"]) for r in csv.DictReader(f, delimiter="|")
+                      if (r["status"] or "").strip().casefold() == "match"}
 except FileNotFoundError:
     print("(no verify_report.csv: run verify.py so PubChem-confirmed rows count as checked)")
 
