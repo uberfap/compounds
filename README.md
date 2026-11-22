@@ -1,6 +1,6 @@
 # Compounds
 
-Compounds is a daily chemistry puzzle. Sort 16 compounds into four groups of four by linking their names, structures, origins, or pharmacology. You get four mistakes and four distinct skeletal-structure inspections. A separate allowance unlocks synonyms for up to four tiles that have them. Revisiting an unlocked hint is free.
+Compounds is a daily chemistry puzzle. Sort 16 compounds into four groups of four by linking their names, structures, origins, or pharmacology. You get four mistakes and four distinct skeletal-structure inspections. You can view the aliases of any unsolved tile that has them.
 
 ## Run locally
 
@@ -34,7 +34,7 @@ docker compose up --build -d --wait
 
 Use an existing private batch to replay its published boards. Generate a new batch to try the updated catalogue names and structures in new puzzles.
 
-Open [the game](http://127.0.0.1:8000/) or [the API docs](http://127.0.0.1:8000/docs). A link such as `?p=3` opens a specific puzzle. To try synonym hints, click **Synonyms**, then click a tile with aliases. The first reveal spends one of four synonym points. Reopening the same hint is free.
+Open [the game](http://127.0.0.1:8000/) or [the API docs](http://127.0.0.1:8000/docs). A link such as `?p=3` opens a specific puzzle. Click **Aliases**, then click a highlighted tile to view its other names. The button is disabled when no visible tile has aliases. The footer shows the total number of substances in the catalogue.
 
 If port 8000 is occupied, set `COMPOUNDS_PORT` before starting. Use `$env:COMPOUNDS_PORT = '8001'` in PowerShell or `export COMPOUNDS_PORT=8001` in Bash or Zsh, then open [port 8001](http://127.0.0.1:8001/).
 
@@ -43,7 +43,7 @@ Compose builds Svelte, starts PostgreSQL, applies migrations, and publishes the 
 ## How it works
 
 - **Svelte + TypeScript** renders the board, tracks selection and shuffle order, and remembers the anonymous attempt ID in browser storage.
-- **FastAPI** serves the frontend and API on one origin. It checks guesses and tracks structure and synonym hint allowances on the server.
+- **FastAPI** serves the frontend and API on one origin. It checks guesses and tracks structure inspections and alias reveals on the server.
 - **PostgreSQL + Alembic** store attempts and versioned boards. A changed board starts a separate playthrough, and existing attempts remain tied to their original versions.
 - **Python** generates dated puzzles from the compound catalogue. Optional RDKit support renders skeletal structures during generation.
 
@@ -113,7 +113,7 @@ daily streaks, and 30 recent published puzzles. Stats use the currently
 published version of each puzzle. Signed-in players see the same submitted
 progress across devices. Guest stats follow the browser identity.
 
-A puzzle counts as played after your first guess, structure inspection, or synonym unlock.
+A puzzle counts as played after your first guess, structure inspection, or alias reveal.
 Win rate uses finished puzzles. Archive solves count toward the overall
 totals, while streaks require consecutive release days solved on the same
 UTC date. A streak through yesterday stays current until you lose today's
@@ -188,7 +188,7 @@ Run the Compose stack on your server. Point the domain at its public IP and conf
 
 `data/catalogue/identities.csv` has one row per name in `compounds.csv`. It uses the same pipe delimiter. The `inchi_key` column holds the Standard InChIKey of the cached parent structure, with counterions removed and assigned stereochemistry retained. The `pubchem_cid` column holds the numeric PubChem Compound ID when the published InChIKey exactly matches the local key.
 
-`aliases` is a semicolon-separated list of reviewed alternative names. `alias_source` records the reference for those names. A blank field means the identifier or aliases have yet to be established. The generator uses `compounds.csv` for display names and puzzle rules. The API reads aliases from that file for synonym hints, including on older boards whose tile names now appear as aliases. Existing attempt records start with four synonym points. Deploy the new application build to enable hints on published puzzles.
+`aliases` is a semicolon-separated list of reviewed alternative names. `alias_source` records the reference for those names. A blank field means the identifier or aliases have yet to be established. The generator uses `compounds.csv` for display names and puzzle rules. The API reads aliases from that file for synonym hints, including on older boards whose tile names now appear as aliases. Alias reveals are unlimited.
 
 ### Verify the catalogue
 

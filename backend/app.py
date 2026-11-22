@@ -20,22 +20,27 @@ from backend import auth, database
 BATCH = Path(__file__).resolve().parents[1] / "data" / "puzzles" / "puzzles.json"
 MAX_MISTAKES = 4
 MAX_INSPECTIONS = 4
-MAX_SYNONYM_HINTS = 4
 CATALOGUE = BATCH.parents[1] / "catalogue" / "compounds.csv"
 
 
 @lru_cache(maxsize=1)
-def catalogue_synonyms():
+def catalogue_metadata():
     names = {}
+    count = 0
     with CATALOGUE.open(encoding="utf-8", newline="") as source:
         rows = csv.DictReader((line for line in source if not line.startswith("#") and line.strip()), delimiter="|")
         for row in rows:
+            count += 1
             aliases = [name.strip() for name in (row.get("aliases") or "").split(";") if name.strip()]
             if aliases:
                 group = (row["name"], *aliases)
                 for name in group:
                     names[name] = tuple(other for other in group if other != name)
-    return names
+    return count, names
+
+
+def catalogue_synonyms():
+    return catalogue_metadata()[1]
 
 
 def player_label(attempt_id: UUID):
@@ -143,7 +148,6 @@ class Attempt:
             "mistakes": self.mistakes,
             "mistakes_left": MAX_MISTAKES - self.mistakes,
             "inspections_left": MAX_INSPECTIONS - len(self.inspected),
-            "synonym_hints_left": MAX_SYNONYM_HINTS - len(self.synonym_inspected),
             "inspected": sorted(self.inspected),
             "synonym_inspected": sorted(self.synonym_inspected),
             "solved": [groups[tier] for tier in self.solved],
@@ -228,6 +232,11 @@ def daily_board(day: date, request: Request):
     if puzzle.date > release_day().isoformat() and not debug_allowed(request):
         raise HTTPException(404, "No puzzle published for this date")
     return puzzle.public_board()
+
+
+@app.get("/api/catalogue")
+def catalogue_summary():
+    return {"substance_count": catalogue_metadata()[0]}
 
 
 @app.get("/api/health")
@@ -419,8 +428,6 @@ def inspect_synonyms(attempt_id: UUID, tile: int, request: Request):
             raise HTTPException(409, "Attempt is over")
         if any(tile in attempt.puzzle.groups[tier]["tiles"] for tier in attempt.solved):
             raise HTTPException(422, "Choose an unsolved tile")
-        if tile not in attempt.synonym_inspected and len(attempt.synonym_inspected) >= MAX_SYNONYM_HINTS:
-            raise HTTPException(409, "No synonym checks left")
         attempt.synonym_inspected.add(tile)
         return {"tile": tile, "synonyms": synonyms, "state": attempt.public_state()}
 
